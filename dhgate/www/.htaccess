@@ -1,0 +1,8 @@
+RewriteEngine on
+RewriteBase /
+RewriteRule \.(gif|png|jpg|jpeg|bmp|tif|rar|zip|gz|bz2|exe|htm|html|css|js|php)$ - [L]
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1
+AddDefaultCharset UTF-8
+FileETag INode MTime Size

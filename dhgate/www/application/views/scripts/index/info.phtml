@@ -1,0 +1,29 @@
+<div class="line_center_container"></div>
+	<div id="head_center_container">
+		<div id="contain_head_center_container">
+			
+				<div id="left_contain_head_center_container">
+					<a href="/">Home</a> >   
+					<?php switch($this->page){
+						case 'about' : echo "About Us"; break;
+						case 'help' : echo "Help"; break; 
+						case 'contact': echo "Contact Us"; break; 
+						case 'privacy' : echo "Help"; break;
+						case 'terms' : echo "Privacy Policy"; break;
+						case 'info' : echo "Information"; break;
+						case 'window' : echo "Window"; break;
+						case 'title' : echo "head title"; break;
+						case 'buy' : echo "Buy with Confidence"; break;
+						case 'payment' : echo "Payment Options"; break;
+					}?>
+				</div>
+		</div>
+	</div>
+<div class="line_center_container"></div>
+<?=$this->text?>
+<?php if($_SESSION['admin']):?>
+	<form action="/index/info/page/<?=$this->page?>/" method="post">
+		<p><textarea name="text" cols='20' rows='5' class="tiny"><?=$this->text?></textarea></p>
+		<p><input type="submit" value="update"></p>
+	</form>
+<?php endif;?>

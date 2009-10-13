@@ -1,0 +1,21 @@
+<div class="allowed_country">
+	<h3>Select Allowed Countries</h3>
+<form class="former" action="/country/add/" method="POST">
+<div class="delimiter"></div>
+<p class="inputes">
+	<input type="text" name="name">
+	<input type="submit" value="add">
+</p>
+<div class="delimiter"></div>
+</form>
+<?php foreach ($this->countrys as $country):?>
+	<table>
+		<tr>
+	<td><a href="/country/index/id/<?=$country->id?>"><?=$country->name?></a></td>
+	<td><span class="rad"><a href="/country/delete/id/<?=$country->id?>">delete</a></span></td>
+		</tr>
+	</table>
+<?php endforeach;?>
+<div class="delimiter"></div>
+<a href="/user/register/">Back to register</a>
+</div>

@@ -1,0 +1,75 @@
+				<div class="line_center_container"></div>
+				<div id="head_center_container">
+					<div id="contain_head_center_container">
+						<div id="right_contain_head_center_container"></div>
+						<div id="left_contain_head_center_container">
+							<a href="/">Home</a> > Search
+						</div>
+					</div>
+				</div>
+			    <div class="paginator">
+    				Display #
+    				<select name="account_pages">
+    					<option value="0">#</option>
+    					<option class='count' value="50">50</option>
+    					<option class='count' value="20">20</option>
+    					<option class='count' value="10">10</option>
+    				</select>
+    				<div class="paginator_content_right">
+    				    <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+    				</div>
+				</div>
+				<div class="line_center_container"> </div>
+				<?php 
+				$i=0;
+				foreach($this->products as $product):
+				?>
+				<div class="left_articule">
+				<div class="articule">
+					<div class="articule_content">
+					<?php $album = new App_Album_Product($product['id']);
+					if($album->getMainImage('s')):
+					?>
+					<img src="<?=$album->getMainImage('s')?>" alt="<?=$product['title']?>">
+					<?php endif;?>
+						<div class="fl_left articule_head">
+							<h3><a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a></h3>
+							<?php if($product['oldprice']):?>
+								<p class="old_price">RRP:<?=$this->valute($product['oldprice'])?></p>
+							<?php endif; ?>
+						</div>
+					<div class="clear"> </div>
+					<p class="price"><?=$this->valute($product['price'])?> <span class="small_price">(inc 10% GST)</span></p>
+					<?php if($product['oldprice']):?>
+						<p class="save">You Save: AU $<?=$this->valute($product['oldprice'] - $product['price'])?></p>
+					<?php endif;?>
+					<p class="overview"><?=$product['short_about']?></p>
+					</div>
+				</div></div>
+    				<?php if($i%2 == 0):?>
+    					<div class="v_line_articule_bar"></div>
+    				<?php else:?>
+    					<div class="h_line_articule_bar"> </div>
+    				<?php endif;?>
+				<?php $i++; endforeach; ?>
+				<div class="clear"></div>
+				<div class="paginator">
+    				Display #
+    				<select name="account_pages">
+    					<option value="0">#</option>
+    					<option class='count' value="50">50</option>
+    					<option class='count' value="20">20</option>
+    					<option class='count' value="10">10</option>
+    				</select>
+    				<div class="paginator_content_right">
+    				    <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+    				</div>
+				</div>
+			<script>
+			$(document).ready(function(){
+				$('.count').click(function(){
+					value = $(this).val();
+					window.location.href = '<?= $this->url(array('count'=>null));?>'+'/count/'+value;
+				});
+			})
+			</script>

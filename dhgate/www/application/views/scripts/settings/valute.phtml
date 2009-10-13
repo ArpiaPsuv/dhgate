@@ -1,0 +1,20 @@
+ <div class="line_center_container"></div>
+	<div id="head_center_container">
+		<div id="contain_head_center_container">
+				<div id="left_contain_head_center_container">
+					<a href="#">Home</a> > <a href="#">Online Store</a> > Valute 
+				</div>
+		</div>
+	</div>
+<div class="line_center_container"></div>
+<div class="allowed_country">  
+   <h3>Valute</h3>
+	<div class="delimiter"></div>
+
+<form action="/settings/valute/" method="post">
+	<p>GBP:<input type="text" name="gbp" value="<?=$this->valutes[0]['gbp']?>"></p>
+	<p>EUR:<input type="text" name="eur" value="<?=$this->valutes[0]['eur']?>"></p>
+	<div class="delimiter"></div>
+	<p><input type="submit" value="update"></p>
+</form>
+</div>

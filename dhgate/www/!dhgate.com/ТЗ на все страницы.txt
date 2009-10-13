@@ -1,0 +1,106 @@
+CURRENCY
+---------------------------------
+V magazinah nado dobavit' vozmozhnost' vibirat valutu dlya vsego sayta.
+T.e. budet stranichka "Choose Currency" ili "Your Currency"
+
+V baze cena budet v $ USD, vibrannaya curency menaet tolko otobrazhenie po kursu, t.e. to chto vidit user. Vse podsheti idut v $.
+
+Nado v bazu eshe vinesti kursi valut i valutu po umolchaniu dlya sayta.
+
+Valut budet tri - USD, EURO i GBP funti angliyskie
+---------------------------------
+
+
+
+
+
+
+
+
+
+products.php / http://www.dhgate.com/wholesale/netbook-pc/c160602.html
+-----------------------------------
+
+Verhniy blok ostaetsya takim zhe.
+Nizhe: Home  > Computers & Networking > Laptops & Notebooks > Netbook PC 
+Home > Catalog >Nazvanie kategorii > nazvanie tovara
+
+Levoe menu nuzhno sdelat tolko "Refine your Search" i nizhe glavnoe menu s categoriyami kak na glavnoy stranice.
+"Refine your Search" - ostavit paramentri skolko vozmozhno dlya nashey bazi.
+
+Centralniy blok gde spisok tovarov:
+Podpis vsego bloka tolko odna mesto "All items" - nazvanie kategorii tekushey
+
+Nadpis 2211 items found in Nazvanie kategorii. 
+
+Try the US/AU In-Stock Products here - ne nado etoy nadpisi.
+
+Free shipping / 1-day dispatch - eto ubrat'.
+
+Dalshe VIEW: dva tipa view, odin spisokm drugoy kak na glavnoy stranice, eto nado.
+Sort by: ostavit'
+
+Sprava Hot Sales tablichka, ee ubrat' nuzhno.
+
+
+Sam vid tovarov:
+
+mesto etogo chto nizhe postavit prosto Item ID: 3223433
+Effective Until 2009-10-03
+Wholesaler: sali
+
+Seller online kartinka ne nado.
+
+V konce bloka Items per page - ostavit'.
+Vibor stranic Page 1 - 111 of 2211 vse eto ostavit', i nado vibor stranic eshe i vverhu chtob bil, t.e. blok etot eshe i vverh perenesti.
+
+Vse, nizhniy blok takoy zhe kak na glavnoy.
+-----------------------------------
+
+
+
+
+items.php / http://www.dhgate.com/wholesale-sony-vgn-cr382-mini-version-computers/p-ff8080812384966e0123894eadcd5ab7.html
+-----------------------------------
+
+Zdes nuzhno dobavit' levoe menu takoe zhe kak na glavnoy stranice
+
+Sprava poluchaetsya blok centralniy gde sam tovar i opisanie.
+
+Vid tovara:
+
+Sleva kartinka 200x200, link View Larger Image pod ney, kotoriy kartinku gruzit scriptom krasivo kak u nih.
+Nizhe malenkie kartinki ne nado, t.k. v baze u nas odin tolko image.
+
+Dalshe dve ceni: "Retail Price" i nizhe "Our Price".
+Shipping Cost.
+
+Purchase Quantity, add to cart.
+
+Sprava blok tam gde "Seller Information", escrow i security privacy - vse ubrat' polnost'u.
+
+
+Mest Effective Until - Napisat' Item ID: 3424235 (id tovara)
+
+Payment - Payment Details (link budet v novom okne)
+
+You can also - ostavit' tolko "Refer Item to Friend" - budet silka na stranicu druguu v novom okne.
+
+
+
+Nizhe blok Specifications tolko, bolshe nichego ne nado.
+V Specifications budet bratsya iz bazi blok HTML so specificationami, tak zhe kak i v babypc.
+-----------------------------------
+
+
+
+
+cart.php / http://www.dhgate.com/cart/cart.do
+-----------------------------------
+v korzine vse takzhe, tolko:
+
+Ubrat' kolonku "Unit"
+Ubrat' knopku "Save to later"
+Pole dlya vvoda kakoe-to, ubrat'.
+Ubrat' stroku "Processing Time"
+-----------------------------------

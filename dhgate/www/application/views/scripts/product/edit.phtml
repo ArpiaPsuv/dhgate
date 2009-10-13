@@ -1,0 +1,21 @@
+	<form class="profuct_add_form" action="/product/edit/id/<?=$this->product->id?>" method="post">
+		<p>Title:</p>
+		<p><input type="text" name="title" value="<?=$this->product->title?>"></p>
+		<div class="clear"></div>
+		<p>Price:</p>
+		<p><input type="text" name="price" value="<?=$this->product->price?>"></p>
+		<div class="clear"></div>
+		<p>Old price:</p>
+		<p><input type="text" name="oldprice" value="<?=$this->product->oldprice?>"></p>
+		<div class="clear"></div>
+		<p>Short about:</p>
+		<p><textarea rows="5" cols="20" name="short_about"><?=$this->product->short_about?></textarea></p>
+		<div class="clear"></div>
+		<p>About:</p>
+		<p><textarea rows="5" cols="20" name="about"><?=$this->product->about?></textarea></p>
+		<div class="clear"></div>
+		<p>Specifications:</p>
+		<p><textarea rows="5" cols="20" name="specifications"><?=$this->product->specifications?></textarea></p>
+		<div class="clear"></div>
+		<p><input type="submit" value="edit Product"></p>
+	</form> 

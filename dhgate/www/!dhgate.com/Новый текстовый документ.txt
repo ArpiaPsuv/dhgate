@@ -1,0 +1,99 @@
+Константин (20:36:33 11/09/2009)
+index.php
+---------------------------------------------------------
+1. Verhnaynaya shapka: 
+
+s levo na pravo :
+- logo 
+- slogan 
+- verhnie ssilki: Sign In, Join Free, Help, bolshe nichego ne nado 
+
+2. menu verhnee: Home, About Us, Contact Us
+
+3. dalshe nizhe blok gde troka poiska, takoy zhe, tolko rovno vse raspolozhit. i ubrat' link advanced search.
+
+
+4. Stroka ssilok:
+
+- All Categories (raskrivaetsya i vnutri spisok vseh
+
+
+Константин (20:36:34 11/09/2009)
+kategoriy, spisok kategoriy kak i v proshlom brat iz bazi) 
+- Special Offer
+- Wat's New
+- Order Tracking
+
+
+5. leviy blok (tam gde menu) 
+
+- obshee menu (nazivaetsya prosto Categories) tam spisok kategoriy
+- dalshe eta kartinka pust ostaetsya http://image.dhgate.com/2009/homepage/images/left_ban.gif
+- blok Wholesale Searches tuda slov spisok pozhe dam 
+- blok Success Stories
+
+vse, v levom bloke bolshe nichego 
+
+  
+6. osnovnoy
+
+
+Константин (20:36:34 11/09/2009)
+centralniy blok, dlya index.php: 
+
+- kartinka eta pramougolnaya ostaetsya, prosto kartinka ne nado scriptov v ney nikakih.
+- dalshe Products tam spisok tovarov 
+
+- sledushiy blok tam gde pryamougolnik i v nem 3 vkladki menautsya, nado takoy tolko chtob bilo ih vsego 3 vkladki,  
+bez More... ssilki. 
+
+vse, bolshe nichego v centralnom bloke ne nado 
+
+  
+
+7. Pravaya storona 
+
+- kartinka escrow protected your interest 
+- blok sign in
+
+
+Константин (20:36:35 11/09/2009)
+join free takoy zhe 
+- Hot Deals - kak tam kartinka, sprava nazvanie i cena, spisok id'ov tovarov kotorie tam budut visvechivatsya nado  
+vinesti v config.php chtobi bralo ot tuda. 
+- kartinka http://image.dhgate.com/images/newhome/ban_ups.gif
+
+vse bolshe nichego ne nado 
+
+  
+
+8. niz 
+
+- blok search ne nado
+- blok The Leader in China Wholesale
+- blok s linkami takoy zhe ostavit s takimi zhe linkami 
+- dalshe linki idut nado
+
+
+Константин (20:36:35 11/09/2009)
+ostavit' takie: 
+
+Home | Your Account | Help | Top Products | About Us | Contact Us | Security & Privacy | Terms of Use | Affiliates 
+dalshe vse kak v originale
+
+
+
+- Copyright Notice © 2004 - 2009 DHgate.com All rights reserved. 
+
+imya domena tut beretsya iz config.php 
+
+i voobshe vse imena company, domena kotorie ispolzuutsya nuzhno vinesti v config 
+
+
+
+[22:20:35] <ndiz@aszlig.net> pole search i all categories ne odinakovie po razmeru
+[22:27:42] <ndiz@aszlig.net> nehvataet eshe otsupov v menu levom i pravom v nekotorih blokah
+[22:27:59] <ndiz@aszlig.net> naprimer Success Stories, text slishkom blizko k kartinke i k krayam tablici
+[22:28:08] <ndiz@aszlig.net> Hot Deals tozhe slishkom blizko k rayam
+[22:30:25] <ndiz@aszlig.net> da i samiy verhniy beliy blok slihkom po visote bolshoy, lutshe pouzhe kak v originale
+[22:31:03] <ndiz@aszlig.net> i v menu levom osnovnom (Categories) nehvataet kartinki oranzhevoy strelki sprava

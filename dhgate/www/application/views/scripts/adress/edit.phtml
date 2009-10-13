@@ -1,0 +1,104 @@
+<div class="line_center_container"></div>
+	<div id="head_center_container">
+		<div id="contain_head_center_container">
+			<div id="right_contain_head_center_container"></div>
+				<div id="left_contain_head_center_container">
+					<a href="/">Home</a> > <a href="/">Online Store</a> > Account Maintenance
+				</div>
+		</div>
+	</div>
+<div class="line_center_container"></div>
+<div class="delimiter"></div>	
+<?=$this->message?>
+<form action="/adress/edit/id/<?=$this->adress->id?>/<?php if($this->user_id){echo "user_id/".$this->user_id;}?>" method="post">
+
+    <p class="register_text">Adress nickname :</p>
+	<p class="register_input"><input type="text" name="nickname" value="<?=$this->adress->nickname?>"></p>
+	<div class="clear"></div>
+	
+    <p class="register_text">Company Name :</p>
+	<p class="register_input"><input type="text" name="company" value="<?=$this->adress->company?>"></p>
+	<div class="clear"></div>
+    <p class="register_text">Title: </p>
+	<p class="register_input">
+    <select name="title" id="title_field">
+        <option value="">none</option>
+        <option value="Mr.">Mr.</option>
+        <option value="Mrs.">Mrs.</option>
+        <option value="Dr.">Dr.</option>
+        <option value="Prof.">Prof.</option>
+    </select>
+    </p>
+	<div class="clear"></div>
+    <p class="register_text">First Name* :</p>
+    <p class="register_input"><input type="text" name="firstname" value="<?=$this->adress->firstname?>"></p>
+	<div class="clear"></div>
+    <p class="register_text">Last Name* :</p>
+    <p class="register_input"><input type="text" name="lastname" value="<?=$this->adress->lastname?>"></p>
+	<div class="clear"></div>
+    <p class="register_text">Middle Name :</p>
+    <p class="register_input"><input type="text" name="middlename" value="<?=$this->adress->middlename?>"></p>
+	<div class="clear"></div>
+    <p class="register_text">Address * :</p>
+
+    <p class="register_input"><input type="text" name="adress" value="<?=$this->adress->adress?>"></p>
+	<div class="clear"></div>
+    <p class="register_text">Address :</p>
+    <p class="register_input"><input type="text" name="adress2" value="<?=$this->adress->adress2?>"></p>
+	<div class="clear"></div>
+    <p class="register_text">City* :</p>
+    <p class="register_input"><input type="text" name="city" value="<?=$this->adress->city?>"></p>
+	<div class="clear"></div>
+
+    <p class="register_text">Zip/Postal Code* :</p>
+    <p class="register_input"><input type="text" name="zip" value="<?=$this->adress->zip?>"></p>
+	<div class="clear"></div>
+    <p class="register_text">Country* :</p>
+    <p class="register_input">
+    <select name="country">
+    <?php foreach ($this->countrys as $country):?>
+    <?php if($country->id == $this->adress->country){
+    	$selected = 'selected';
+    } else {
+    	$selected = '';
+    }
+    ?>
+    	<option class="country" <?=$selected?> value="<?=$country->id?>"><?=$country->name?></value>
+    <?php endforeach;?>
+    </select>
+    </p>
+	<div class="clear"></div>
+    <p class="register_text">State :</p>
+    <p class="register_input">
+		<input type="text" name="state" value="<?=$this->adress->state?>"> 
+    </p>
+	<div class="clear"></div>
+    <p class="register_text">Phone* :</p>
+    <p class="register_input"><input type="text" name="phone" value="<?=$this->adress->zip?>"></p>
+
+	<div class="clear"></div>
+    <p class="register_text">Mobile phone :</p>
+    <p class="register_input"><input type="text" name="mobilephone" value="<?=$this->adress->mobilephone?>"></p>
+	<div class="clear"></div>
+    <p class="register_continue_button">
+  		<input type="submit" value="save">
+    </p>
+</form>
+<form action="/order/step1/">
+    <p class="register_continue_button_1">
+  		<input type="submit" value="back">
+    </p>
+</form>
+<div class="delimiter"></div>
+    <script>
+    	$('.country').click(function(){
+    		id = $(this).val();
+    		 $.ajax({
+			   type: "POST",
+			   url: "/country/getstate/id/" + id,
+			   success: function(msg){
+			     $('#state').html(msg);
+			   }
+			 });
+    	});
+    </script>

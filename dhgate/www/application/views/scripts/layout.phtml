@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" type="text/css" href="/application/public/css/style.css" >
+		<title>Wholesale - Buy China Wholesale Products from Chinese Wholesalers on DHgate.com</title>
+		<script language="javascript" type="text/javascript" src="/application/public/js/jquery-1.3.2.min.js"></script>
+		<script language="javascript" type="text/javascript" src="/application/public/js/jquery-ui-1.7.2.custom.min.js"></script>
+		<script language="JavaScript" type="text/javascript">
+			$(document).ready(function(){
+						$(".all_categories_container").hide();
+						$(".all_categories").hover(function() {
+							$(".all_categories_container").hover(function() {
+								$(this).show();
+								$(".all_categories").addClass('hover_button');
+							}, function() {
+								$(".all_categories_container").hide();
+								$(".all_categories").removeClass('hover_button');
+							})
+							$(".all_categories_container").show();
+							}, function() {
+								$(".all_categories_container").hide();
+								$(".all_categories").removeClass('hover_button');
+								});
+						});	
+		</script>
+	</head>
+	<body>
+		<div id="bhgate_site">
+			<?=$this->render('header.phtml')?>
+			<div id="main_container">
+			<?=$this->render('left.phtml')?>
+				<div id="center_container">
+					<?=$this->layout()->content?>
+				</div>
+			<?=$this->render('right.phtml')?>
+			</div>
+			<div class="clear"></div>
+			<?=$this->render('footer.phtml')?>
+		</div>
+	</body>
+</html>

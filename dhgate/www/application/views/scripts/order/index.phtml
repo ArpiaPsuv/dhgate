@@ -1,0 +1,108 @@
+ <div class="line_center_container"></div>
+	<div id="head_center_container">
+		<div id="contain_head_center_container">
+				<div id="left_contain_head_center_container">
+					<a href="#">Home</a> > <a href="#">Online Store</a> > Your Orders 
+				</div>
+		</div>
+	</div>
+<div class="line_center_container"></div>
+<?php $order = new Order();?>
+
+		<?php  $i = 0;$total = 0; foreach($this->products as $product):?>
+		<?php $product = $order->getCart($product['cart_id']);?>
+		<?php $product = $product[$i];?>
+			  <div class="cart_product_container">
+				<div class="cart_product_name"><a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a></div>
+				  <div class="cart_product_SKU">NBK-AS-T91-BK</div>
+				<div class="cart_product_price"><?=$this->valute($product['price'])?></div>
+				<div class="cart_product_quantity">
+					<?=$product['count']?>
+				</div>
+				<div class="cart_product_subtotal"><?=$this->valute($product['price'] * $product['count'], 'subprice')?></span></div>
+			</div>
+			<?php $total+=$product['price'] * $product['count']?>
+		<?php $i++; endforeach;?>
+		<div class="sum_cart_block">
+			<div class="sum_cart_block_price"><p><?=$this->valute($total,'total')?></span></p></div>
+			<p>Total:</p>
+		</div>
+		<div class="delimiter"></div>
+<div class="allowed_country">  
+<?php switch ($this->payment){
+	case 'bank': echo "<p>Bank transfer</p>"; break;
+	case 'paypal': echo "<p>PayPal</p>"; break;
+	case 'credit': echo "<p>Credit card:</p> 
+						<p>{$this->first_product['card_name']}</p>
+						<p>{$this->first_product['card_number']}</p>
+						<p>{$this->first_product['card_code']}</p>
+						"; break;
+	default: echo "<p>Bank transfer</p>"; break;
+}?>
+<p>
+Shipping method:
+</p>
+<p><?=$this->shipping->name?></p>
+<p><img src="/application/public/images/shipping/s/<?=$this->shipping->id?>.jpeg"></p>
+<p><?=$this->shipping->text?></p>
+
+<?php if(!$this->adress){
+	$adress = $this->user;
+} else {
+	$adress = $this->adress;
+}?>
+<table>
+<td><span>Shipping Address:</span></td>
+					<td><?=$adress->firstname . ' ' . $adress->middlename . ' ' . $adress->lastname?></td>
+					</tr>
+					
+					<tr>
+						<td></td>
+						<?php $country = new Country();
+							$country = $country->getCountry($adress->country);
+						?>
+						<td><?=$country->name?></td>
+					</tr>
+					
+					<tr>
+						<td></td>
+						<?php
+						if($adress->state): 
+						$state = new State();	
+							$state = $state->getState($adress->state);
+						?>
+						<td><?=$state->name?></td>
+					</tr>
+					<?php endif;?>
+					<tr>
+						<td></td>
+						<td><?=$adress->city?></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><?=$adress->zip?></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><?=$adress->adress?></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><?=$adress->adress2?></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><?=$adress->phone?></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><?=$adress->mobilephone?></td>
+					</tr>
+				</table>
+<p>User login</p>
+<p><a href="/user/profile/id/<?=$this->user->id?>"><?=$this->user->login?></a></p>
+<p>User Mail</p>
+<p><?=$this->user->mail?></p>
+<p>Order Date:</p>
+<p><?=$this->firstProduct['date']?></p>
+</div>

@@ -1,0 +1,41 @@
+ <div class="line_center_container"></div>
+	<div id="head_center_container">
+		<div id="contain_head_center_container">
+				<div id="left_contain_head_center_container">
+					<a href="#">Home</a> > <a href="#">Online Store</a> > Track Your Order 
+				</div>
+		</div>
+	</div>
+<div class="line_center_container"></div>
+<div class="allowed_country">  
+   <h3>Track Your Order</h3>
+	<div class="delimiter"></div>
+
+
+<form action="/order/track/" method="post">
+<p>E-Mail:</p>
+<p><input type='text' name="mail"></p>
+
+<p>Order number:</p>
+
+<p><input type='text' name="number"></p>
+<div class="delimiter"></div>
+<p><input type='submit' value="check"></p>
+</form>
+<p>
+<?php 
+	switch($this->status)
+	{
+		case 'new' : echo "You order status : New";  break;
+		case 'InProgress' : echo "You order status : In progress"; break;
+		case 'due' : echo "You order status : Due From Supplier";break;
+		case 'packed' : echo "You order status : Being Packed";break;
+		case 'ready' : echo "You order status : Ready for dispatch";break;
+		case 'shipping' : echo "You order status : Shipment Pending";break;
+		case 'shipped' : echo "You order status : Order Shipped";break;
+		case 'returned' : echo "You order status : Returned";break;
+	}
+?>
+</p>
+
+</div>

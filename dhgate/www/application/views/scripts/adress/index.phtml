@@ -1,0 +1,43 @@
+	<div class="line_center_container"></div>
+	<div id="head_center_container">
+		<div id="contain_head_center_container">
+			<div id="right_contain_head_center_container"></div>
+				<div id="left_contain_head_center_container">
+					<a href="#">Home</a> > <a href="/user/profile/id/<?=$this->user->id?>"/>Account Maintenance</a>
+					> Shipping adress
+				</div>
+		</div>
+	</div>
+<div class="shipto-addresses-block-inner">
+	<div class="sectiontableheader">Shipping Information</div>
+	<div class="please_select">Please select a Shipping Address!</div>
+	
+	<div class="shipping_information_radio">
+		<input type="radio" name="adress" <?php if($this->user->current_adress ==0) echo "checked";?> value="0" class="adress">
+		<p>- Default (Same as Billing)</p>
+	</div>
+	<div class="clear"></div>
+	<?php foreach($this->adreses as $adress):?>
+	<?php if($this->user->current_adress == $adress->id){$checked = 'checked';} else {
+		$checked = '';
+	}?>
+	<div class="shipping_information_radio">
+		<input type="radio" <?=$checked?> name="adress" value="<?=$adress->id?>" class="adress">
+		<p> -<?=$adress->nickname?> <a href="/adress/edit/id/<?=$adress->id?>/user_id/<?=$this->user->id?>/">update adress</a> <a href="/adress/delete/id/<?=$adress->id?>/">delete</a></p>
+	</div>
+	<div class="clear"></div>
+	<?php endforeach;?>
+	
+	<div class="add_new_address">
+		<p>Add a new <a href="/adress/add/user_id/<?=$this->user->id?>/">Shipping Address</a>.</p>
+	</div>
+</div>
+<script>
+$('.adress').click(function(){
+	val = $(this).val();
+	$.ajax({
+		   url: "/adress/set/val/"+val+'/user_id/'+'<?=Zend_Auth::getInstance()->getIdentity()->id?>',
+		   success: function(msg){}
+	});
+})
+</script>

@@ -1,0 +1,23 @@
+<div class="allowed_country">
+
+<h3>Select Allowed Countries</h3>
+
+<form>
+	<?php foreach($this->countrys as $country):?>
+		<p><input type="checkbox" value="<?=$country->id?>" class='allowed' <?php if($country->allowed){echo "checked";}?>><?=$country->name?></p>
+	<?php endforeach;?>
+</form>
+
+</div>
+
+<script type="text/javascript">
+$('.allowed').click(function(){
+	val = $(this).val();
+	$.ajax({
+		   url: "/country/setallowed/id/"+val,
+		   success: function(msg){}
+	});
+})
+</script>
+
+<div class="login_button"><a href="<?=$_SERVER['HTTP_REFERER']?>">back</a></div>
