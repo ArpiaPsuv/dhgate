@@ -38,7 +38,7 @@ class CatalogController extends MainController
             $catalogTable = new Catalog();
             $row = $catalogTable->createChildRow((int)$this->_getParam('parent_id', 0), $_POST);
             $row->save();
-            //$this->_redirect($_SERVER['HTTP_REFERER']);
+            $this->_redirect($_SERVER['HTTP_REFERER']);
         }
     }
     
