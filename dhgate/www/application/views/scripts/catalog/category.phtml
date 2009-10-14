@@ -1,79 +1,247 @@
-				<div class="line_center_container"></div>
-				<div id="head_center_container">
-					<div id="contain_head_center_container">
-						<div id="right_contain_head_center_container"></div>
-						<div id="left_contain_head_center_container">
-							<a href="/">Home</a> > <a href='/catalog/'>Online Store</a>
-							<?php foreach($this->parents as $parent):?>
-							  >	<a href='/catalog/category/id/<?=$parent->id?>'><?=$parent->title?></a>
-							<?php endforeach;?>
-							> <?=$this->currentCategory->title?>
+
+			<div id="main_container">
+				<div id="left_container">
+					
+					<div class="title_left_menu_gray">Refine your Search</div>
+					<div class="refine_your_search_title"><img src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
+					<div class="left_block_contain">
+						<div class="refine_your_search_ul">
+							<ul>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+							</ul>
 						</div>
 					</div>
-				</div>
-			    <div class="paginator">
-    				Display #
-    				<select name="account_pages">
-    					<option value="0">#</option>
-    					<option class='count' value="50">50</option>
-    					<option class='count' value="20">20</option>
-    					<option class='count' value="10">10</option>
-    				</select>
-    				<div class="paginator_content_right">
-    				    <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
-    				</div>
-				</div>
-				<div class="line_center_container"> </div>
-				<?php 
-				$i=0;
-				foreach($this->products as $product):
-				?>
-				<div class="left_articule">
-				<div class="articule">
-					<div class="articule_content">
-					<?php $album = new App_Album_Product($product['id']);
-					if($album->getMainImage('s')):
-					?>
-					<img src="<?=$album->getMainImage('s')?>" alt="<?=$product['title']?>">
-					<?php endif;?>
-						<div class="fl_left articule_head">
-							<h3><a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a></h3>
-							<?php if($product['oldprice']):?>
-								<p class="old_price">RRP:  $<?=$this->valute($product['oldprice'])?></p>
-							<?php endif; ?>
+					<div class="refine_your_search_title"><img src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
+					<div class="left_block_contain">
+						<div class="refine_your_search_ul">
+							<ul>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+							</ul>
 						</div>
-					<div class="clear"> </div>
-					<p class="price"><?=$this->valute($product['price']) ?> <span class="small_price">(inc 10% GST)</span></p>
-					<?php if($product['oldprice']):?>
-						<p class="save">You Save: AU $<?=$this->valute($product['oldprice'] - $product['price'])?></p>
-					<?php endif;?>
-					<p class="overview"><?=$product['short_about']?></p>
 					</div>
-				</div></div>
-    				<?php if($i%2 == 0):?>
-    					<div class="v_line_articule_bar"></div>
-    				<?php else:?>
-    					<div class="h_line_articule_bar"> </div>
-    				<?php endif;?>
-				<?php $i++; endforeach; ?>
-				<div class="clear"></div>
-				<div class="paginator">
-    				Display #
-    				<select name="account_pages">
-    					<option value="0">#</option>
-    					<option class='count' value="50">50</option>
-    					<option class='count' value="20">20</option>
-    					<option class='count' value="10">10</option>
-    				</select>
-    				<div class="paginator_content_right">
-    				    <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
-    				</div>
-				</div>
+					<div class="refine_your_search_title"><img src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
+					<div class="left_block_contain">
+						<div class="refine_your_search_ul">
+							<ul>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+								<li><input type="radio"> Parametr</li>
+							</ul>
+						</div>
+					</div>
+					<div class="left_block_down"></div>
+					
+					<div class="title_left_menu_gray">Categories</div>
+					<ul>
+						<?=$this->categorys()?>
+						<?php if($_SESSION['admin']):?>
+						<a href="/product/add/category/<?=$this->currentCategory->id?>">add product</a>
+						<?php endif;?>
+					</ul>
+					</div>
+			<div id="right_product_frame">
+				<div id="right_product_frame_up_bar">Category</div>
+				<div id="right_product_frame_contain">
+					<div id="info_found_items">
+						<a href="#">Try the US/AU In-Stock Products here</a>
+						<span class="orange"> 1264 </span>
+						wholesale items found  in
+						<span class="bold"> Category </span>
+					</div>
+					<div id="view_bar">
+						<div id="view_bar_right">
+							<span> Sort by: </span>
+							<select></select>
+						</div>
+						<div id="view_bar_left">
+						View: 
+						</div>
+							<a id="show_type_active" href="#"><img src="/application/public/img/list.gif" alt="">List</a>
+							<a id="show_type_noactive" href="#"><img src="/application/public/img/gallery.gif" alt="">Gallery</a>
+						</div>
+						<div class="clear"></div>
+					<div class="paginator">
+  						<?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+					</div>
+					</div>
+					<!-- Начало блока с товаром -->
+					<?php foreach($this->products as $product):?>
+										<div class="product_list_unit">
+						<div class="product_list_unit_image">
+							<img src="/application/public/img/product.gif" alt="">
+						</div>
+						<div class="product_list_unit_about">
+							<a href="#"><?=$product['title']?> </a>
+							<p><?=$product['short_about']?></p>
+							<span></span>
+							<p>Effective Until 2009-09-28</p>
+							<!--<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
+							<img src="/application/public/img/home.gif" alt="">-->
+							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+						</div>
+						<div class="product_list_unit_price">
+							<p>temcode: 62568873</p>
+							<span>$ <?=$product['price']?> / Piece</span>
+							<a href="#"></a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<?php endforeach;?>
+
+					<!-- Конец блока с товаром -->
+					<!--<div class="product_list_unit">
+						<div class="product_list_unit_image">
+							<img src="/application/public/img/product.gif" alt="">
+						</div>
+						<div class="product_list_unit_about">
+							<a href="#">Sony Laptop 10.2 inch 1.6GHz CPU 160GB + Windows XP </a>
+							<p>Sony Laptop 10. 2 inch 1. 6GHz CPU 160GB + Windows XP + office 2007 + photoshop CS2</p>
+							<span></span>
+							<p>Effective Until 2009-09-28</p>
+							<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
+							<img src="/application/public/img/home.gif" alt="">
+							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+						</div>
+						<div class="product_list_unit_price">
+							<p>temcode: 62568873</p>
+							<span>$ 299.12~345.63 / Piece</span>
+							<a href="#"></a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					 Конец блока с товаром 
+					<div class="product_list_unit">
+						<div class="product_list_unit_image">
+							<img src="/application/public/img/product.gif" alt="">
+						</div>
+						<div class="product_list_unit_about">
+							<a href="#">Sony Laptop 10.2 inch 1.6GHz CPU 160GB + Windows XP </a>
+							<p>Sony Laptop 10. 2 inch 1. 6GHz CPU 160GB + Windows XP + office 2007 + photoshop CS2</p>
+							<span></span>
+							<p>Effective Until 2009-09-28</p>
+							<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
+							<img src="/application/public/img/home.gif" alt="">
+							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+						</div>
+						<div class="product_list_unit_price">
+							<p>temcode: 62568873</p>
+							<span>$ 299.12~345.63 / Piece</span>
+							<a href="#"></a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					 Конец блока с товаром 
+					<div class="product_list_unit">
+						<div class="product_list_unit_image">
+							<img src="/application/public/img/product.gif" alt="">
+						</div>
+						<div class="product_list_unit_about">
+							<a href="#">Sony Laptop 10.2 inch 1.6GHz CPU 160GB + Windows XP </a>
+							<p>Sony Laptop 10. 2 inch 1. 6GHz CPU 160GB + Windows XP + office 2007 + photoshop CS2</p>
+							<span></span>
+							<p>Effective Until 2009-09-28</p>
+							<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
+							<img src="/application/public/img/home.gif" alt="">
+							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+						</div>
+						<div class="product_list_unit_price">
+							<p>temcode: 62568873</p>
+							<span>$ 299.12~345.63 / Piece</span>
+							<a href="#"></a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					 Конец блока с товаром 
+					<div class="product_list_unit">
+						<div class="product_list_unit_image">
+							<img src="/application/public/img/product.gif" alt="">
+						</div>
+						<div class="product_list_unit_about">
+							<a href="#">Sony Laptop 10.2 inch 1.6GHz CPU 160GB + Windows XP </a>
+							<p>Sony Laptop 10. 2 inch 1. 6GHz CPU 160GB + Windows XP + office 2007 + photoshop CS2</p>
+							<span></span>
+							<p>Effective Until 2009-09-28</p>
+							<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
+							<img src="/application/public/img/home.gif" alt="">
+							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+						</div>
+						<div class="product_list_unit_price">
+							<p>temcode: 62568873</p>
+							<span>$ 299.12~345.63 / Piece</span>
+							<a href="#"></a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					 Конец блока с товаром 
+					<div class="product_list_unit">
+						<div class="product_list_unit_image">
+							<img src="/application/public/img/product.gif" alt="">
+						</div>
+						<div class="product_list_unit_about">
+							<a href="#">Sony Laptop 10.2 inch 1.6GHz CPU 160GB + Windows XP </a>
+							<p>Sony Laptop 10. 2 inch 1. 6GHz CPU 160GB + Windows XP + office 2007 + photoshop CS2</p>
+							<span></span>
+							<p>Effective Until 2009-09-28</p>
+							<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
+							<img src="/application/public/img/home.gif" alt="">
+							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+						</div>
+						<div class="product_list_unit_price">
+							<p>temcode: 62568873</p>
+							<span>$ 299.12~345.63 / Piece</span>
+							<a href="#"></a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					-->
+					<div id="Items_per_page">
+					
+						Items per page: 
+						<?php if($this->count == 20):?>
+							<a href="#" class='count'>20</a>
+						<?php else :?>
+							<span>20</span>
+						<?php endif?>
+						|
+						<?php if($this->count == 40):?>
+							<a href="#" class='count'>40</a>
+						<?php else :?>
+							<span>40</span>
+						<?php endif?>
+					</div>
+					<div class="paginator"><!--
+						<span> Page 1 - 118 </span> of <span> 2343 </span>
+						<span class="paginator_active_page">1</span>
+						<a href="#">2</a>
+						<a href="#">3</a>
+						<a href="#">4</a>
+						<a href="#">5</a>
+						<a href="#">6</a>
+						<a href="#">7</a>
+						<a href="#">Next >></a>
+					-->
+					  <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+					</div>
 			<script>
 			$(document).ready(function(){
 				$('.count').click(function(){
-					value = $(this).val();
+					value = $(this).text();
 					window.location.href = '<?= $this->url(array('count'=>null));?>'+'/count/'+value;
 				});
 			})
 			</script>
+				</div>
+			</div>

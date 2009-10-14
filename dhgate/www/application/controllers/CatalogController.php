@@ -18,7 +18,7 @@ class CatalogController extends MainController
         $this->view->parents = array_reverse($catalogTable->getParentsRecursive($id));
         $this->view->children = $catalogTable->getChildren($currentCategory);
         $products = $catalogTable->getItems($currentCategory->id, (int) $this->_getParam('page',0));
-        $count = (int)$this->_getParam('count',20);
+        $this->view->count = $count = (int)$this->_getParam('count',20);
         $products->setItemCountPerPage($count);
         $products->setView($this->view);
         $this->view->products = $products;

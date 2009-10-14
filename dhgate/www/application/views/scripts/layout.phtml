@@ -29,11 +29,17 @@
 		<div id="bhgate_site">
 			<?=$this->render('header.phtml')?>
 			<div id="main_container">
+			<?php $request = Zend_Controller_Front::getInstance()->getRequest();
+				if($request->getActionName() != 'category'):
+			?>
 			<?=$this->render('left.phtml')?>
-				<div id="center_container">
+			<div id="center_container">
+				<?php endif;?>
 					<?=$this->layout()->content?>
+		    <?php if($request->getActionName() != 'category'):?>
 				</div>
-			<?=$this->render('right.phtml')?>
+				<?=$this->render('right.phtml')?>
+			<?php endif;?>
 			</div>
 			<div class="clear"></div>
 			<?=$this->render('footer.phtml')?>

@@ -1,50 +1,47 @@
-Results <?=$this->firstItemNumber-1?> - <?=$this->firstItemNumber+$this->currentItemCount-1?> of <?=$this->totalItemCount?>
+Results
+<?=$this->firstItemNumber-1?>
+-
+<?=$this->firstItemNumber+$this->currentItemCount-1?>
+of
+<?=$this->totalItemCount?>
 <?php
 if ((!($this->pageCount<=1))){ ?>
-<a href="<?= $this->url(array('page' =>$this->first)); ?>">«« Start</a>
 <a href="<?= $this->url(array('page' =>$this->current-1)); ?>">« Prev</a>
 <?php
 if($this->first == $this->current){?>
-<?=$this->first?>
+<span class="paginator_active_page"><?=$this->first?></span>
 <?}else {?>
 <a href="<?= $this->url(array('page' =>$this->first)); ?>"><?= $this->first ?></a>
 
 <?php
 }
 if ($this->current >=$this->first+3){?>
-<a  href="<?= $this->url(array('page' =>$this->previous-1)); ?>">...</a>
+<a href="<?= $this->url(array('page' =>$this->previous-1)); ?>">...</a>
 
 <?
 }
 if (($this->current!=$this->first+1)&&($this->previous <> '')){
-?>
+	?>
 <a href="<?= $this->url(array('page' =>$this->previous));?>"><?=$this->previous?></a>
 
-<?}
-if($this->first != $this->current){
-?>
-<?=$this->current?>
-<?}
-if ($this->current!=$this->last-1){
-?>
+	<?}
+	if($this->first != $this->current){
+		?>
+		<span class="paginator_active_page"><?=$this->current?></span>
+		<?}
+		if ($this->current!=$this->last-1){
+			?>
 <a href="<?= $this->url(array('page' =>$this->next)); ?>"><?=$this->next?></a>
 
-<?
+			<?
 
-}
-if ($this->current <=$this->last-3){?>
+		}
+		if ($this->current <=$this->last-3){?>
 <a href="<?= $this->url(array('page' =>$this->next+1)); ?>">...</a>
-
-<?
-}
-if($this->last == $this->current){
-
-}else {?>
-<a href="<?= $this->url(array('page' =>$this->last)); ?>"><?= $this->last ?></a>
-
-<?php
-}
-?>
+		<?
+		}
+		if($this->last != $this->current){?>
+			<a href="<?= $this->url(array('page' =>$this->last)); ?>"><?= $this->last ?></a>
+		<?php }?>
 <a href="<?= $this->url(array('page' =>$this->current+1));?>">Next »</a>
-<a href="<?= $this->url(array('page' =>$this->last));?>">End »»</a>
 <?php }?>
