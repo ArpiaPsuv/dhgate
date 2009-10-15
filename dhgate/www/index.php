@@ -8,7 +8,7 @@ set_include_path('.'.PATH_SEPARATOR . './application/library'
     .PATH_SEPARATOR.$dr.'/application/models/'
     .PATH_SEPARATOR.$dr.'/application/controllers/'
     .PATH_SEPARATOR.$dr.'/application/views/'
-    .PATH_SEPARATOR.$dr.'/../../library/'
+  //  .PATH_SEPARATOR.$dr.'/../../library/'
     .PATH_SEPARATOR.get_include_path());
 include "Zend/Loader.php";
 require_once ('Zend/Loader/Autoloader.php');

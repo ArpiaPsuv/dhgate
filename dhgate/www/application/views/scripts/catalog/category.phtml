@@ -1,4 +1,16 @@
+<?php 
+	$navigate = array(
+		array('href'=>'/catalog/view/', 'text'=>'catalog'),
+	);
+	if($this->currentCategory){
+		if($this->parent){
+			array_push($navigate, array('href'=>'/catalog/category/id/'.$this->parent->id, 'text'=>$this->parent->title)); 	
+		}
+		array_push($navigate, array('href'=>'/catalog/category/id/'.$this->currentCategory->id, 'text'=>$this->currentCategory->title));
+	}
+?>
 
+<?=$this->navigate($navigate)?>
 			<div id="main_container">
 				<div id="left_container">
 					
@@ -57,8 +69,8 @@
 				<div id="right_product_frame_contain">
 					<div id="info_found_items">
 						<a href="#">Try the US/AU In-Stock Products here</a>
-						<span class="orange"> 1264 </span>
-						wholesale items found  in
+						<span class="orange"> <?=$this->products->getCurrentItemCount()?> </span>
+						wholesale items found  in 
 						<span class="bold"> Category </span>
 					</div>
 					<div id="view_bar">
@@ -69,36 +81,50 @@
 						<div id="view_bar_left">
 						View: 
 						</div>
-							<a id="show_type_active" href="#"><img src="/application/public/img/list.gif" alt="">List</a>
-							<a id="show_type_noactive" href="#"><img src="/application/public/img/gallery.gif" alt="">Gallery</a>
+						<?php if($this->image):?>
+							<a id="show_type_noactive" href="<?=$this->url(array('image'=>0))?>"><img src="/application/public/img/list.gif" alt="">List</a>
+							<a id="show_type_active" href="<?=$this->url(array('image'=>1))?>"><img src="/application/public/img/gallery.gif" alt="">Gallery</a>
+						<?php else:?>
+						<a id="show_type_active" href="<?=$this->url(array('image'=>0))?>"><img src="/application/public/img/list.gif" alt="">List</a>
+					    <a id="show_type_noactive" href="<?=$this->url(array('image'=>1))?>"><img src="/application/public/img/gallery.gif" alt="">Gallery</a>
+						<?php endif;?>
 						</div>
 						<div class="clear"></div>
 					<div class="paginator">
   						<?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
 					</div>
-					</div>
 					<!-- Начало блока с товаром -->
 					<?php foreach($this->products as $product):?>
-										<div class="product_list_unit">
-						<div class="product_list_unit_image">
+					<?php if($this->image):?>
+						<div class="product_gallery_unit">
 							<img src="/application/public/img/product.gif" alt="">
-						</div>
-						<div class="product_list_unit_about">
-							<a href="#"><?=$product['title']?> </a>
-							<p><?=$product['short_about']?></p>
-							<span></span>
-							<p>Effective Until 2009-09-28</p>
-							<!--<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
-							<img src="/application/public/img/home.gif" alt="">-->
 							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
-						</div>
-						<div class="product_list_unit_price">
-							<p>temcode: 62568873</p>
+							<a href="#"><?=$product['title']?></a>
 							<span>$ <?=$product['price']?> / Piece</span>
-							<a href="#"></a>
+							<a class="add_to_card_button" href="#"></a>
 						</div>
-					</div>
-					<div class="clear"></div>
+					<?php else:?>
+					         <div class="product_list_unit">
+                              <div class="product_list_unit_image">
+                                   <img src="/application/public/img/product.gif" alt="">
+                              </div>
+                              <div class="product_list_unit_about">
+                                   <a href="#"><?=$product['title']?> </a>
+                                   <p><?=$product['short_about']?></p>
+                                   <span></span>
+                                   <p>Effective Until 2009-09-28</p>
+                                   <!--<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
+                                   <img src="/application/public/img/home.gif" alt="">-->
+                                   <p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+                              </div>
+                              <div class="product_list_unit_price">
+                                   <p>temcode: 62568873</p>
+                                   <span>$ <?=$product['price']?> / Piece</span>
+                                   <a href="#"></a>
+                              </div>
+                         </div>
+                         <div class="clear"></div>
+					<?php endif;?>
 					<?php endforeach;?>
 
 					<!-- Конец блока с товаром -->

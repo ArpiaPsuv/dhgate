@@ -13,12 +13,12 @@ class CatalogController extends MainController
         if($id < 1){
             $this->_redirect('/');
         }
+        $this->view->image = (int) $this->_getParam('image',0);
         $catalogTable = new Catalog();
         $currentCategory = $this->view->currentCategory  = $catalogTable->getCurrent($id);
-        $this->view->parents = array_reverse($catalogTable->getParentsRecursive($id));
-        $this->view->children = $catalogTable->getChildren($currentCategory);
+        $this->view->parent = $catalogTable->getParent($currentCategory->id);
         $products = $catalogTable->getItems($currentCategory->id, (int) $this->_getParam('page',0));
-        $this->view->count = $count = (int)$this->_getParam('count',20);
+        $this->view->count = $count = (int)$this->_getParam('count',20); 
         $products->setItemCountPerPage($count);
         $products->setView($this->view);
         $this->view->products = $products;
@@ -90,5 +90,8 @@ class CatalogController extends MainController
         $category = $catalogTable->find($category_id)->current();
         $catalogTable->moveBranch((int)$_POST['category_id'], $category->parent);
         $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+    public function viewAction(){
+    	
     }
 }
