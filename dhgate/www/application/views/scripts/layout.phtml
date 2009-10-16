@@ -36,7 +36,7 @@
 			<div id="center_container">
 				<?php endif;?>
 					<?=$this->layout()->content?>
-		    <?php if($request->getActionName() != 'category'):?>
+		    <?php if($request->getActionName() != 'category' && $request->getControllerName() != 'product'):?>
 				</div>
 				<?=$this->render('right.phtml')?>
 			<?php endif;?>

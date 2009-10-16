@@ -1,442 +1,151 @@
-<div id="center_container">
-	<div class="line_center_container"></div>
-	<div class="product_big_title"><?=$this->product->title?>
+				<div id="item_description">
+				<img class="up_border" src="/application/public/img/Item_border_up.gif" alt="">
+				<div id="item_description_contain">
+				<p class="img_container">
+					<img src="/application/public/img/productimg.jpg" alt="">
+					<a href="#"></a>
+				</p>
+					<div id="item_details">
+						<h1><?=$this->product->title?></h1>
+						<table class="item_detail_table">
+					    <tr>
+					        <td class="left_td">
+					        	Unit Price:
+					        </td>
+					        <td class="right_td">
+					        	<span class="red_price bold">USD <?=$this->product->price?> / Piece</span>  
+					        </td>
+					    </tr>
+					    <tr>
+					        <td class="left_td">
+					        </td>
+					        <td class="right_td">
+					        	<a href="#">Change Currency <img src="/application/public/img/ico_select.gif" alt=""></a>
+					        </td>
+					    </tr>
+					    <tr>
+					        <td class="left_td">
+					        	Options:
+					        </td>
+					        <td class="right_td">
+					        	<select>sdf</select>
+					        </td>
+					    </tr>
+					    <tr>
+					        <td class="left_td">
+					        	Wholesale Price:
+					        </td>
+					        <td class="right_td">
+					        	24 items per Lot 
+					        </td>
+					    </tr>
+					    <tr>
+					        <td class="left_td">
+					        </td>
+					        <td class="right_td">
+					        	<table class="items_detail_table_small">
+					        		<tr class="gray_tr">
+					        			<td>Quantity(lots)</td>
+										<td>Price(per lot)</td>
+										<td><a href="#">Detail</a></td>
+					        		</tr>
+									<tr>
+										<td>1  ---  10</td>
+										<td> 	USD  236.10 </td>
+										<td><a href="#">Detail</a></td>
+									</tr>
+					        	</table>
+					        </td>
+					    </tr>
+					    <tr>
+					        <td class="left_td">
+					        	Shipping Cost:
+					        </td>
+					        <td class="right_td">
+					        	<span class="bold">USD 219.77</span> to <a href="#">Russia via EMS <img src="/application/public/img/ico_select.gif" alt=""></a>
+					        </td>
+					    </tr>
+					</table>
+					<table class="yellow_table">
+						<tr>
+							<td>Purchase Quantity</td>
+							<td><input type="text">  Lot </td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>236.1 × 1 + 219.77 = <span class="red_price bold">455.87</span> (USD)</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><a href="#"><img src="/application/public/img/addtocart.gif" alt=""></a></td>
+						</tr>
+					</table>
+					
+					<table class="item_detail_table">
+					    <tr>
+					        <td class="left_td">
+					        	Time Left:
+					        </td>
+					        <td class="right_td">  
+							     27 days 8 hours
+					        </td>
+					    </tr>
+					    <tr>
+					        <td class="left_td">
+					        	Payment:
+					        </td>
+					        <td class="right_td">
+					        	    PayPal, VISA, West Union <a href="#">Detail</a>
+					        </td>
+					    </tr>
+						</table>
 
-	</div>
-	<div class="line_center_container"></div>
-	<div id="images">
-		<?=$this->images($this->product->id);?>
-	
-	</div>
-	<script type="text/javascript">
-	$('.main').live('click',function(){
-		src = $(this).parent().parent().children('a').children('img').attr('src');
-		href = $(this).attr('href');
-		$.ajax({
-			  type: "POST",
-			   url: href,
-			   data: 'src=' + src,
-			   success: function(msg){
-			  		$('#images').html(msg);
-			   }
-		});
-		return false;
-		})
-	   $('.deleteimg').live('click',function(){
-		src = $(this).parent().parent().children('a').children('img').attr('src');
-		href = $(this).attr('href');
-		
-			$.ajax({
-				  type: "POST",
-				   url: href,
-				   data: 'src=' + src,
-				   success: function(msg){
-				  		$('#images').html(msg);
-				   }
-			});
-			return false;
-		})
-	</script>
-	<script type="text/javascript" src="/application/public/js/ocupload.js"></script>
-	<script type="text/javascript">
-		$('#upload').upload({
-		       name: 'file',
-		       method: 'post',
-		       enctype: 'multipart/form-data',
-		       action: '/product/upload/id/' + '<?=$this->product->id?>',
-		       onComplete: function(data) {
-
-				$.ajax({
-					   url: '/product/getimages/id/<?=$this->product->id?>',
-					   success: function(msg){
-					  		$('#images').html(msg);
-					   }
-				});
-		       }
-		});
-	</script>
-	<div class="about_product">
-		<div class="product_main_name"><?=$this->product->title?></div>
-		
-		<?php if($this->product->oldprice):?>
-			<div class="product_old_price">$<?=$this->valute($this->product->oldprice)?></div>
-		<?php endif;?>
-		<div class="product_price">$<?=$this->valute($this->product->price)?></div>
-		<?php if($this->product->oldprice):?>
-			<div class="product-You-Save">product You Save $<?=$this->valute($this->product->oldprice - $this->product->price)?></div>
-		<?php endif;?>
-		<?php if($this->product->freeexpress):?>
-			<div class="free_express">Free Express</div>
-		<?php endif;?>
-
-		<div class="cart-quantity-box">
-			<div class="quantity_box">Quantity:</div>
-			
-			<div class="inputboxquantity"> 
-				<form action="/cart/add/" id="cartForm">
-					<input type=text class="count" name="count" value='1'>
-					<input type="hidden" name="item_id" value="<?=$this->product['id']?>">
-				</form>
-
-			 </div>
-			<a class="qty_less"></a>
-			<a class="qty_more"></a>
-			<script type="text/javascript">
-				$('.qty_less').click(function(){
-					count = parseInt($('.count').val());
-					if(count>1){
-						$('.count').val(parseInt($('.count').val())-1);
-					}
-					return false;
-				})
-				$('.qty_more').click(function(){
-						$('.count').val(parseInt($('.count').val())+1);
-					return false;
-				})
-			</script>
-			
-		</div>
-		<a href="#" class="add_to_cart_product">Add To Cart</a>
-		<script type="text/javascript">
-			$('.add_to_cart_product').click(function(){
-				data = $('#cartForm').serialize()
-				$.ajax({
-					   type: "POST",
-					   url: '/cart/add/',
-					   data: data,
-					   success: function(msg){
-							updateCarInfo();
-					   }
-				});
-				return false;
-			})
-		</script>
-	<!-- окошко -->
-	<div class="bg_hidden_window" id='dialogImg'>
-		<div class="hidden_window">
-			<img src="/application/public/img/window_up_block.gif">
-			<a href="#">
-			<img class="close_button" src="/application/public/img/close.gif">
-			</a>
-			<div class="hidden_window_content">
-			<div class="hidden_window_content_text">
-			</div>
-			<p><a href="#" class="previmg">prev</a> <a href="#" class="nextimg">next</a></p>
+					</div>
 				</div>
-			<img src="/application/public/img/window_down_block.gif">
-		</div>
-	</div>
-	<script type="text/javascript">
-		$("#dialogImg").dialog({
-			bgiframe: true,
-			width: 980,
-			modal: true
-		});
-		
-		$('.close_button').click(function(){
-			$("#dialogImg").dialog('close')
-		})
-		
-		$("#dialogImg").dialog('close')
-		var counter = 0;
-		var href = '#';
-		$('.show_image').live('click', function(){
-		counter = 0;
-			$("#dialogImg").show();
-			$("#dialogImg").dialog('open');
-			href=$(this).attr('href');
-			$('.previmg').attr('href',href+'/next/'+counter);
-			$('.nextimg').attr('href',href+'/next/'+counter);
-			$.ajax({
-				   url: href,
-				   success: function(msg){
-				  		$('.hidden_window_content_text').html(msg);
-				   }
-			});
-			return false;
-		})
-	$('.nextimg').click(function(){
-		counter++;
-		$.ajax({
-			   url: href+'/next/'+counter, 
-			   success: function(msg){
-			  		$('.hidden_window_content_text').html(msg);
-			   }
-		});
-	return false;
-	})
-	$('.previmg').click(function(){
-		counter--;
-		$.ajax({
-			   url: href+'/next/'+counter,
-			   success: function(msg){
-			  		$('.hidden_window_content_text').html(msg);
-			   }
-		});
-return false;
-})
-	</script>
-		<div class="clear"></div>
-		<p><?=$this->product->about?></p>
-		<div class="availabilityHeader">Availability:</div>
-		<div class="availability_state">In Stock</div>
-		<div class="availabilityHeader">Usually ships in:</div>
-		<img src="/application/public/img/24h00000.gif" alt="">
-		<p><?=$this->product->specifications?></p>
-		<!-- <div class="info_mod">
-			<img class="img_float_left" src="/application/public/img/info-mod.png">
-			<a href="#"> More Info about Prices, Shipping, Payment, etc.</a>
-		</div>
-		<div class="faq">
-			<img class="img_float_left" src="/application/public/img/faq-icon.png">
-			<a href="#"> Ask a question about this product</a>
-		</div>
-		
-		<div class="availabilityHeader">Availability:</div>
-		<div class="availability_state">In Stock</div>
-		<div class="availabilityHeader">Usually ships in:</div>
-		<img src="/application/public/img/24h00000.gif" alt="">
-		
-		<div class="specification_head_table">Specifications</div>
-		<div class="specification_table">
-		
-	<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
-	<TBODY>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Type</SPAN></TD>
-	<TD class=productlistright>Digital Compact</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Image resolution</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Effective Pixels</SPAN></TD>
-	<TD class=productlistright>11.1 mpx</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Max. Resolution</SPAN></TD>
-	<TD class=productlistright>4032x2688 pixels</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Available Resolutions</SPAN></TD>
-	<TD class=productlistright>4032x2688, 3840x2880, 2816x2112, 2048x1536, 1600x1200, 640x480 pixels</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Sensor</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Sensor Type</SPAN></TD>
-	<TD class=productlistright>SuperCCD</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Size</SPAN></TD>
-	<TD class=productlistright>2/3 inch</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Lens/Zoom</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Optical Zoom</SPAN></TD>
-	<TD class=productlistright>14.3 x</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Focal Length</SPAN></TD>
-	<TD class=productlistright>28-400 mm</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Digital Zoom</SPAN></TD>
-	<TD class=productlistright>2 x</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Aperture (Lens data)</SPAN></TD>
-	<TD class=productlistright>F2.8-5.3</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Autofocus</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Manual Focus</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>White Balance</SPAN></TD>
-	<TD class=productlistright>Auto, Preset (Fine, Shade, daylight, Warm White, Cool White, Incandescent light, custom)</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Shutter Speed</SPAN></TD>
-	<TD class=productlistright>30-1/4000 seconds</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Settings</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>ISO Rating</SPAN></TD>
-	<TD class=productlistright>100/200/400/800/1600/3200/6400/10000</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Exposure Options</SPAN></TD>
-	<TD class=productlistright>Programmed AE, Apeture Priority AE, Shutter Priority AE, Manual</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Metering Options</SPAN></TD>
-	<TD class=productlistright>TTL TTL 256-zones metering</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Continuous Drive</SPAN></TD>
-	<TD class=productlistright>Yes (7 fps)</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Flash</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Internal Flash</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Flash Modes</SPAN></TD>
-	<TD class=productlistright>Auto, Forced Flash, Suppressed Flash, Slow Synchro, Auto, Red-eye Reduction Auto, Red-eye Reduction &amp; Forced Flash, Suppressed Flash, Red-eye Reduction &amp; Slow Synchro</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>LCD Monitor</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Built-in Color Monitor</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>LCD Size</SPAN></TD>
-	<TD class=productlistright>2.5 Inch</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>LCD Resolution</SPAN></TD>
-	<TD class=productlistright>230000 pixels</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Video</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Video Recording</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Video Recording Data</SPAN></TD>
-	<TD class=productlistright>640x480. 30fps, 320x240, 30fps</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Audio</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Built-in Microphone</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Audio Recording</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>File formats</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Image Format</SPAN></TD>
-	<TD class=productlistright>JPEG (EXIF v. 2.2)</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Video Format</SPAN></TD>
-	<TD class=productlistright>AVI</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Audio Format</SPAN></TD>
-	<TD class=productlistright>WAV</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Product properties</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Picture Stabilization</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Viewfinder</SPAN></TD>
-	<TD class=productlistright>LCD</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Self Timer</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Interface</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Interface</SPAN></TD>
-	<TD class=productlistright>USB</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Interface Version</SPAN></TD>
-	<TD class=productlistright>USB (v. 2.0)</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Video Out</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Storage</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Camera Only</SPAN></TD>
-	<TD class=productlistright>Yes</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Memory Types Supported</SPAN></TD>
-	<TD class=productlistright>Internal, xD-Picture Card, Secure Digital, SDHC </TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Memory Type Included</SPAN></TD>
-	<TD class=productlistright>Internal</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Storage Included</SPAN></TD>
-	<TD class=productlistright>25 MB</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Power source</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Battery Type</SPAN></TD>
-	<TD class=productlistright>Lithium ion rechargeable</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Battery Charger</SPAN></TD>
-	<TD class=productlistright>Included</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Related</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Manufacturer</SPAN></TD>
-	<TD class=productlistright><A href="http://www.fujifilm.com/" target=_blank>English</A></TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=detailsheader colSpan=3>Measures</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Weight</SPAN></TD>
-	<TD class=productlistright>918 grams</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR>
-	<TR>
-	<TD class=productlistright><SPAN class=detailssubheader>Dimensions (HxWxD)</SPAN></TD>
-	<TD class=productlistright>93.6x133.4x150.4 mm</TD>
-	<TD class=productlistnone>&nbsp;</TD></TR></TBODY></TABLE>
-</div>
-
-		<div class="footnote">
-			<p>* All specifications are subject to change without notice.</p>
-			<p>* Brand and product names mentioned are trademarks of their respective companies.</p>
-		</div>
-		<div class="info_mod">
-			<img class="img_float_left" src="/application/public/img/info-mod.png">
-			<a href="#"> More Info about Prices, Shipping, Payment, etc.</a>
-		</div>
-		<div class="faq">
-			<img class="img_float_left" src="/application/public/img/faq-icon.png">
-			<a href="#"> Ask a question about this product</a>
-		</div>
-		-->
-	</div>
-	<!-- 
-	<div class="add-cart-inner">
-		<div class="cart-quantity-box">
-			<div class="quantity_box">Quantity:</div>
-			<div class="inputboxquantity"> <input type=text> </div>
-			<a class="qty_less"></a>
-			<a class="qty_more"></a>
-		</div>
-		<a href="#" class="add_to_cart_product">Add To Cart</a>
-	</div>
-	 -->
-</div>
+				<img class="down_border" src="/application/public/img/Item_border_down.gif" alt="">
+				</div>
+				
+				<div id="item_description_container">
+					<div id="head_item_description">
+						<img class="desc_top" src="/application/public/img/description_tab.gif" alt="">
+					</div>
+					<img class="description_border_up" src="/application/public/img/desc_up.gif">
+					<div id="cover_description_table">
+						<!--Табличка с полным описанием товара, по задумке хавается из базы -->
+						<?=$this->product->specifications?>
+						<!--<table id="description_table">
+							
+							<tr>
+								<td class="desc_left_td">Product Name:</td>
+								<td>SONY VGN-CR382/mini version Computers & Networking Laptops & Notebooks Netbook PC</td>
+							</tr>
+							<tr>
+								<td class="desc_left_td">Item Code:</td>
+								<td>65636851</td>
+							</tr>
+							<tr>
+								<td class="desc_left_td">Catalog:</td>
+								<td>Netbook PC  <a href="#">Add to My Favorite Catalog</a></td>
+							</tr>
+							<tr>
+								<td class="desc_left_td">Short Description:</td>
+								<td>top wholesale SONY VGN-CR382 /mini version Computers & Networking>>Laptops & Notebooks>>Netbook PC lat tops. lattop, Sony lattop Samsung's memory and hard drive will greatly improve the stability of the machine, with the A-han, as the odd screen, so that the entire machine to upgrade the hardware, the use of three power enhanced the stability of the machine used to solve the 2133 die before the fixed hard drive,</td>
+							</tr>
+							<tr>
+								<td class="desc_left_td">Quantity:</td>
+								<td>1   Piece </td>
+							</tr>
+							<tr>
+								<td class="desc_left_td">Package Size:</td>
+								<td>30.0 * 20.0 * 2.9 ( cm ) </td>
+							</tr>
+							<tr>
+								<td class="desc_left_td">Gross weight/Package:</td>
+								<td>3.0 ( kg )</td>
+							</tr>
+						</table>
+						--><!-- Конец таблички с полным описанием товара -->
+					</div>
+					<img class="description_border_up" src="/application/public/img/desc_down.gif">
+				</div>
+			

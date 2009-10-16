@@ -4,11 +4,11 @@ $root=dirname(__FILE__);
 error_reporting(E_ALL|E_STRICT);
 date_default_timezone_set('Asia/Yakutsk');
 $dr = $_SERVER['DOCUMENT_ROOT'];
-set_include_path('.'.PATH_SEPARATOR . './application/library'
+set_include_path('.'.PATH_SEPARATOR . $dr .'/application/library/'
     .PATH_SEPARATOR.$dr.'/application/models/'
     .PATH_SEPARATOR.$dr.'/application/controllers/'
     .PATH_SEPARATOR.$dr.'/application/views/'
-  //  .PATH_SEPARATOR.$dr.'/../../library/'
+    .PATH_SEPARATOR.$dr.'/../../library/'
     .PATH_SEPARATOR.get_include_path());
 include "Zend/Loader.php";
 require_once ('Zend/Loader/Autoloader.php');

@@ -94,12 +94,13 @@
   						<?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
 					</div>
 					<!-- Начало блока с товаром -->
+					<?php if(count($this->products)):?>
 					<?php foreach($this->products as $product):?>
 					<?php if($this->image):?>
 						<div class="product_gallery_unit">
 							<img src="/application/public/img/product.gif" alt="">
 							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
-							<a href="#"><?=$product['title']?></a>
+							<a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>
 							<span>$ <?=$product['price']?> / Piece</span>
 							<a class="add_to_card_button" href="#"></a>
 						</div>
@@ -126,7 +127,12 @@
                          <div class="clear"></div>
 					<?php endif;?>
 					<?php endforeach;?>
-
+					<?php else:?>
+						<p>This category is currently empty</p>
+						<?php if($_SESSION['admin']):?>
+						<p>You can <a href="/product/add/category/<?=$this->currentCategory->id?>">add product</a></p>
+						<?php endif;?>
+					<?php endif;?>
 					<!-- Конец блока с товаром -->
 					<!--<div class="product_list_unit">
 						<div class="product_list_unit_image">
