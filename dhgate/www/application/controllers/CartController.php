@@ -2,7 +2,7 @@
 class CartController extends MainController
 {
     public function indexAction()
-    {
+    {// @todo сделать корзину пользователя
         $cart = new Cart();
         if(Zend_Auth::getInstance()->hasIdentity())
         {
