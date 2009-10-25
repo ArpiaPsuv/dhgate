@@ -1,15 +1,4 @@
-	<div class="line_center_container"></div>
-				<div id="head_center_container">
-					<div id="contain_head_center_container">
-						<div id="right_contain_head_center_container"></div>
-						<div id="left_contain_head_center_container">
-							<a href="#">Home</a> > <a href="#">Online Store</a> > Registration
-						</div>
-					</div>
-				</div>
-	<div class="line_center_container"></div>
-	<p class="required">(* = Required)</p>
-	<div class="registration_title">Customer Information</div>
+
 <?php
 if($this->checkout)
 {
@@ -18,93 +7,85 @@ if($this->checkout)
 	$action = '/user/register/';
 }
 ?>	
+
+
+
+
+
+
+
+
+<div id="product_path">
+<a href="/">Home</a> > <span>Registration</span>
+</div>
+<div id="main_registration">
+<div id="registration">
+<h2>Join DHgate.com For Free</h2>
+<div id="registration_form">
+
+
+
+
+
+
+
+<?=$this->message ?>
 <form action="<?=$action ?>" method="post">
-    <p class="register_text">Mail* : </p> 
-	<p class="register_input"><input type="text" name="mail"></p>
-	<div class="clear"></div>
-    <p class="register_text">login* :</p>
-   	<p class="register_input"><input type="text" name="login"></p>
-	<div class="clear"></div>
-    <p class="register_text">password* :</p>
-    <p class="register_input"><input type="password" name="pass"></p>
-	<div class="clear"></div>
-    <p class="register_text">Confirm Password*" :</p>
-    <p class="register_input"><input type="password" name="repass"></p>
-	<div class="delimiter"></div>
-    <div class="clear"></div>
-	<div class="line_center_container"></div>
-	<div class="delimiter"></div>
-	<div class="registration_title">Bill To Information</div>
-    <p class="register_text">Company Name :</p>
-	<p class="register_input"><input type="text" name="company"></p>
-	<div class="clear"></div>
-    <p class="register_text">Title: </p>
-	<p class="register_input">
-    <select name="title" id="title_field">
-        <option value="">none</option>
-        <option value="Mr.">Mr.</option>
-        <option value="Mrs.">Mrs.</option>
-        <option value="Dr.">Dr.</option>
-        <option value="Prof.">Prof.</option>
-    </select>
-    </p>
-	<div class="clear"></div>
-    <p class="register_text">First Name* :</p>
-    <p class="register_input"><input type="text" name="firstname"></p>
-	<div class="clear"></div>
-    <p class="register_text">Last Name* :</p>
-    <p class="register_input"><input type="text" name="lastname"></p>
-	<div class="clear"></div>
-    <p class="register_text">Address * :</p>
-    <p class="register_input"><input type="text" name="adress"></p>
-	<div class="clear"></div>
-    <p class="register_text">Address :</p>
-    <p class="register_input"><input type="text" name="adress2"></p>
-	<div class="clear"></div>
-    <p class="register_text">City* :</p>
-    <p class="register_input"><input type="text" name="city"></p>
-	<div class="clear"></div>
-    <p class="register_text">Zip/Postal Code* :</p>
-    <p class="register_input"><input type="text" name="zip"></p>
-	<div class="clear"></div>
-    <p class="register_text">Country* :</p>
-    <p class="register_input">
-    <select name="country">
-    <?php foreach ($this->countrys as $country): ?>
-    	<option class="country" value="<?=$country->id?>"><?=$country->name?></value>
-    <?php endforeach;?>
-    </select>
-    </p>
-    <?php if($_SESSION['admin']):?>
-    	<a href="/country/add/">country add</a>
-    <?php endif; ?>
-	<div class="clear"></div>
-    <p class="register_text">State :</p>
-    <p class="register_input">
-		<input type="text" name="state">
-    </p>
-	<div class="clear"></div>
-    <p class="register_text">Phone* :</p>
-    <p class="register_input"><input type="text" name="phone"></p>
-	<div class="clear"></div>
-    <p class="register_text">Mobile phone :</p>
-    <p class="register_input"><input type="text" name="mobilephone"></p>
-	<div class="clear"></div>
-    <p class="register_continue_button">
-    	<?php // @todo если доебутся сделать нормальную кнопку ?>
-     	<input type="submit" value="continue">
-    </p>
+
+<p class="processed_checkout_right_title">Email Address :</p>
+<p class="processed_checkout_right_text">
+<input type="text" name="mail">
+<img src="/application/public/img/check_out_account_corret.gif" alt=""></p>
+<p class="small_gray">This will be used to sign into your account.</p>
+<p class="small_gray red_price">Email address is required. Please try again.</p>
+
+<p class="processed_checkout_right_title">Password :</p>
+<p class="processed_checkout_right_text">
+<input type="password" name="pass">
+
+<img src="/application/public/img/check_out_account_corret.gif" alt=""></p>
+<p class="small_gray">Must have 6 to 30 characters and no spaces.</p>
+<p class="small_gray red_price">A password is required. Please try again.</p>
+
+<p class="processed_checkout_right_title">Re-type Password :</p>
+<p class="processed_checkout_right_text">
+<input type="password" name="repass">
+
+<img src="/application/public/img/check_out_account_corret.gif" alt=""></p>
+<p class="small_gray red_price">A password is required. Please try again.</p>
+
+<p class="processed_checkout_right_title">Nickname :</p>
+<p class="processed_checkout_right_text">
+<input type="text" name="login">
+
+<img src="/application/public/img/check_out_account_corret.gif" alt=""></p>
+<p class="small_gray">Email address is not allowed.</p>
+<p class="small_gray red_price">A nickname is required. Please try again.</p>
+
+<p class="processed_checkout_right_title">Email Verification Code :</p>
+<p class="processed_checkout_right_text">
+<input type="text">
+
+
+
+<img src="/application/public/img/verifycode.jpg" alt=""><a href="#">
+<img src="/application/public/img/check_out_account_refresh.gif" alt=""></a></p>
+
+<p><input class="registration_button" type="submit" value="" ></p>
+<!--
+Чёта похоже я с кнопкой намутил :)
+
+-->
+
 </form>
-    <script>
-    	$('.country').click(function(){
-    		id = $(this).val();
-    		 $.ajax({
-			   type: "POST",
-			   url: "/country/getstate/id/" + id,
-			   success: function(msg){
-			     $('#state').html(msg);
-			   }
-			 });
-    	});
-    </script>
-<?=$this->message?>
+</div>
+
+
+
+<div id="form_sign_in">
+<p class="bold">Already have an account?</p>
+<p><a href="/user/login/"><img src="/application/public/img/sign_in_button.gif" alt=""></a></p>
+<p><a class="bold" href="#">Forgot your password? </a> | <a class="bold" href="#"> Help</a></p>
+</div>
+</div>
+

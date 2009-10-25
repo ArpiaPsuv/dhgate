@@ -7,3 +7,35 @@
 <?=$this->message?>
 <?php endif;?>
 <?=$this->message?>
+
+
+
+<div id="product_path">
+			<a href="#">Home</a> > <span>Sign in</span>
+		</div>
+			<div id="main_container">
+				<div class="sign_in_account">
+					<div class="sign_in_form">
+						<div class="sign_in_head">
+							<h2>Sign into your account</h2>
+						</div>
+						
+						<form action="/user/login/" method="post">
+						<p>E-mail Address :<input class="input_sign_in" type="text" name="mail"></p>
+						<p>Password :<input class="input_sign_in" type="password" name="pass"></p>
+						<p><input class="check_sign_in" type="checkbox" name = "remember" value=1>Remember my E-mail address for this computer.</p>
+						<p><input class="sign_in_button" type="submit" value=""></p>
+						</form>
+						
+				
+						<p><a hre="#">Forgot your password?</a></p>
+						
+					</div>
+					<div class="new_to_dhgate">
+						<div class="sign_in_head_ntd">
+							<h2>New to DHgate.com</h2>
+						</div>
+						<p>If you want to sign in, you'll need to register first. Registration is fast and free!</p>
+						<p><a href="/user/register/"><img src="/application/public/img/Join.gif" alt=""></a></p>
+					</div>
+				</div>
