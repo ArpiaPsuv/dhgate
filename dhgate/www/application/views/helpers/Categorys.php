@@ -10,7 +10,7 @@ class Zend_View_Helper_Categorys {
 			for($i=0;$i<count($categorys);$i++){
 				if($categorys[$i]->parent == 0){
 					$html.='<li class="title_left_menu">
-							 <a href="/catalog/category/id/' . $categorys[$i]->id . '/">' . $categorys[$i]->title . '<img class="arrows" src="//application/public/img/arrows-ffffff.gif"></a>
+							 <a href="/catalog/category/id/' . $categorys[$i]->id . '/">' . $categorys[$i]->title . '<img class="arrows" src="/application/public/img/arrows-ffffff.gif"></a>
 								<ul class="right_fall_list">
 									';
 								for($j=0;$j<count($categorys);$j++){

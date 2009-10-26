@@ -131,6 +131,15 @@
 						<p>This category is currently empty</p>
 						<?php if($_SESSION['admin']):?>
 						<p>You can <a href="/product/add/category/<?=$this->currentCategory->id?>">add product</a></p>
+						
+					
+						
+						<form action="<?=$this->form->getAction()?>" method="<?=$this->form->getMethod()?>">
+						<?=$this->form->getElement('name')?>
+						<input type="hidden" name="parent_id" value="<?=$this->currentCategory->id?>">
+						<?=$this->form->getElement('submit')?>
+						</form>
+						
 						<?php endif;?>
 					<?php endif;?>
 					<!-- Конец блока с товаром -->

@@ -14,6 +14,32 @@ class UserController extends MainController
 		$id = (int) $this->_getParam('id',0);
 		$user = new User();
 		$this->view->user = $user->find($id)->current();
+
+	}
+
+	public function recoverAction()
+	{
+		//
+		$form = new App_Form_Recover();
+		$this->view->form= $form;
+		if ($this->getRequest()->isPost()){
+			if ($form->isValid($this->getRequest()->getPost())){
+				$user = new User();
+				if ($newPass = $user->passRecover($_POST['mail'])){
+					$mail = new Zend_Mail();
+					$mail->setBodyText($newPass)
+					->setFrom('somebody@example.com', 'Some Sender')
+					->addTo($_POST['mail'], 'Some Recipient')
+					->setSubject('Password Recover')
+					->send();
+					$this->_redirect('/user/login/');
+				}else{
+					$this->view->message = 'This mail is not registered!!!';
+				}
+			}
+		}
+		////сделать форму восстановления пароля
+
 	}
 
 	public function userAction()
@@ -28,131 +54,49 @@ class UserController extends MainController
 	public function registerAction()
 	{
 
-			
-
-		$country = new Country();
-		$this->view->countrys = $country->fetchAll();
-			
-		$checkout = $this->_getParam('checkout',0);
-		if($this->_request->isPost()){
-			$userTable = new User();
-			if(trim($_POST['pass']) == trim($_POST['repass'])){
-				if($_POST['login'] != ''
-				&& $_POST['pass'] != ''
-				&& $_POST['mail'] != ''
-				/*  && $_POST['firstname'] != ''
-				 && $_POST['adress'] != ''
-				 && $_POST['city'] != ''
-				 && $_POST['zip'] != ''
-				 && $_POST['country'] != ''
-				 && $_POST['phone'] != ''
-				 */                ){
-				if($userTable->checkMail($_POST['mail']))
-				{
-					if($userTable->checkLogin($_POST['login']))
-					{
-						unset($_POST['repass']);
-						$_POST['pass'] = md5($_POST['pass']);
-						$row = $userTable->createRow();
-						foreach($_POST as $key => $value ){
-							if(isset($row->$key))
-							{
-								$row->$key = $value;
-							}
-						}
-						$row->save();
-						$this->_login($_POST['mail'], $_POST['pass']);
-						$cart = new Cart();
-						$cart->savecookie();
-						$this->_redirect('/');
-						/*
-						if($checkout){
-							$this->_redirect('/order/step1/');
-						} else {
-							$this->_redirect('/');
-						}*/
-
+		$form= new App_Form_Register();
+		$this->view->form= $form;
+		if ($this->getRequest()->isPost()){
+			if ($form->isValid($this->getRequest()->getPost())){
+				$userTable = new User();
+				$_POST['pass'] = md5($_POST['pass']);
+				$row = $userTable->createRow();
+				foreach($_POST as $key => $value ){
+					if(isset($row->$key)){
+						$row->$key = $value;
 					}
-					else
-					{
-						$this->view->message = 'login you chose is already registered';
-					}
-						
 				}
-				else
-				{
-					$this->view->message = 'mail you chose is already registered';
-				}
-				 } else {
-				 	$this->view->message = 'Empty fields';
-				 }
-			} else {
-				$this->view->message = 'Passwords do not match';
+				$row->save();
+				$this->_login($_POST['mail'], $_POST['pass']);
+				$cart = new Cart();
+				$cart->savecookie();
+				$this->_redirect('/');
 			}
 		}
 	}
 
 	public function loginAction()
 	{
-
-
+		$form= new App_Form_Login();
+		$this->view->form=$form;
 
 		if($this->_request->isPost())
 		{
-			if ($_POST['pass'] != ''
-			&& $_POST['mail'] != '')
-			{
-				if(!$this->_login($_POST['mail'], $_POST['pass']))
-				{
-
-					if (isset($_POST['remember']))
-					{
-						if((bool)$_POST['remember'])
-						{
+			if ($form->isValid($this->getRequest()->getPost())){
+				if($this->_login($_POST['mail'], $_POST['pass'])){
+						
+					if (isset($_POST['remember'])){
+						if((bool)$_POST['remember']){
 							Zend_Session::rememberMe(10000*10000);
 						}
 					}
-					$this->view->message = $message = 'failed';
-
-
-				}
-				else
-				{
-					$message = '';
 					$cart = new Cart();
 					$cart->savecookie();
 					$this->_redirect('/');
+				}else{
+					$this->view->message = 'Failed';
 				}
 			}
-			else
-			{
-				$this->view->message = $message = 'failed';
-			}
-			/*			$params =$this->_getAllParams();
-			 if($this->getRequest()->isXmlHttpRequest()){
-				$this->view->show = false;
-				$this->view->message = $message;
-				}
-				else
-				{
-				$this->view->message = $message;
-				if($this->_getParam('checkout',0))
-				{
-				$this->_redirect('/order/step1/');
-				}
-				else
-				{
-				if($params['action'] == 'login')
-				{
-				$this->_redirect('/');
-				}
-				else
-				{
-				$this->_redirect($_SERVER['HTTP_REFERER']);
-				}
-				}
-				}*/
-
 		}
 	}
 

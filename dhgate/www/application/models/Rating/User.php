@@ -1,5 +1,5 @@
 <?php
-class Rating_User extends Rating 
+class Rating_User extends Rating
 {
-    protected $_name = 'user_rating';
+	protected $_name = 'user_rating';
 }

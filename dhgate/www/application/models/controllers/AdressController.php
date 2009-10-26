@@ -10,54 +10,54 @@ class AdressController extends Zend_Controller_Action {
 	public function addAction()
 	{
 		$country = new Country();
-    	$this->view->countrys = $country->fetchAll();
-    	if($this->_request->isPost()){
-    		$adress = new Adress();
-    		if($_POST['nickname'] !='' 
-    		&& $_POST['firstname'] != '' 
-    		&& $_POST['adress'] != ''
-    		&& $_POST['city'] != '' 
-    		&& $_POST['zip'] != ''  
-    		&& $_POST['country'] != ''
-    		&& $_POST['state'] != '' 
-    		&& $_POST['phone'] != '')
-    		{
-    			$adress->add(Zend_Auth::getInstance()->getIdentity()->id, $_POST);
-    			$this->_redirect('/order/step1/');
-    		} else {
-    			$this->view->message = 'Error : Empty fields';
-    		}
-    	}
+		$this->view->countrys = $country->fetchAll();
+		if($this->_request->isPost()){
+			$adress = new Adress();
+			if($_POST['nickname'] !=''
+			&& $_POST['firstname'] != ''
+			&& $_POST['adress'] != ''
+			&& $_POST['city'] != ''
+			&& $_POST['zip'] != ''
+			&& $_POST['country'] != ''
+			&& $_POST['state'] != ''
+			&& $_POST['phone'] != '')
+			{
+				$adress->add(Zend_Auth::getInstance()->getIdentity()->id, $_POST);
+				$this->_redirect('/order/step1/');
+			} else {
+				$this->view->message = 'Error : Empty fields';
+			}
+		}
 	}
-	
+
 	public function editAction()
 	{
 		$id = (int) $this->_getParam('id',0);
 		$adress = new Adress();
 		$adressRow = $this->view->adress = $adress->find($id)->current();
 		$country = new Country();
-    	$this->view->countrys = $country->fetchAll();
-    	$state = new State();
-    	$this->view->states = $state->fetchAll('country_id=' . $adressRow->country);
-    	if($this->_request->isPost()){
-    	
-    		if($_POST['nickname'] !='' 
-    		&& $_POST['firstname'] != '' 
-    		&& $_POST['adress'] != ''
-    		&& $_POST['city'] != '' 
-    		&& $_POST['zip'] != ''  
-    		&& $_POST['country'] != ''
-    		&& $_POST['state'] != '' 
-    		&& $_POST['phone'] != '')
-    		{
-    			$adress->add(Zend_Auth::getInstance()->getIdentity()->id, $_POST, $id);
-    			$this->_redirect('/order/step1/');
-    		} else {
-    			$this->view->message = 'Error : Empty fields';
-    		}
-    	}
+		$this->view->countrys = $country->fetchAll();
+		$state = new State();
+		$this->view->states = $state->fetchAll('country_id=' . $adressRow->country);
+		if($this->_request->isPost()){
+			 
+			if($_POST['nickname'] !=''
+			&& $_POST['firstname'] != ''
+			&& $_POST['adress'] != ''
+			&& $_POST['city'] != ''
+			&& $_POST['zip'] != ''
+			&& $_POST['country'] != ''
+			&& $_POST['state'] != ''
+			&& $_POST['phone'] != '')
+			{
+				$adress->add(Zend_Auth::getInstance()->getIdentity()->id, $_POST, $id);
+				$this->_redirect('/order/step1/');
+			} else {
+				$this->view->message = 'Error : Empty fields';
+			}
+		}
 	}
-	
+
 	public function deleteAction()
 	{
 		$id = (int) $this->_getParam('id',0);
@@ -65,7 +65,7 @@ class AdressController extends Zend_Controller_Action {
 		$adress->delete('id=' . $id);
 		$this->_redirect($_SERVER['HTTP_REFERER']);
 	}
-	
+
 	public function setAction()
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();

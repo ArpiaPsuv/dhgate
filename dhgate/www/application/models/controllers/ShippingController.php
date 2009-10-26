@@ -1,6 +1,6 @@
 <?php
 class ShippingController extends Zend_Controller_Action {
-	
+
 
 	public function indexAction() {
 		$shipping = new Shipping();
@@ -16,7 +16,7 @@ class ShippingController extends Zend_Controller_Action {
 			$this->_redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
-	
+
 	public function editAction()
 	{
 		$id = (int) $this->_getParam('id',0);
@@ -30,7 +30,7 @@ class ShippingController extends Zend_Controller_Action {
 			$this->_redirect('/shipping/');
 		}
 	}
-	
+
 	public function deleteAction()
 	{
 		$id = (int) $this->_getParam('id',0);
@@ -38,7 +38,7 @@ class ShippingController extends Zend_Controller_Action {
 		$shipping->delete('id = ' . $id);
 		$this->_redirect($_SERVER['HTTP_REFERER']);
 	}
-	
+
 	public function setAction()
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();
