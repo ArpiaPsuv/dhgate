@@ -40,8 +40,8 @@ class App_Form_Register extends App_Form {
 		$login->addValidator('NoDbRecordExists', true, array('user', 'login'));
 		$this->addElement($login);
 			
-		$submit = new Zend_Form_Element_Submit('submit', array(
-        'label' => 'Create My Account',
+		$submit = new Zend_Form_Element_Image('submit', array(
+        	'src'=>'/application/public/img/create_my_account.gif'
 		));
 
 		$this->addElement($submit);
