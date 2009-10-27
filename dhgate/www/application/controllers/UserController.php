@@ -42,7 +42,7 @@ class UserController extends MainController
                                 }
                         }
                 }
-                ////сделать форму восстановления пароля
+          
 
 
         }
@@ -65,10 +65,10 @@ class UserController extends MainController
                 $form= new App_Form_Register();
                 $this->view->form = $form;
                 if ($this->getRequest()->isPost()){
-                	echo "<h1>qwerqwer</h1>";
-                        if ($form->isValid($this->getRequest()->getPost())){
-                        		
+                	if ($form->isValid($this->getRequest()->getPost())){
+                    	
                                 $userTable = new User();
+                                $passTmp = $_POST['pass'];
                                 $_POST['pass'] = md5($_POST['pass']);
                                 $row = $userTable->createRow();
                                 foreach($_POST as $key => $value ){
@@ -77,10 +77,12 @@ class UserController extends MainController
                                         }
                                 }
                                 $row->save();
-                                $this->_login($_POST['mail'], $_POST['pass']);
+                                if($this->_login($_POST['mail'], $passTmp)){
+                                	$this->_redirect('/');
+                                }
                                 $cart = new Cart();
                                 $cart->savecookie();
-                                $this->_redirect('/');
+                                
                         }
                 }
         }
@@ -88,10 +90,11 @@ class UserController extends MainController
 
         public function loginAction()
         {
-                $form= new App_Form_Login();
+				if($this->auth->hasIdentity()){
+					$this->_redirect('/');
+				}
+        		$form= new App_Form_Login();
                 $this->view->form=$form;
-
-
                 if($this->_request->isPost())
                 {
                         if ($form->isValid($this->getRequest()->getPost())){
@@ -128,6 +131,7 @@ class UserController extends MainController
                 $authAdapter->setCredential(md5($pass));
                 //}
                 $auth = Zend_Auth::getInstance();
+                $auth->clearIdentity();
                 $result = $auth->authenticate($authAdapter);
                 if($result->isValid()){
                         $data = $authAdapter->getResultRowObject(null, 'pass');

@@ -37,13 +37,14 @@ class CatalogController extends MainController
 	public function addAction()
 	{
 		if(!$_SESSION['admin']){
-			//$this->_redirect('/');
+			$this->_redirect('/');
 		}
 		if($this->_request->isPost()){
 			if (!$_POST['title']==''){
 				$catalogTable = new Catalog();
 				$row = $catalogTable->createChildRow((int)$this->_getParam('parent_id', 0), $_POST);
 				$row->save();
+				
 			}
 			$this->_redirect($_SERVER['HTTP_REFERER']);
 		}

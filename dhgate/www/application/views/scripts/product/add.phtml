@@ -1,4 +1,8 @@
-     <form class="profuct_add_form" action="/product/add/category/<?=$this->category?>" method="post">
+
+
+
+
+<!--     <form class="profuct_add_form" action="/product/add/category/<?//=$this->category?>" method="post">
           <p>Title:</p>
           <p><input type="text" name="title"></p>
 		  <div class="clear"></div>
@@ -18,4 +22,9 @@
           <p><textarea rows="5" cols="20" name="specifications"></textarea></p>
 		  <div class="clear"></div>
           <p><input type="submit" value="Add Product"></p>
-     </form> 
+     </form>  
+     -->
+     
+     <p>Текущая категория : <a href="/catalog/category/id/<?=$this->currentCategory->id?>"><?=$this->currentCategory->title ?></a></p>
+     <?=$this->form?>
+  

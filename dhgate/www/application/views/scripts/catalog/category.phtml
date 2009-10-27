@@ -110,7 +110,7 @@
                                    <img src="/application/public/img/product.gif" alt="">
                               </div>
                               <div class="product_list_unit_about">
-                                   <a href="#"><?=$product['title']?> </a>
+                                   <a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?> </a>
                                    <p><?=$product['short_about']?></p>
                                    <span></span>
                                    <p>Effective Until 2009-09-28</p>
@@ -130,17 +130,29 @@
 					<?php else:?>
 						<p>This category is currently empty</p>
 						<?php if($_SESSION['admin']):?>
-						<p>You can <a href="/product/add/category/<?=$this->currentCategory->id?>">add product</a></p>
+						<!-- <p>You can <a href="/product/add/category/<?=$this->currentCategory->id?>">add product</a></p>
 						
+						
+						<form action="<?//=$this->form->getAction()?>" method="<?//=$this->form->getMethod()?>">
+						<?//=$this->form->getElement('name')?>
+						<input type="hidden" name="parent_id" value="<?//=$this->currentCategory->id?>">
+						<?//=$this->form->getElement('submit')?>
+						</form>
+						
+						-->
+						<?php endif;?>
+					<?php endif;?>
 					
+					<?php if($_SESSION['admin']):?>
+						<p><a href="/product/add/category/<?=$this->currentCategory->id?>">add product</a></p>
+						
 						
 						<form action="<?=$this->form->getAction()?>" method="<?=$this->form->getMethod()?>">
+						
 						<?=$this->form->getElement('name')?>
 						<input type="hidden" name="parent_id" value="<?=$this->currentCategory->id?>">
 						<?=$this->form->getElement('submit')?>
 						</form>
-						
-						<?php endif;?>
 					<?php endif;?>
 					<!-- Конец блока с товаром -->
 					<!--<div class="product_list_unit">

@@ -1,3 +1,5 @@
+
+
 				<div id="item_description">
 				<img class="up_border" src="/application/public/img/Item_border_up.gif" alt="">
 				<div id="item_description_contain">
@@ -13,7 +15,7 @@
 					        	Unit Price:
 					        </td>
 					        <td class="right_td">
-					        	<span class="red_price bold">USD <?=$this->product->price?> / Piece</span>  
+					        	<span class="red_price bold">USD <?=$this->product->price?> / Price</span>  
 					        </td>
 					    </tr>
 					    <tr>
@@ -112,7 +114,7 @@
 					<img class="description_border_up" src="/application/public/img/desc_up.gif">
 					<div id="cover_description_table">
 						<!--Табличка с полным описанием товара, по задумке хавается из базы -->
-						<?=$this->product->specifications?>
+						<?=$this->product->about?>
 						<!--<table id="description_table">
 							
 							<tr>

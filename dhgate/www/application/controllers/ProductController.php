@@ -21,7 +21,15 @@ class ProductController extends MainController
 
 	public function addAction()
 	{
+		
+		
 		$category = $this->view->category = $this->_getParam('category',0);
+		$catalogTable = new Catalog();
+		$currentCategory = $this->view->currentCategory  = $catalogTable->getCurrent($category);
+		$form= new App_Form_AddProduct();
+		$form->setAction('/product/add/category/'.$category);
+		$this->view->form = $form;
+		
 		if($this->_request->isPost()){
 			$productTable = new Product();
 			$productTable->add($_POST, $category);

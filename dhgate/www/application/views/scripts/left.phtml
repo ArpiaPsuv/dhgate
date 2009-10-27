@@ -45,14 +45,13 @@
 							</ul>
 						</li>
 					--></ul>
+					<?php if($_SESSION['admin']):?>
 					<form class="admin_form_add_category" method="post" action="/catalog/add/parent_id/<?=$this->current_category_id?>">
-						<p>
-							<input type="text" name="title"/>
-						</p>
-						<p>
-							<input type="submit" value="add"/>
-						</p>
+						<p><input type="text" name="title"/></p>
+						<p><input type="submit" value="add"/></p>
 					</form>
+					<?php endif;?>
+					
 					<img class="left_banner" src="/application/public/img/left_ban.gif" alt="">
 						<div class="head_left_block">Wholesale Searches</div>
 						<div class="left_block_contain"></div>

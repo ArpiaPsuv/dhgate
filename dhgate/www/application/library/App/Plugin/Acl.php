@@ -13,6 +13,6 @@ class App_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 		} else {
 			$_SESSION['admin'] = false;
 		}
-		$_SESSION['admin'] = true;
+		//$_SESSION['admin'] = true;
 	}
 }
