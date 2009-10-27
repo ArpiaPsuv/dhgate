@@ -8,9 +8,8 @@ class App_Form_Register extends App_Form {
 		$this->setMethod('POST');
 
 		$mail = new Zend_Form_Element_Text('mail', array(
-		'required'=> true,
-		'maxlength' => '80',
-		'validators'=> array('EmailAddress', 'NotEmpty')
+			'required'=> true,
+			'validators'=> array('EmailAddress', 'NotEmpty')
 		));
 		$mail->addValidator('NoDbRecordExists', true, array('user', 'mail'));
 		$this->addElement($mail);
@@ -48,10 +47,10 @@ class App_Form_Register extends App_Form {
 		$this->addElement($submit);
 
 
-		/* foreach($this->getElements() as $element){
-		 $element->clearDecorators()
-		 ->addDecorator("ViewHelper")
-		 ->addDecorator("Errors");
-		 }*/
+		 foreach($this->getElements() as $element){
+			 $element->clearDecorators()
+				 ->addDecorator("ViewHelper")
+				 ->addDecorator("Errors");
+		 }
 	}
 }
