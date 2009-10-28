@@ -27,7 +27,7 @@ class User extends Zend_Db_Table_Abstract
 		$select =$this->select();
 		$select->where('mail = ?',$mail)->limit(1);
 		if ($row = $this->fetchRow($select)){
-			$newPass= $this->passRandom(7);
+			$newPass= $this->passRandom(10);
 			$row->pass=md5($newPass);
 			$row->save();
 			return $newPass;
@@ -39,7 +39,7 @@ class User extends Zend_Db_Table_Abstract
 	{
 		$data='QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890';
 		$password='';
-		for ($i = 0; $i < $length; $i++) {
+		for ($i = 0; $i <= $length; $i++) {
 			$password .=$data[rand(1,strlen($data))];
 		}
 		return $password;
