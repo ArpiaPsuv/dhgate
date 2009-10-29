@@ -6,17 +6,51 @@ class UserController extends MainController
          */
         public function indexAction ()
         {
-
-
+			//$this->_redirect($_SERVER['HTTP_REFERER']);
+			$this->_redirect('/user/profile/');
         }
 
 
         public function profileAction()
         {
-                $id = (int) $this->_getParam('id',0);
-                $user = new User();
-                $this->view->user = $user->find($id)->current();
+               //$id = (int) $this->_getParam('id',0);
+               // $form= new App_Form_User();
+                
+              /* if ($this->getRequest()->isPost()){
+                if ($form->isValid($this->getRequest()->getPost()))
+                {        
+                ///Сохраняем и выводим заполненную форму
+                }*/
+/*                if (Zend_Auth::getInstance()->hasIdentity()){
+                	
+                	$id = Zend_Auth::getInstance()->getIdentity()->id;
+                	$user = new User();
+               		//$this->view->user = 
+               		$userData = $user->find($id)->current()->toArray();
+               			$this->view->form = $form->populate($userData);
+                }else{
+                	$this->_redirect($_SERVER['HTTP_REFERER']);
+                }*/
+               
+              /*  if ($id >){
+ 				$user = new User();
+                $this->view->user = $userData = $user->find($id)->current();//->toArray();
+                
+                $form->populate($userData);
+                $this->view->form=$form;
+                }else{
+                $this->view->id=$id;
+                	//$this->_redirect($_SERVER['HTTP_REFERER']);	
+                }*/
 
+        	      if (!Zend_Auth::getInstance()->hasIdentity()){
+                          	$this->_redirect('/');
+              		  }else{
+              		  	$user = new User();
+              		  	$id=Zend_Auth::getInstance()->getIdentity()->id;
+              		  	$this->view->user = $user->find($id)->current();
+              		  }
+              		
 
         }
 
@@ -48,14 +82,14 @@ class UserController extends MainController
         }
 
 
-        public function userAction()
+       /* public function userAction()
         {
                 if($this->_request->isPost())
                 {
                         $this->_login($_POST['login'], $_POST['pass'], true);
                         $this->_redirect($_SERVER['HTTP_REFERER']);
                 }
-        }
+        }*/
 
 
         public function registerAction()
@@ -122,14 +156,9 @@ class UserController extends MainController
                 $authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);
                 $authAdapter->setTableName('user');
                 $authAdapter->setIdentityColumn('mail');
-                //$authAdapter->setIdentityColumn('login');
                 $authAdapter->setCredentialColumn('pass');
                 $authAdapter->setIdentity($login);
-                //if($hash){
-                //      $authAdapter->setCredential($pass);
-                //} else {
                 $authAdapter->setCredential(md5($pass));
-                //}
                 $auth = Zend_Auth::getInstance();
                 $auth->clearIdentity();
                 $result = $auth->authenticate($authAdapter);
@@ -147,27 +176,55 @@ class UserController extends MainController
 
         public function editAction()
         {
-                $id = (int) $this->_getParam('id',0);
-                $userTable = new User();
-                $user = $this->view->user = $userTable->find($id)->current();
-                $country = new Country();
-                $this->view->countrys = $country->fetchAll();
-                $state = new State();
-                $this->view->states = $state->fetchAll('country_id=' . $user->country);
-                if($this->_request->isPost())
-                {
-                        if(
-                        $_POST['firstname'] != ''
-                        && $_POST['adress'] != ''
-                        && $_POST['city'] != ''
-                        && $_POST['zip'] != ''
-                        && $_POST['country'] != ''
-                        && $_POST['phone'] != ''
-                        ){
-                                $userTable->update($_POST, 'id = ' . $id);
-                                $this->_redirect($_SERVER['HTTP_REFERER']);
+             if (Zend_Auth::getInstance()->hasIdentity()){
+				$form = new App_Form_User();
+				$id = Zend_Auth::getInstance()->getIdentity()->id;
+				if($this->_request->isPost()){
+					
+					if (Zend_Auth::getInstance()->getIdentity()->mail != $_POST['mail']){
+						$form->getElement('mail')->addValidator('NoDbRecordExists', true, array('user', 'mail'));
+					}
+					if (Zend_Auth::getInstance()->getIdentity()->login != $_POST['login']){
+						$form->getElement('login')->addValidator('NoDbRecordExists', true, array('user', 'login'));
+					}
+												
+					if($form->isValid($this->getRequest()->getPost())){
+					
+						$User = new User();
+               			$currentUser=$User->find($id)->current();
+						$passMD5 = $currentUser->pass;
+               			
+                        if($_POST['pass']!= ''){
+                        	$_POST['pass']=md5($_POST['pass']);
+                        }else{
+                        	$_POST['pass']= $passMD5;
                         }
+                       
+						foreach($_POST as $key => $value ){
+							if(isset($currentUser->$key)){
+								$currentUser->$key = $value;
+							}
+                        }
+                       $currentUser->save();
+                       $this->view->form = $form;
+					}else{
+						$this->view->form = $form;
+					}
+					
+				}else{
+					
+                	$user = new User();
+               		$userData = $user->find($id)->current()->toArray();
+               		$this->view->form = $form->populate($userData);	
+				}
+				
+				
+				
+				
+                }else{
+                	$this->_redirect($_SERVER['HTTP_REFERER']);
                 }
+                
         }
 
 

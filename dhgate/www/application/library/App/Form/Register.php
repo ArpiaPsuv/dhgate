@@ -28,8 +28,8 @@ class App_Form_Register extends App_Form {
 		));
 		$this->addElement($passApprove);
 			
-		$login = new Zend_Form_Element_Text(
-		'login', array(
+		$login = new Zend_Form_Element_Text('login', 
+		array(
 		'required' => true,
 		'maxlength' => '30',
 		'validators' => array(

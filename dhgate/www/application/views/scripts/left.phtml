@@ -2,54 +2,9 @@
 					<div class="title_left_menu_gray">Categories</div>
 					<ul>
 					<?=$this->categorys()?>
-					<!--
-						<li class="title_left_menu">
-						 <a href="#">Name Category <img class="arrows" src="/application/public/img/arrows-ffffff.gif"></a>
-							<ul class="right_fall_list">
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-							</ul>
-						</li>
-						<li class="title_left_menu"><a href="#">Name Category</a>
-							<ul class="right_fall_list">
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-							</ul>
-						</li>
-						<li class="title_left_menu"><a href="#">Name Category</a>
-							<ul class="right_fall_list">
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-							</ul>
-						</li>
-						<li class="title_left_menu"><a href="#">Name Category</a>
-							<ul class="right_fall_list">
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-							</ul>
-						</li>
-						<li class="title_left_menu"><a href="#">Name Category</a>
-							<ul class="right_fall_list">
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-								<li class="items_title"><a href="#">Item</a></li>
-							</ul>
-						</li>
-					--></ul>
+					</ul>
 					<?php if($_SESSION['admin']):?>
-					<form class="admin_form_add_category" method="post" action="/catalog/add/parent_id/<?=$this->current_category_id?>">
-						<p><input type="text" name="title"/></p>
-						<p><input type="submit" value="add"/></p>
-					</form>
+					<?php echo $this->formAddCategory()?>
 					<?php endif;?>
 					
 					<img class="left_banner" src="/application/public/img/left_ban.gif" alt="">

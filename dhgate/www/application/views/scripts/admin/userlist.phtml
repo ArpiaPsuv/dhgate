@@ -1,0 +1,31 @@
+<p><a href="/admin/">Admin Panel</a></p>
+
+<table border=1 cellspacing="0">
+  <tr>
+    <th>Nickname</th>
+    <th>E-Mail</th>
+    <th>Operations</th>
+    <th>is Admin</th>
+  </tr>
+  
+  
+ 	<?php foreach ($this->users as $user):?>
+	<tr>
+	<td align="center"><?=$user->login?></td>
+	<td align="center"><?=$user->mail?></td>
+	<td align="center"><a href="/admin/userdelete/id/<?= $user->id?>/">delete</a></td>
+	<td align="center"><a href="/admin/userrole/id/<?= $user->id?>/">
+	<?php
+	if($user->admin){
+		echo 'Is Admin';
+	}else{
+		echo 'Not Admin';
+	}
+	?>
+	</a></td>
+	 </tr>
+	<?php endforeach;?>
+    
+ 
+  
+</table>

@@ -1,6 +1,6 @@
 <?php 
 	$navigate = array(
-		array('href'=>'/catalog/view/', 'text'=>'catalog'),
+		array('href'=>'/catalog/view/', 'text'=>'Catalog'),
 	);
 	if($this->currentCategory){
 		if($this->parent){
@@ -8,6 +8,7 @@
 		}
 		array_push($navigate, array('href'=>'/catalog/category/id/'.$this->currentCategory->id, 'text'=>$this->currentCategory->title));
 	}
+	
 ?>
 
 <?=$this->navigate($navigate)?>
@@ -15,7 +16,28 @@
 				<div id="left_container">
 					
 					<div class="title_left_menu_gray">Refine your Search</div>
-					<div class="refine_your_search_title"><img src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
+					
+					<?php if($this->currentCategory->level == 0):?>
+					<div class="refine_your_search_title">
+					<img src="/application/public/img/strong_bg1.gif" alt="">Subcategories</div>
+					<div class="left_block_contain">
+						<div class="refine_your_search_ul">
+							<ul>
+							<?php foreach ($this->subCategories as $subCategory):?>
+								
+								<li><a href="/catalog/category/id/<?=$subCategory->id?>"><?=$subCategory->title?></a></li>
+								
+							<?php endforeach;?>	
+							</ul>
+						</div>
+					<?php if($_SESSION['admin']):?>
+						<?=$this->form;?>
+					<?php endif;?>	
+					</div>
+					
+					<?php endif;?>
+					<div class="refine_your_search_title">
+					<img src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
 					<div class="left_block_contain">
 						<div class="refine_your_search_ul">
 							<ul>
@@ -60,7 +82,7 @@
 					<ul>
 						<?=$this->categorys()?>
 						<?php if($_SESSION['admin']):?>
-						<a href="/product/add/category/<?=$this->currentCategory->id?>">add product</a>
+						<?php echo $this->formAddCategory()?>
 						<?php endif;?>
 					</ul>
 					</div>
@@ -71,7 +93,7 @@
 						<a href="#">Try the US/AU In-Stock Products here</a>
 						<span class="orange"> <?=$this->products->getCurrentItemCount()?> </span>
 						wholesale items found  in 
-						<span class="bold"> Category </span>
+						<span class="bold"> <?=$this->currentCategory->title?> </span>
 					</div>
 					<div id="view_bar">
 						<div id="view_bar_right">
@@ -119,7 +141,7 @@
                                    <p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
                               </div>
                               <div class="product_list_unit_price">
-                                   <p>temcode: 62568873</p>
+                                  
                                    <span>$ <?=$product['price']?> / Piece</span>
                                    <a href="#"></a>
                               </div>
@@ -129,163 +151,32 @@
 					<?php endforeach;?>
 					<?php else:?>
 						<p>This category is currently empty</p>
-						<?php if($_SESSION['admin']):?>
-						<!-- <p>You can <a href="/product/add/category/<?=$this->currentCategory->id?>">add product</a></p>
 						
-						
-						<form action="<?//=$this->form->getAction()?>" method="<?//=$this->form->getMethod()?>">
-						<?//=$this->form->getElement('name')?>
-						<input type="hidden" name="parent_id" value="<?//=$this->currentCategory->id?>">
-						<?//=$this->form->getElement('submit')?>
-						</form>
-						
-						-->
-						<?php endif;?>
 					<?php endif;?>
 					
 					<?php if($_SESSION['admin']):?>
 						<p><a href="/product/add/category/<?=$this->currentCategory->id?>">add product</a></p>
 						
-						
-						<form action="<?=$this->form->getAction()?>" method="<?=$this->form->getMethod()?>">
-						
-						<?=$this->form->getElement('name')?>
-						<input type="hidden" name="parent_id" value="<?=$this->currentCategory->id?>">
-						<?=$this->form->getElement('submit')?>
-						</form>
-					<?php endif;?>
-					<!-- Конец блока с товаром -->
-					<!--<div class="product_list_unit">
-						<div class="product_list_unit_image">
-							<img src="/application/public/img/product.gif" alt="">
-						</div>
-						<div class="product_list_unit_about">
-							<a href="#">Sony Laptop 10.2 inch 1.6GHz CPU 160GB + Windows XP </a>
-							<p>Sony Laptop 10. 2 inch 1. 6GHz CPU 160GB + Windows XP + office 2007 + photoshop CS2</p>
-							<span></span>
-							<p>Effective Until 2009-09-28</p>
-							<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
-							<img src="/application/public/img/home.gif" alt="">
-							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
-						</div>
-						<div class="product_list_unit_price">
-							<p>temcode: 62568873</p>
-							<span>$ 299.12~345.63 / Piece</span>
-							<a href="#"></a>
-						</div>
-					</div>
-					<div class="clear"></div>
-					 Конец блока с товаром 
-					<div class="product_list_unit">
-						<div class="product_list_unit_image">
-							<img src="/application/public/img/product.gif" alt="">
-						</div>
-						<div class="product_list_unit_about">
-							<a href="#">Sony Laptop 10.2 inch 1.6GHz CPU 160GB + Windows XP </a>
-							<p>Sony Laptop 10. 2 inch 1. 6GHz CPU 160GB + Windows XP + office 2007 + photoshop CS2</p>
-							<span></span>
-							<p>Effective Until 2009-09-28</p>
-							<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
-							<img src="/application/public/img/home.gif" alt="">
-							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
-						</div>
-						<div class="product_list_unit_price">
-							<p>temcode: 62568873</p>
-							<span>$ 299.12~345.63 / Piece</span>
-							<a href="#"></a>
-						</div>
-					</div>
-					<div class="clear"></div>
-					 Конец блока с товаром 
-					<div class="product_list_unit">
-						<div class="product_list_unit_image">
-							<img src="/application/public/img/product.gif" alt="">
-						</div>
-						<div class="product_list_unit_about">
-							<a href="#">Sony Laptop 10.2 inch 1.6GHz CPU 160GB + Windows XP </a>
-							<p>Sony Laptop 10. 2 inch 1. 6GHz CPU 160GB + Windows XP + office 2007 + photoshop CS2</p>
-							<span></span>
-							<p>Effective Until 2009-09-28</p>
-							<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
-							<img src="/application/public/img/home.gif" alt="">
-							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
-						</div>
-						<div class="product_list_unit_price">
-							<p>temcode: 62568873</p>
-							<span>$ 299.12~345.63 / Piece</span>
-							<a href="#"></a>
-						</div>
-					</div>
-					<div class="clear"></div>
-					 Конец блока с товаром 
-					<div class="product_list_unit">
-						<div class="product_list_unit_image">
-							<img src="/application/public/img/product.gif" alt="">
-						</div>
-						<div class="product_list_unit_about">
-							<a href="#">Sony Laptop 10.2 inch 1.6GHz CPU 160GB + Windows XP </a>
-							<p>Sony Laptop 10. 2 inch 1. 6GHz CPU 160GB + Windows XP + office 2007 + photoshop CS2</p>
-							<span></span>
-							<p>Effective Until 2009-09-28</p>
-							<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
-							<img src="/application/public/img/home.gif" alt="">
-							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
-						</div>
-						<div class="product_list_unit_price">
-							<p>temcode: 62568873</p>
-							<span>$ 299.12~345.63 / Piece</span>
-							<a href="#"></a>
-						</div>
-					</div>
-					<div class="clear"></div>
-					 Конец блока с товаром 
-					<div class="product_list_unit">
-						<div class="product_list_unit_image">
-							<img src="/application/public/img/product.gif" alt="">
-						</div>
-						<div class="product_list_unit_about">
-							<a href="#">Sony Laptop 10.2 inch 1.6GHz CPU 160GB + Windows XP </a>
-							<p>Sony Laptop 10. 2 inch 1. 6GHz CPU 160GB + Windows XP + office 2007 + photoshop CS2</p>
-							<span></span>
-							<p>Effective Until 2009-09-28</p>
-							<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
-							<img src="/application/public/img/home.gif" alt="">
-							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
-						</div>
-						<div class="product_list_unit_price">
-							<p>temcode: 62568873</p>
-							<span>$ 299.12~345.63 / Piece</span>
-							<a href="#"></a>
-						</div>
-					</div>
-					<div class="clear"></div>
-					-->
-					<div id="Items_per_page">
 					
+					<?php endif;?>
+					
+					<div id="Items_per_page">
+					<!-- Исправил ошибку с выбором кол-ва товара на странице-->
 						Items per page: 
-						<?php if($this->count == 20):?>
+						<?php if($this->count != 20):?>
 							<a href="#" class='count'>20</a>
 						<?php else :?>
 							<span>20</span>
 						<?php endif?>
 						|
-						<?php if($this->count == 40):?>
+						<?php if($this->count != 40):?>
 							<a href="#" class='count'>40</a>
 						<?php else :?>
 							<span>40</span>
 						<?php endif?>
 					</div>
-					<div class="paginator"><!--
-						<span> Page 1 - 118 </span> of <span> 2343 </span>
-						<span class="paginator_active_page">1</span>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#">4</a>
-						<a href="#">5</a>
-						<a href="#">6</a>
-						<a href="#">7</a>
-						<a href="#">Next >></a>
-					-->
+					<div class="paginator">
+					
 					  <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
 					</div>
 			<script>

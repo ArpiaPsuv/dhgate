@@ -5,24 +5,29 @@ class CatalogController extends MainController
 	{
 		$catalogTalbe = new Catalog();
 		$this->view->categorys = $catalogTalbe->fetchAll();
+	
 
 	}
 
 	public function categoryAction()
 	{
-		$form= new App_Form_AddCategory();
-		$form->setAction('/catalog/add/');
-		$form->getElement('name')->setName('title');
-		$this->view->form=$form;
 		$id = (int)$this->_getParam('id',0);
+		$form= new App_Form_AddCategory();
+		$form->getElement('parent_id')->setValue($id);
+		$this->view->form=$form;
+		
 		if($id < 1){
 			$this->_redirect('/');
 		}
 		$this->view->image = (int) $this->_getParam('image',0);
 		$catalogTable = new Catalog();
 		$currentCategory = $this->view->currentCategory  = $catalogTable->getCurrent($id);
+		$this->view->subCategories = $catalogTable->getLevel($id);
 		$this->view->parent = $catalogTable->getParent($currentCategory->id);
+		
 		$products = $catalogTable->getItems($currentCategory->id, (int) $this->_getParam('page',0));
+		
+		
 		$this->view->count = $count = (int)$this->_getParam('count',20);
 		$products->setItemCountPerPage($count);
 		$products->setView($this->view);
@@ -42,10 +47,11 @@ class CatalogController extends MainController
 		if($this->_request->isPost()){
 			if (!$_POST['title']==''){
 				$catalogTable = new Catalog();
-				$row = $catalogTable->createChildRow((int)$this->_getParam('parent_id', 0), $_POST);
+				$row = $catalogTable->createChildRow((int)$this->_getParam('parent_id'), $_POST);
 				$row->save();
 				
 			}
+			//Zend_Debug::dump($_POST);
 			$this->_redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
@@ -59,10 +65,13 @@ class CatalogController extends MainController
 		if($id < 1) {
 			$this->_redirect('/');
 		}
+		$form=new App_Form_AddCategory();
+		if ($form->isValid($_POST)){
 		$catalogTable = new Catalog();
 		$currentRow = $catalogTable->getCurrent($id);
-		$currentRow->title = $_POST['title'];
+		//$currentRow->title = $_POST['title'];
 		$currentRow->save();
+		}
 		$this->_redirect($_SERVER['HTTP_REFERER']);
 	}
 
@@ -100,6 +109,6 @@ class CatalogController extends MainController
 		$this->_redirect($_SERVER['HTTP_REFERER']);
 	}
 	public function viewAction(){
-		 
+	
 	}
 }

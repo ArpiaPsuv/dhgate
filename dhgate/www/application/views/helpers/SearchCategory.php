@@ -23,7 +23,17 @@ class Zend_View_Helper_SearchCategory {
 	 */
 	public function searchCategory() {
 		// TODO Auto-generated Zend_View_Helper_SearchCategory::searchCategory() helper 
-		return null;///Должна вернуть html
+		$category = new Catalog();
+		$categorys = $category->fetchAll();
+		
+		$html='<select><option>All categories</option>';
+		foreach ($categorys as $row) {
+			$html .='<option>'.$row->title.'</option>';
+		}
+							
+							
+		$html .='</select>';
+		return $html;///Должна вернуть html
 	}
 	
 	/**

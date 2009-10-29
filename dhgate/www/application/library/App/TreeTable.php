@@ -329,6 +329,12 @@ abstract class App_TreeTable extends Zend_Db_Table_Abstract {
 	{
 		return $this->fetchAll($this->_parent . ' = ' . (int)$parent_id);
 	}
+	
+	public function getAllLevel($level)
+	{
+		return $this->fetchAll('level = '. (int)$level);
+	}
+	
 	/**
 	 * Функция добавления числа к левелу
 	 * @param Zend_Db_Table_Row $row

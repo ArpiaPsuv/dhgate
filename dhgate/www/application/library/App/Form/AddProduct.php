@@ -22,6 +22,13 @@ class App_Form_AddProduct extends App_Form  {
 		$this->addElement($cat);
 		$cat->setName('name');*/
 		
+		/*Поля
+		Titlte
+		price
+		about
+		Description
+		processing*/
+		
 		$title= new Zend_Form_Element_Text('title');
 		$title->setLabel('Name');
 
@@ -34,8 +41,8 @@ class App_Form_AddProduct extends App_Form  {
 		$description= new Zend_Form_Element_Textarea('about');
 		$description->setLabel('Description');
 		
-		$progressing= new Zend_Form_Element_Text('progressing');
-		$progressing->setLabel('Progressing');
+		$procressing= new Zend_Form_Element_Text('progressing');
+		$procressing->setLabel('Progressing');
 		
 		
 		
@@ -49,7 +56,7 @@ class App_Form_AddProduct extends App_Form  {
 		$price,
 		$shortDescription,
 		$description,
-		$progressing,
+		$procressing,
 		$submit
 		));
 	}

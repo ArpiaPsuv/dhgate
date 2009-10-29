@@ -2,7 +2,7 @@
 				<a href="#"><img class="logo" src="/application/public/img/dhgatelo.gif" alt="logo"></a>
 				<div id="advertis">Fast Trading Marketplace</div>
 				<div id="header_up_menu">
-					<a href="/user/login/"> Sign In </a> |
+					<?=$this->signInToLogout() ?> |
 					<a href="/user/register/"> Join Free </a> | 
 					<a href="#"> Help </a> 
 				</div>
@@ -20,10 +20,10 @@
 					<form action="#">
 						<div id="text_search">Search</div>
 						<input type="text">
-						<select>
-							<option>All_categories</option>
-							<?php //$this->helperName();?>
-						</select>
+						
+							
+							<?=$this->searchCategory();?>
+						
 						<div class="go_button"><a href="#"></a></div>
 					</form>
 					<img class="search_pannel_right" src="/application/public/img/search_pannel_right.gif" alt="">
@@ -34,7 +34,7 @@
 					<div id="head_down_menu">
 						<img class="search_pannel_left" src="/application/public/img/head_down_menu_left.gif" alt="">
 						<div class="all_categories">
-							<a href="#">All categories</a>
+							<a href="/catalog/view/">All categories</a>
 							<img class="arrow" src="/application/public/img/small_arrow.gif" alt="">
 						</div>
 						<img class="search_pannel_left" src="/application/public/img/vertical_line.gif" alt="">

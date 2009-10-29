@@ -3,7 +3,7 @@
 		<div id="contain_head_center_container">
 			<div id="right_contain_head_center_container"></div>
 				<div id="left_contain_head_center_container">
-					<a href="#">Home</a> > Account Maintenance
+					<a href="/">Home</a> > Account Maintenance
 				</div>
 		</div>
 	</div>
@@ -11,10 +11,18 @@
 <!--Конец строчки -->
 <div id="customer_account">
 	<h2>Customer Account</h2>
-	<p><?=$this->user->firstname . ' ' . $this->usermiddlename . ' ' . $this->user->lastname?></p>
-	<a href="/user/edit/id/<?=Zend_Auth::getInstance()->getIdentity()->id?>"> <img src="/application/public/img/identity.png" alt=""> Account information </a>
+	<?php if(($this->user->firstname != '') or
+			 ($this->user->middlename != '') or
+			 ($this->user->lastname != '')
+			):?>
+	<p><?=$this->user->firstname . ' ' . $this->user->middlename . ' ' . $this->user->lastname?></p>
+	<?php else:?>
+	<p>Information not available</p>
+	<?php endif;?>
+	<a href="/user/edit/"> <img src="/application/public/img/identity.png" alt=""> Account information </a>
 	<p> Here you can update your billing information. </p>
 	<a href="/adress/index/user_id/<?=Zend_Auth::getInstance()->getIdentity()->id?>"> <img src="/application/public/img/web.png" alt=""> Shipping information </a>
 	<p> Here you can add and maintain shipping addresses.  </p>
 	<!-- <p><img src="/application/public/img/package.png" alt=""><span> Order Information </span><em> No Orders to Display </em></p> -->
 </div> 
+<?=$this->id?> 
