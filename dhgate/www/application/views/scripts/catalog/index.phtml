@@ -1,13 +1,2 @@
-<?php 
-   		 foreach ($this->categorys as $catagory){
-        ?>
-        <a href="/catalog/category/id/<?=$catagory->id?>"><?=$catagory->title?></a><br>
-        <?php
-    }
-?>
-<!--
-<form action="/catalog/add/parent_id/0/" method="post">
-<p><input type="text" name="title"></p>
-<p><input type="submit" value="добавить"></p>
-</form>
--->
+
+<?php echo $this->form;?>

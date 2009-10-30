@@ -3,12 +3,21 @@ class CatalogController extends MainController
 {
 	public function indexAction()
 	{
-		$catalogTalbe = new Catalog();
-		$this->view->categorys = $catalogTalbe->fetchAll();
 	
+            
+         
+     
+            
+		
+         	
+            
+		$this->_redirect('/catalog/view/');
 
 	}
-
+	public function searchAction()
+	{
+		Zend_Debug::dump($_POST);
+	}
 	public function categoryAction()
 	{
 		$id = (int)$this->_getParam('id',0);
@@ -84,6 +93,8 @@ class CatalogController extends MainController
 		if($id < 1) {
 			$this->_redirect('/');
 		}
+		
+		//По моему не правильная реализация удаления категории (не удаляются дочернии категории и их товары)
 		$catalogTable = new Catalog();
 		$currentRow = $catalogTable->getCurrent($id);
 		$parent = $currentRow->parent;
@@ -102,12 +113,23 @@ class CatalogController extends MainController
 		if(!$_SESSION['admin']){
 			$this->_redirect('/');
 		}
-		$category_id = (int) $this->_getParam('id',0);
+		if (isset($_POST)){
+		$from= $this->_getParam('from',0);
+		$to = $this->_getParam('to',0);
 		$catalogTable = new Catalog();
-		$category = $catalogTable->find($category_id)->current();
-		$catalogTable->moveBranch((int)$_POST['category_id'], $category->parent);
-		$this->_redirect($_SERVER['HTTP_REFERER']);
+		$parentId=$catalogTable->find($from)->current()->parent;
+		if (($from > 0) and ($to >= 0) ){
+		Zend_Debug::dump($_POST);
+	    $catalogTable->moveBranch($from, $to);
+		} 
+			
+		}
+		
+	
+		
+		$this->_redirect('/catalog/category/id/'.$parentId.'/');
 	}
+	
 	public function viewAction(){
 	
 	}

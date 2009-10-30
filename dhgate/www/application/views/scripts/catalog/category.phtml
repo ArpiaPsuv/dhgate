@@ -36,6 +36,12 @@
 					</div>
 					
 					<?php endif;?>
+					
+					<?php if($_SESSION['admin']):?>
+						<?php echo $this->formMoveCategory($this->currentCategory->id)?>
+					<?php endif;?>	
+					
+					
 					<div class="refine_your_search_title">
 					<img src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
 					<div class="left_block_contain">

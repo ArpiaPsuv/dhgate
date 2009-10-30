@@ -240,24 +240,34 @@ abstract class App_TreeTable extends Zend_Db_Table_Abstract {
 	 * id итема который нужно перенести
 	 *
 	 */
-	public function moveBranch($in, $out)
+	public function moveBranch($fromID, $toID)
 	{
-		if(is_integer($in)){
-			$in = $this->find($in)->current();
+		$from=$this->find($fromID)->current();
+		
+		
+		
+		if($toID != 0){
+		$to=$this->find($toID)->current();	
+		$from->level = $to->level+1;
+		}else{
+			$from->level=0;
 		}
-		if(is_integer($out)){
-			$out = $this->find($out)->current();
-		}
-		Zend_Debug::dump($in);
-		Zend_Debug::dump($out);
-		$idRowName = $this->_id;
-		if($in->id == $out->id){
-			//@todo нельзя перемешать в своих же потомков;
-			throw new Exception('Невозможно переместить');
-		}
-		$data = array($this->_parent => (integer) $out->id);
-		$this->update($data,$this->_id . ' = ' . (integer) $in->id);
-		$this->updateLevel($in, ($out->{$this->_level}-$in->{$this->_level})+1);
+		
+		$from->parent = $toID;
+		$from->save();
+		///Обновление level'a только для 2-х уровневого дерева	(примитив)
+	   if($this->hasChildren($from->id)){
+	   $childs= $this->getLevel($from->id);	
+		   foreach ($childs as $child) {
+		    $row = $this->find($child->id)->current();
+		   	$row->level = $from->level+1;
+		   	$row->save();
+		   }
+	   }
+		
+		
+		
+		
 	}
 	/**
 	 * Процедура удаления ветви дерева, рекурсивна
