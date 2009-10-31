@@ -8,10 +8,10 @@ class MainController extends Zend_Controller_Action
 		$this->view->params  = $this->_getAllParams();
 		$this->auth = Zend_Auth::getInstance();
 		if ($this->auth->hasIdentity()){
-		$this->admin = $this->auth->getIdentity()->admin;	
-		$_SESSION['admin'] = $this->admin;
+			$this->admin = $this->auth->getIdentity()->admin;
+			$_SESSION['admin'] = $this->admin;
 		}
-		
+
 	}
 	public function indexAction()
 	{

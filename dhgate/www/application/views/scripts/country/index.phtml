@@ -1,27 +1,28 @@
 <div class="line_center_container"></div>
-	<div id="head_center_container">
-		<div id="contain_head_center_container">
-				<div id="left_contain_head_center_container">
-					<a href="/">Home</a> > <a href="/">Online Store</a> > Add states for <?=$this->country->name?>
-				</div>
-		</div>
-	</div>
+<div id="head_center_container">
+<div id="contain_head_center_container">
+<div id="left_contain_head_center_container"><a href="/">Home</a> > <a
+	href="/">Online Store</a> > Add states for <?=$this->country->name?></div>
+</div>
+</div>
 <div class="line_center_container"></div>
 <div class="allowed_country">
 <h3>Add states for <?=$this->country->name?></h3>
 <form action="/country/addstate/" method="POST">
-	<div class="delimiter"></div>
-	<p><input type="text" name="name">
-	<input type="hidden" name="country_id" value="<?=$this->country->id?>">
-	<input type="submit" value="add state"></p>
-	<div class="delimiter"></div>
+<div class="delimiter"></div>
+<p><input type="text" name="name"> <input type="hidden"
+	name="country_id" value="<?=$this->country->id?>"> <input type="submit"
+	value="add state"></p>
+<div class="delimiter"></div>
 </form>
 
 <?php foreach ($this->states as $state):?>
-	<table>
-	<tr><td><?=$state->name?></td><td class="rad"><a href="/country/deletestate/id/<?=$state->id?>">delete</a></td></tr>
-	</table>
+<table>
+	<tr>
+		<td><?=$state->name?></td>
+		<td class="rad"><a href="/country/deletestate/id/<?=$state->id?>">delete</a></td>
+	</tr>
+</table>
 <?php endforeach;?>
 <div class="delimiter"></div>
-<a href="/country/add/">back</a>
-</div>
+<a href="/country/add/">back</a></div>

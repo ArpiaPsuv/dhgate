@@ -21,15 +21,15 @@ class ProductController extends MainController
 
 	public function addAction()
 	{
-		
-		
+
+
 		$category = $this->view->category = $this->_getParam('category',0);
 		$catalogTable = new Catalog();
 		$currentCategory = $this->view->currentCategory  = $catalogTable->getCurrent($category);
 		$form= new App_Form_AddProduct();
 		$form->setAction('/product/add/category/'.$category);
 		$this->view->form = $form;
-		
+
 		if($this->_request->isPost()){
 			$productTable = new Product();
 			$productTable->add($_POST, $category);
@@ -144,28 +144,28 @@ class ProductController extends MainController
 			}else{
 				$_SESSION['category_title']='All Categories';
 			}
-		
+
 			$_SESSION['text_search']=$_POST['text_search'];
 		}
-		
-			if ($_SESSION['text_search'] == ''){
-				$this->_redirect('/');
-			}
+
+		if ($_SESSION['text_search'] == ''){
+			$this->_redirect('/');
+		}
 			
-			$this->view->count=$count = (int) $this->_getParam('count' , 10 );
-			$page = (int) $this->_getParam('page' , 0 );
-			$category_id=$_SESSION['category_id'];
+		$this->view->count=$count = (int) $this->_getParam('count' , 10 );
+		$page = (int) $this->_getParam('page' , 0 );
+		$category_id=$_SESSION['category_id'];
 			
-			$this->view->category_id=$_SESSION['category_id'];
-			$this->view->category_title=$_SESSION['category_title'];
-			$this->view->textsearch=$textsearch=$_SESSION['text_search'];
+		$this->view->category_id=$_SESSION['category_id'];
+		$this->view->category_title=$_SESSION['category_title'];
+		$this->view->textsearch=$textsearch=$_SESSION['text_search'];
 			
-			$product = new Product();
-			$products = $product->search($category_id,$textsearch,$page);
-			$products->setItemCountPerPage($count);
-			$this->view->products = $products;
+		$product = new Product();
+		$products = $product->search($category_id,$textsearch,$page);
+		$products->setItemCountPerPage($count);
+		$this->view->products = $products;
 			
-		
+
 	}
 
 	public function onmainAction()

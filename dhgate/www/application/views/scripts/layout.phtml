@@ -10,9 +10,9 @@ on DHgate.com</title>
 	src="/application/public/js/jquery-1.3.2.min.js"></script>
 <script language="javascript" type="text/javascript"
 	src="/application/public/js/jquery-ui-1.7.2.custom.min.js"></script>
- <script language="javascript" type="text/javascript"
+<script language="javascript" type="text/javascript"
 	src="/application/public/js/ocupload.js"></script>
- 
+
 <script language="JavaScript" type="text/javascript">
 			$(document).ready(function(){
 						$(".all_categories_container").hide();
@@ -34,37 +34,22 @@ on DHgate.com</title>
 </head>
 <body>
 <div id="bhgate_site"><?=$this->render('header.phtml')?>
-<div id="main_container">
-<?php $request = Zend_Controller_Front::getInstance()->getRequest();
+<div id="main_container"><?php $request = Zend_Controller_Front::getInstance()->getRequest();
 if($request->getControllerName() != 'user'):
 if($request->getControllerName() != 'admin'):
 if($request->getActionName() != 'category'):
 if(($request->getControllerName() !='catalog' )and
 $request->getActionName() != 'view'):
-?>
-
- <?=$this->render('left.phtml')?>
-<div id="center_container">
-<?php endif;?>
-<?php endif;?> 
-<?php endif;?>
-<?php endif;?>
-
-<?=$this->layout()->content?>
-<?php 
- if($request->getControllerName() != 'admin'):
- if($request->getControllerName() != 'user'):
- if($request->getActionName() != 'category' && $request->getControllerName() != 'product'):
- if(($request->getControllerName() !='catalog' )and $request->getActionName() != 'view'): 
- ?>
-</div>
-<?=$this->render('right.phtml')?> 
-
-<?php endif;?> 
-<?php endif;?>
-<?php endif;?>
-<?php endif;?>
-</div>
+?> <?=$this->render('left.phtml')?>
+<div id="center_container"><?php endif;?> <?php endif;?> <?php endif;?>
+<?php endif;?> <?=$this->layout()->content?> <?php
+if($request->getControllerName() != 'admin'):
+if($request->getControllerName() != 'user'):
+if($request->getActionName() != 'category' && $request->getControllerName() != 'product'):
+if(($request->getControllerName() !='catalog' )and $request->getActionName() != 'view'):
+?></div>
+<?=$this->render('right.phtml')?> <?php endif;?> <?php endif;?> <?php endif;?>
+<?php endif;?></div>
 <div class="clear"></div>
 <?=$this->render('footer.phtml')?></div>
 </body>

@@ -1,28 +1,24 @@
-				<div id="left_container">
-					<div class="title_left_menu_gray">Categories</div>
-					<ul>
-					<?=$this->categorys()?>
-					</ul>
-					<?php if($_SESSION['admin']):?>
-					<?php echo $this->formAddCategory()?>
-					
-					
-					<?php endif;?>
-					
-					<img class="left_banner" src="/application/public/img/left_ban.gif" alt="">
-						<div class="head_left_block">Wholesale Searches</div>
-						<div class="left_block_contain"></div>
-						<div class="left_block_down"></div>
-						<div class="head_left_block">Success Stories</div>
-						<div class="left_block_contain">
-							<p>
-							<img src="/application/public/img/person00.jpg" alt="">
-							At first, I bought 2 mobile phones for myself and my husband from eBay.
-							I decided to sell them to other people since my husband couldn't use it when
-							he switched to a different network. A lot of people replied to my ad…
-							</p>
-							<div class="client_name">----<a href="#"> Cherrie Thompson</a></div>
-							<div class="more_clients"><a href="#">More Success Stories »</a></div>
-						</div>
-						<div class="left_block_down"></div>
-					</div>
+
+<div id="left_container">
+<div class="title_left_menu_gray">Categories</div>
+<ul>
+<?=$this->categorys()?>
+</ul>
+<?php if($_SESSION['admin']):?> <?php echo $this->formAddCategory()?> <?php endif;?>
+
+<img class="left_banner" src="/application/public/img/left_ban.gif"
+	alt="">
+<div class="head_left_block">Wholesale Searches</div>
+<div class="left_block_contain"></div>
+<div class="left_block_down"></div>
+<div class="head_left_block">Success Stories</div>
+<div class="left_block_contain">
+<p><img src="/application/public/img/person00.jpg" alt=""> At first, I
+bought 2 mobile phones for myself and my husband from eBay. I decided to
+sell them to other people since my husband couldn't use it when he
+switched to a different network. A lot of people replied to my ad…</p>
+<div class="client_name">----<a href="#"> Cherrie Thompson</a></div>
+<div class="more_clients"><a href="#">More Success Stories »</a></div>
+</div>
+<div class="left_block_down"></div>
+</div>

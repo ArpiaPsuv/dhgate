@@ -1,8 +1,8 @@
-Results
+Results&nbsp;
 <?=$this->firstItemNumber-1?>
- -
+&nbsp;-&nbsp;
 <?=$this->firstItemNumber+$this->currentItemCount-1?>
- of 
+&nbsp;of&nbsp;
 <?=$this->totalItemCount?>
 <?php
 if ((!($this->pageCount<=1))){ ?>
@@ -27,7 +27,7 @@ if (($this->current!=$this->first+1)&&($this->previous <> '')){
 	<?}
 	if($this->first != $this->current){
 		?>
-		<span class="paginator_active_page"><?=$this->current?></span>
+<span class="paginator_active_page"><?=$this->current?></span>
 		<?}
 		if ($this->current!=$this->last-1){
 			?>
@@ -41,7 +41,7 @@ if (($this->current!=$this->first+1)&&($this->previous <> '')){
 		<?
 		}
 		if($this->last != $this->current){?>
-			<a href="<?= $this->url(array('page' =>$this->last)); ?>"><?= $this->last ?></a>
+<a href="<?= $this->url(array('page' =>$this->last)); ?>"><?= $this->last ?></a>
 		<?php }?>
 <a href="<?= $this->url(array('page' =>$this->current+1));?>">Next »</a>
-<?php }?>
+		<?php }?> 

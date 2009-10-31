@@ -1,48 +1,54 @@
-			<div id="main_container">
-				<div id="main_registration">
-					<div id="registration">
-						<h2>Join DHgate.com For Free</h2>
-						<form action="<?=$this->form->getAction()?>" method="<?=$this->form->getMethod()?>">
-						<div id="registration_form">
-							<p class="processed_checkout_right_title">Email Address : </p>
-							<p class="processed_checkout_right_text"><?=$this->form->getElement('mail');?><img src="/application/public/img/check_out_account_corret.gif" alt=""></p>
-							
-							<!--
+
+<div id="main_container">
+<div id="main_registration">
+<div id="registration">
+<h2>Join DHgate.com For Free</h2>
+<form action="<?=$this->form->getAction()?>"
+	method="<?=$this->form->getMethod()?>">
+<div id="registration_form">
+<p class="processed_checkout_right_title">Email Address :</p>
+<p class="processed_checkout_right_text"><?=$this->form->getElement('mail');?><img
+	src="/application/public/img/check_out_account_corret.gif" alt=""></p>
+
+<!--
 							<p class="small_gray">This will be used to sign into your account.</p>
 							<p class="small_gray red_price">Email address is required. Please try again.</p>
 							-->
-							<p class="processed_checkout_right_title">Password : </p>
-							<p class="processed_checkout_right_text"><?=$this->form->getElement('pass');?><img src="/application/public/img/check_out_account_corret.gif" alt=""></p>
-							
-							<!--
+<p class="processed_checkout_right_title">Password :</p>
+<p class="processed_checkout_right_text"><?=$this->form->getElement('pass');?><img
+	src="/application/public/img/check_out_account_corret.gif" alt=""></p>
+
+<!--
 							<p class="small_gray">Must have 6 to 30 characters and no spaces.</p>
 							<p class="small_gray red_price">A password is required. Please try again.</p>
 							-->
-							
-							<p class="processed_checkout_right_title">Re-type Password : </p>
-							<p class="processed_checkout_right_text"><?=$this->form->getElement('pass_approve');?><img src="/application/public/img/check_out_account_corret.gif" alt=""></p>
-							
-							<!--<p class="small_gray red_price">A password is required. Please try again.</p>-->
-							<p class="processed_checkout_right_title">Nickname : </p>
-							<p class="processed_checkout_right_text"><?=$this->form->getElement('login');?><img src="/application/public/img/check_out_account_corret.gif" alt=""></p>
-							
-							<!--
+
+<p class="processed_checkout_right_title">Re-type Password :</p>
+<p class="processed_checkout_right_text"><?=$this->form->getElement('pass_approve');?><img
+	src="/application/public/img/check_out_account_corret.gif" alt=""></p>
+
+<!--<p class="small_gray red_price">A password is required. Please try again.</p>-->
+<p class="processed_checkout_right_title">Nickname :</p>
+<p class="processed_checkout_right_text"><?=$this->form->getElement('login');?><img
+	src="/application/public/img/check_out_account_corret.gif" alt=""></p>
+
+<!--
 							<p class="small_gray">Email address is not allowed.</p>
 							<p class="small_gray red_price">A nickname is required. Please try again.</p>
 							<p class="processed_checkout_right_title">Email Verification Code : </p>
 							<p class="processed_checkout_right_text"><input type="text"><img src="img/verifycode.jpg" alt=""><a href="#"><img src="img/check_out_account_refresh.gif" alt=""></a></p>
-						    -->
-						 </div>
-						<div class="registration_button">
-							<p class="registration_button"><?=$this->form->submit?></p>
-							<!--<a href="#"><img src="img/create_my_account.gif"</a>-->
-						</div>
-					</form>
-					</div>
-					<div id="form_sign_in">
-						<p class="bold">Already have an account?</p>
-						<p><a href="/user/login/"><img src="/application/public/img/sign_in_button.gif" alt=""></a></p>
-						<p><a class="bold" href="/user/recover/">Forgot your password? </a> | <a class="bold" href="#"> Help</a></p>
-					</div>
-				</div>
-			</div>
+						    --></div>
+<div class="registration_button">
+<p class="registration_button"><?=$this->form->submit?></p>
+<!--<a href="#"><img src="img/create_my_account.gif"</a>--></div>
+</form>
+</div>
+<div id="form_sign_in">
+<p class="bold">Already have an account?</p>
+<p><a href="/user/login/"><img
+	src="/application/public/img/sign_in_button.gif" alt=""></a></p>
+<p><a class="bold" href="/user/recover/">Forgot your password? </a> | <a
+	class="bold" href="#"> Help</a></p>
+</div>
+</div>
+</div>

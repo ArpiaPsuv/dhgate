@@ -16,7 +16,7 @@ class User extends Zend_Db_Table_Abstract
 
 	public function checkMail($mail)
 	{
-		 
+			
 		$validator = new App_Validate_NoDbRecordExists('user','mail');
 		return $validator->isValid($mail);
 

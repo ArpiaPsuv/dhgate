@@ -1,35 +1,37 @@
 <div class="line_center_container"></div>
-	<div id="head_center_container">
-		<div id="contain_head_center_container">
-				<div id="left_contain_head_center_container">
-					<a href="#">Home</a> > <a href="#">Online Store</a> > Add Shipping Method 
-				</div>
-		</div>
-	</div>
+<div id="head_center_container">
+<div id="contain_head_center_container">
+<div id="left_contain_head_center_container"><a href="#">Home</a> > <a
+	href="#">Online Store</a> > Add Shipping Method</div>
+</div>
+</div>
 <div class="line_center_container"></div>
 <div class="allowed_country">
-	<h3>Add Shipping Method</h3>
-	<div class="delimiter"></div>
-   <form action="/shipping/add/" method="post" enctype="multipart/form-data">
-      <h4>Name of shipping method</h4>
-      <p><input type="text" name="name"></p>
-	  <div class="delimiter"></div>
-	  <h4>About shipping method</h4>
-      <p><textarea cols="40" rows="5" name="text"></textarea></p>
-	  <h4>Image</h4>
-	  <p><input type="file" name="file"></p>
-	  <div class="delimiter"></div>
-      <p><input type="submit" value="Send"></p>
-	  <div class="delimiter"></div>
-   </form>
-   <div class="top_bottom_borders">
-   <?php foreach($this->shippings as $shipping):?>
-		<p>
-		<p><?=$shipping->name?></p>
-		<img src="/application/public/images/shipping/s/<?=$shipping->id?>.jpeg?<?=rand(0,100)?>"><p><?=$shipping->text?></p>
-			<p><a href="/shipping/edit/id/<?=$shipping->id?>">Edit </a> | 
-			<a href="/shipping/delete/id/<?=$shipping->id?>"> Delete</a></p>
-		</p>
-   <?php endforeach;?>
-   </div>
+<h3>Add Shipping Method</h3>
+<div class="delimiter"></div>
+<form action="/shipping/add/" method="post"
+	enctype="multipart/form-data">
+<h4>Name of shipping method</h4>
+<p><input type="text" name="name"></p>
+<div class="delimiter"></div>
+<h4>About shipping method</h4>
+<p><textarea cols="40" rows="5" name="text"></textarea></p>
+<h4>Image</h4>
+<p><input type="file" name="file"></p>
+<div class="delimiter"></div>
+<p><input type="submit" value="Send"></p>
+<div class="delimiter"></div>
+</form>
+<div class="top_bottom_borders"><?php foreach($this->shippings as $shipping):?>
+<p>
+
+
+<p><?=$shipping->name?></p>
+<img
+	src="/application/public/images/shipping/s/<?=$shipping->id?>.jpeg?<?=rand(0,100)?>">
+<p><?=$shipping->text?></p>
+<p><a href="/shipping/edit/id/<?=$shipping->id?>">Edit </a> | <a
+	href="/shipping/delete/id/<?=$shipping->id?>"> Delete</a></p>
+</p>
+<?php endforeach;?></div>
 </div>

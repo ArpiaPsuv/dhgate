@@ -10,8 +10,8 @@ class App_Album_Product{
 	public $fullPath;
 	public $id;                                 // id итема к которому привязанна галерея
 	protected $_image;       // экземпляр класса картинок с которыми работаем
-	 
-	 
+
+
 	public function __construct($id)
 	{
 		$this->id = $id;
@@ -22,7 +22,7 @@ class App_Album_Product{
 		}
 		$this->_image = new App_Image();
 	}
-	 
+
 	public function upload()
 	{
 		$this->_image->setUploadPath($this->path);
@@ -30,7 +30,7 @@ class App_Album_Product{
 		//$images = $this->getImages('s');
 		//$this->setMainImage($images[0]);
 	}
-	 
+
 	// вовзвращает массив путей к картинкам входящий параметр префикс папки
 	public function getImages($prefix = null)
 	{
@@ -49,8 +49,8 @@ class App_Album_Product{
 		}
 		return array_reverse($images);
 	}
-	 
-	 
+
+
 	// возвращает главную картинку по префиксам
 	public function getMainImage($prefix)
 	{
@@ -68,7 +68,7 @@ class App_Album_Product{
 			}
 		}
 	}
-	 
+
 	// устанавливает картинку главной входящий параметр путь до неё
 	public function setMainImage($path)
 	{
@@ -98,7 +98,7 @@ class App_Album_Product{
 			@unlink($this->fullPath.$prefix.'/'.$image);
 		}
 	}
-	 
+
 	// установить путь до папки с альбомом
 	public function setPath($path)
 	{
@@ -117,8 +117,8 @@ class App_Album_Product{
 		}
 		return false;
 	}
-	 
-	 
+
+
 	// удалить картинку
 	public function delete($path)
 	{

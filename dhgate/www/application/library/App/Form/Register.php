@@ -28,7 +28,7 @@ class App_Form_Register extends App_Form {
 		));
 		$this->addElement($passApprove);
 			
-		$login = new Zend_Form_Element_Text('login', 
+		$login = new Zend_Form_Element_Text('login',
 		array(
 		'required' => true,
 		'maxlength' => '30',
@@ -42,15 +42,15 @@ class App_Form_Register extends App_Form {
 			
 		$submit = new Zend_Form_Element_Image('submit', array(
         	'src'=>'/application/public/img/create_my_account.gif'
-		));
+        	));
 
-		$this->addElement($submit);
+        	$this->addElement($submit);
 
 
-		 foreach($this->getElements() as $element){
-			 $element->clearDecorators()
-				 ->addDecorator("ViewHelper")
-				 ->addDecorator("Errors");
-		 }
+        	foreach($this->getElements() as $element){
+        		$element->clearDecorators()
+        		->addDecorator("ViewHelper")
+        		->addDecorator("Errors");
+        	}
 	}
 }

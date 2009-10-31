@@ -1,43 +1,41 @@
 <!--Сама корзина-->
 <div class="line_center_container"></div>
-	<div id="head_center_container">
-		<div id="contain_head_center_container">
-			<div id="right_contain_head_center_container"></div>
-				<div id="left_contain_head_center_container">
-					<a href="#">Home</a> > <a href="#">Online Store</a> > Cart
-				</div>
-		</div>
-	</div>
+<div id="head_center_container">
+<div id="contain_head_center_container">
+<div id="right_contain_head_center_container"></div>
+<div id="left_contain_head_center_container"><a href="#">Home</a> > <a
+	href="#">Online Store</a> > Cart</div>
+</div>
+</div>
 <div class="line_center_container"></div>
 <div class="cart_big_title">Cart</div>
 <div id="base_cart_container">
-	<div class="cart_title_bar">
-		<div class="cart_product_name_title">Name</div>
-		 <div class="cart_product_SKU_title">SKU</div>
-		<div class="cart_product_price_title">Price</div>
-		<div class="cart_product_quantity_title">Quantity / Update</div>
-		<div class="cart_product_subtotal_title">Subtotal</div>
-		
-		
-		<!--Содержимое корзины -->
-		<?php $total = 0; foreach($this->products as $product):?>
-			
-			<div class="cart_product_container">
-				<div class="cart_product_name"><a href="/product/index/id/<?=$product['product']['id']?>"><?=$product['product']['title']?></a></div>
-				  <div class="cart_product_SKU">NBK-AS-T91-BK</div>
-				<div class="cart_product_price"><?=$this->valute($product['product']['price'])?></div>
-				<div class="cart_product_quantity">
-					<input type="text" value="<?=$product['count']?>">
-					<a href="#" class="plus"><img src="/application/public/img/qty-more.png"></a>
-					<a href="#" class="minus"><img src="/application/public/img/remove_f.png"></a>
-					<span class="price_" style="display: none"><?=$product['product']['price']?></span>
-					<span class="product_id" style="display: none;"><?=$product['product']['id']?></span>
-				</div>
-				<div class="cart_product_subtotal"><?=$this->valute($product['product']['price'] * $product['count'], 'subprice')?></span></div>
-			</div>
-			<?php $total+=$product['product']['price'] * $product['count']?>
-		<?php endforeach;?>
-				<script type="text/javascript">
+<div class="cart_title_bar">
+<div class="cart_product_name_title">Name</div>
+<div class="cart_product_SKU_title">SKU</div>
+<div class="cart_product_price_title">Price</div>
+<div class="cart_product_quantity_title">Quantity / Update</div>
+<div class="cart_product_subtotal_title">Subtotal</div>
+
+
+<!--Содержимое корзины --> <?php $total = 0; foreach($this->products as $product):?>
+
+<div class="cart_product_container">
+<div class="cart_product_name"><a
+	href="/product/index/id/<?=$product['product']['id']?>"><?=$product['product']['title']?></a></div>
+<div class="cart_product_SKU">NBK-AS-T91-BK</div>
+<div class="cart_product_price"><?=$this->valute($product['product']['price'])?></div>
+<div class="cart_product_quantity"><input type="text"
+	value="<?=$product['count']?>"> <a href="#" class="plus"><img
+	src="/application/public/img/qty-more.png"></a> <a href="#"
+	class="minus"><img src="/application/public/img/remove_f.png"></a> <span
+	class="price_" style="display: none"><?=$product['product']['price']?></span>
+<span class="product_id" style="display: none;"><?=$product['product']['id']?></span>
+</div>
+<div class="cart_product_subtotal"><?=$this->valute($product['product']['price'] * $product['count'], 'subprice')?></span></div>
+</div>
+<?php $total+=$product['product']['price'] * $product['count']?> <?php endforeach;?>
+<script type="text/javascript">
 					function getTotalPrice(){
 						total = 0;
 						$('.subprice').each(function(){
@@ -90,32 +88,28 @@
 							}
 						return false;
 					})
-				</script>
-				
-		<!-- <div class="sum_cart_block">
+				</script> <!-- <div class="sum_cart_block">
 			<div class="sum_cart_block_price">AU $2,572.00</div>
 			Subtotal:
 		</div> -->
-		
-		<div class="sum_cart_block">
-			<div class="sum_cart_block_price"><p><?=$this->valute($total,'total')?></span></p></div>
-			<p>Total:</p>
-		</div>
-		<!--<div class="sum_cart_block">
+
+<div class="sum_cart_block">
+<div class="sum_cart_block_price">
+<p><?=$this->valute($total,'total')?></span></p>
+</div>
+<p>Total:</p>
+</div>
+<!--<div class="sum_cart_block">
 			<div class="sum_cart_block_price">AU $2,572.00</div>
 			GST Included in Total: 
-		</div> -->
-		<!--конец блоков суммарной информации -->
-		<div class="checkout_zone">
-		<?php 
-			if(Zend_Auth::getInstance()->hasIdentity()){
-				$href = '/order/step1/';
-			} else {
-				$href='/order/login/';
-			}
-		?>
-			<a href="<?=$href?>" class="checkout_zone_button">Checkout</a>
-		</div>
-	</div>
-	<div id="cart_title_name"></div>
+		</div> --> <!--конец блоков суммарной информации -->
+<div class="checkout_zone"><?php 
+if(Zend_Auth::getInstance()->hasIdentity()){
+	$href = '/order/step1/';
+} else {
+	$href='/order/login/';
+}
+?> <a href="<?=$href?>" class="checkout_zone_button">Checkout</a></div>
+</div>
+<div id="cart_title_name"></div>
 </div>

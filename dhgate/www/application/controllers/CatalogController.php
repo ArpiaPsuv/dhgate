@@ -3,14 +3,14 @@ class CatalogController extends MainController
 {
 	public function indexAction()
 	{
-	
-      
-         
-     
-            
-		
-         	
-            
+
+
+			
+			
+
+
+
+
 		$this->_redirect('/catalog/view/');
 
 	}
@@ -21,7 +21,7 @@ class CatalogController extends MainController
 		$form= new App_Form_AddCategory();
 		$form->getElement('parent_id')->setValue($id);
 		$this->view->form=$form;
-		
+
 		if($id < 1){
 			$this->_redirect('/');
 		}
@@ -30,12 +30,15 @@ class CatalogController extends MainController
 		$currentCategory = $this->view->currentCategory  = $catalogTable->getCurrent($id);
 		$this->view->subCategories = $catalogTable->getLevel($id);
 		$this->view->parent = $catalogTable->getParent($currentCategory->id);
-		
-		$products = $catalogTable->getItems($currentCategory->id, (int) $this->_getParam('page',0));
+
+		$products =$catalogTable->getItems($currentCategory->id, (int) $this->_getParam('page',0));
+
+	
 		
 		
 		$this->view->count = $count = (int)$this->_getParam('count',20);
 		$products->setItemCountPerPage($count);
+		
 		$products->setView($this->view);
 		$this->view->products = $products;
 		$this->view->current_category_id = $currentCategory->id;
@@ -55,7 +58,7 @@ class CatalogController extends MainController
 				$catalogTable = new Catalog();
 				$row = $catalogTable->createChildRow((int)$this->_getParam('parent_id'), $_POST);
 				$row->save();
-				
+
 			}
 			//Zend_Debug::dump($_POST);
 			$this->_redirect($_SERVER['HTTP_REFERER']);
@@ -73,10 +76,10 @@ class CatalogController extends MainController
 		}
 		$form=new App_Form_AddCategory();
 		if ($form->isValid($_POST)){
-		$catalogTable = new Catalog();
-		$currentRow = $catalogTable->getCurrent($id);
-		//$currentRow->title = $_POST['title'];
-		$currentRow->save();
+			$catalogTable = new Catalog();
+			$currentRow = $catalogTable->getCurrent($id);
+			//$currentRow->title = $_POST['title'];
+			$currentRow->save();
 		}
 		$this->_redirect($_SERVER['HTTP_REFERER']);
 	}
@@ -90,7 +93,7 @@ class CatalogController extends MainController
 		if($id < 1) {
 			$this->_redirect('/');
 		}
-		
+
 		//По моему не правильная реализация удаления категории (не удаляются дочернии категории и их товары)
 		$catalogTable = new Catalog();
 		$currentRow = $catalogTable->getCurrent($id);
@@ -111,23 +114,23 @@ class CatalogController extends MainController
 			$this->_redirect('/');
 		}
 		if (isset($_POST)){
-		$from= $this->_getParam('from',0);
-		$to = $this->_getParam('to',0);
-		$catalogTable = new Catalog();
-		$parentId=$catalogTable->find($from)->current()->parent;
-		if (($from > 0) and ($to >= 0) ){
-		Zend_Debug::dump($_POST);
-	    $catalogTable->moveBranch($from, $to);
-		} 
-			
+			$from= $this->_getParam('from',0);
+			$to = $this->_getParam('to',0);
+			$catalogTable = new Catalog();
+			$parentId=$catalogTable->find($from)->current()->parent;
+			if (($from > 0) and ($to >= 0) ){
+				Zend_Debug::dump($_POST);
+				$catalogTable->moveBranch($from, $to);
+			}
+
 		}
-		
-	
-		
+
+
+
 		$this->_redirect('/catalog/category/id/'.$parentId.'/');
 	}
-	
+
 	public function viewAction(){
-	
+
 	}
 }

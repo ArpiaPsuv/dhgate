@@ -24,7 +24,7 @@ class AdressController extends Zend_Controller_Action {
 			&& $_POST['state'] != ''
 			&& $_POST['phone'] != '')
 			{
-				 
+					
 				$adress->add(Zend_Auth::getInstance()->getIdentity()->id, $_POST);
 				if($this->_getParam('user_id',0)){
 					$this->_redirect('/adress/index/user_id/' . $this->_getParam('user_id',0));
@@ -48,7 +48,7 @@ class AdressController extends Zend_Controller_Action {
 		$this->view->states = $state->fetchAll('country_id=' . $adressRow->country);
 		$this->view->user_id = (int) $this->_getParam('user_id',0);
 		if($this->_request->isPost()){
-			 
+
 			if($_POST['nickname'] !=''
 			&& $_POST['firstname'] != ''
 			&& $_POST['adress'] != ''

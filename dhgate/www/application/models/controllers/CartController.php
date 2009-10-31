@@ -32,7 +32,7 @@ class CartController extends MainController
 	public function getinfoAction()
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();
-		 
+			
 	}
-	 
+
 }

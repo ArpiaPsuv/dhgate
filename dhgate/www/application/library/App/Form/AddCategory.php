@@ -21,26 +21,26 @@ class App_Form_AddCategory extends App_Form  {
 
 		));
 		$this->addElement($cat);
-		
+
 		$parentId=  new Zend_Form_Element_Hidden('parent_id',
 		array('value'=>0)
 		);
-		
+
 		//$cat->setName('name');
 
-		 
+			
 		$submit = new Zend_Form_Element_Submit('submit', array(
             'label'       => 'Add',
 		));
 
 		$this->addElement($submit);
 		$this->addElement($parentId);
-	
+
 		foreach($this->getElements() as $element){
 			$element->clearDecorators()
 			->addDecorator("ViewHelper")
 			->addDecorator("Errors");
 		}
-		
+
 	}
 }

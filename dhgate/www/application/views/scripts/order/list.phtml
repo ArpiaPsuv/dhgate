@@ -1,31 +1,33 @@
- <div class="line_center_container"></div>
-	<div id="head_center_container">
-		<div id="contain_head_center_container">
-				<div id="left_contain_head_center_container">
-					<a href="#">Home</a> > <a href="#">Online Store</a> > Order List 
-				</div>
-		</div>
-	</div>
+
+<div class="line_center_container"></div>
+<div id="head_center_container">
+<div id="contain_head_center_container">
+<div id="left_contain_head_center_container"><a href="#">Home</a> > <a
+	href="#">Online Store</a> > Order List</div>
+</div>
+</div>
 <div class="line_center_container"></div>
 
-<div class="allowed_country">  
-<div class="smalll">
-<a class="small" href="<?=$this->url(array('status'=>'new'))?>">New</a> |
-<a href="<?=$this->url(array('status'=>'InProgress'))?>">In Progress</a> |
-<a href="<?=$this->url(array('status'=>'due'))?>">Due From Supplier</a> |
-<a href="<?=$this->url(array('status'=>'packed'))?>">Being Packed</a> |
-<a href="<?=$this->url(array('status'=>'ready'))?>">Ready for dispatch</a> |
-<a href="<?=$this->url(array('status'=>'shipping'))?>">Shipment Pending</a> |
-<a href="<?=$this->url(array('status'=>'shipped'))?>">Order Shipped</a> |
-<a href="<?=$this->url(array('status'=>'returned'))?>">Returned</a> |
-</div>
+<div class="allowed_country">
+<div class="smalll"><a class="small"
+	href="<?=$this->url(array('status'=>'new'))?>">New</a> | <a
+	href="<?=$this->url(array('status'=>'InProgress'))?>">In Progress</a> |
+<a href="<?=$this->url(array('status'=>'due'))?>">Due From Supplier</a>
+| <a href="<?=$this->url(array('status'=>'packed'))?>">Being Packed</a>
+| <a href="<?=$this->url(array('status'=>'ready'))?>">Ready for dispatch</a>
+| <a href="<?=$this->url(array('status'=>'shipping'))?>">Shipment
+Pending</a> | <a href="<?=$this->url(array('status'=>'shipped'))?>">Order
+Shipped</a> | <a href="<?=$this->url(array('status'=>'returned'))?>">Returned</a>
+|</div>
 <div class="delimiter"></div>
 <table>
 <?php foreach($this->orders as $order):?>
-  <tr>
-    <td><span class="big_red"><a href="/order/index/num/<?=$order->num?>/"><?=$order->num?></a></span></td>
-    <td><a href="/order/updatestatus/num/<?=$order->num?>/status/InProgress/">In Progress</a></td>
-  </tr>
-<?php endforeach;?>
+	<tr>
+		<td><span class="big_red"><a href="/order/index/num/<?=$order->num?>/"><?=$order->num?></a></span></td>
+		<td><a
+			href="/order/updatestatus/num/<?=$order->num?>/status/InProgress/">In
+		Progress</a></td>
+	</tr>
+	<?php endforeach;?>
 </table>
 </div>

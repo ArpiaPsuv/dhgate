@@ -15,7 +15,7 @@ abstract class App_TreeTable extends Zend_Db_Table_Abstract {
 	 * @var string _parent
 	 */
 	protected $_parent;
-	 
+
 	/**
 	 * Имя поля для основного id по умолчанию = 'id'
 	 *
@@ -131,7 +131,7 @@ abstract class App_TreeTable extends Zend_Db_Table_Abstract {
 		if(is_integer($obj)){
 			$obj = $this->find($obj)->current();
 		}
-		 
+			
 		if($table === null){
 			foreach ($this->_dependentTables as $table) {
 				$array[$table] = $obj->findDependentRowset($table);
@@ -243,31 +243,31 @@ abstract class App_TreeTable extends Zend_Db_Table_Abstract {
 	public function moveBranch($fromID, $toID)
 	{
 		$from=$this->find($fromID)->current();
-		
-		
-		
+
+
+
 		if($toID != 0){
-		$to=$this->find($toID)->current();	
-		$from->level = $to->level+1;
+			$to=$this->find($toID)->current();
+			$from->level = $to->level+1;
 		}else{
 			$from->level=0;
 		}
-		
+
 		$from->parent = $toID;
 		$from->save();
 		///Обновление level'a только для 2-х уровневого дерева	(примитив)
-	   if($this->hasChildren($from->id)){
-	   $childs= $this->getLevel($from->id);	
-		   foreach ($childs as $child) {
-		    $row = $this->find($child->id)->current();
-		   	$row->level = $from->level+1;
-		   	$row->save();
-		   }
-	   }
-		
-		
-		
-		
+		if($this->hasChildren($from->id)){
+			$childs= $this->getLevel($from->id);
+			foreach ($childs as $child) {
+				$row = $this->find($child->id)->current();
+				$row->level = $from->level+1;
+				$row->save();
+			}
+		}
+
+
+
+
 	}
 	/**
 	 * Процедура удаления ветви дерева, рекурсивна
@@ -322,7 +322,7 @@ abstract class App_TreeTable extends Zend_Db_Table_Abstract {
 		if($levelRowName === null){
 			$levelRowName = $this->_level;
 		}
-		 
+			
 		$row->$levelRowName = (integer)$count;
 		if($row->$levelRowName<0){
 			$row->$levelRowName = 0;
@@ -339,12 +339,12 @@ abstract class App_TreeTable extends Zend_Db_Table_Abstract {
 	{
 		return $this->fetchAll($this->_parent . ' = ' . (int)$parent_id);
 	}
-	
+
 	public function getAllLevel($level)
 	{
 		return $this->fetchAll('level = '. (int)$level);
 	}
-	
+
 	/**
 	 * Функция добавления числа к левелу
 	 * @param Zend_Db_Table_Row $row

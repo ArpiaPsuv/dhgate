@@ -2,9 +2,9 @@
 
 /**
  * AdminController
- * 
+ *
  * @author
- * @version 
+ * @version
  */
 
 require_once 'Zend/Controller/Action.php';
@@ -18,22 +18,22 @@ class AdminController extends Zend_Controller_Action {
 		if(!$_SESSION['admin']){
 			$this->_redirect('/');
 		}
-		
+
 	}
-	public function indexAction() 
+	public function indexAction()
 	{
 
-		
+
 	}
-	public function userlistAction() 
+	public function userlistAction()
 	{
 		$user = new User();
 		$allUsers = $user->fetchAll();
 		$this->view->users=$allUsers;
-		
+
 	}
-	
-	public function userdeleteAction() 
+
+	public function userdeleteAction()
 	{
 		$currentAdminID=Zend_Auth::getInstance()->getIdentity()->id;
 		$id = (int)$this->_getParam('id',0);
@@ -43,9 +43,9 @@ class AdminController extends Zend_Controller_Action {
 		}
 		$this->_redirect("/admin/userlist");
 	}
-	
+
 	public function userroleAction()
-	 {
+	{
 		$currentAdminID=Zend_Auth::getInstance()->getIdentity()->id;
 		$id = (int)$this->_getParam('id',0);
 		if (($id > 0) and ($id != $currentAdminID)) {

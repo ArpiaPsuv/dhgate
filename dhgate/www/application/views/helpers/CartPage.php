@@ -3,7 +3,7 @@ class Zend_View_Helper_CartPage
 {
 	public $view;
 	public function cartPage() {
-		
+
 		$cart = new Cart();
 		if(Zend_Auth::getInstance()->hasIdentity()){
 			$info  = $cart->getInfo(Zend_Auth::getInstance()->getIdentity()->id);

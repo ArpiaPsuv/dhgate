@@ -17,7 +17,7 @@ class Zend_View_Helper_Valute {
 			$price =  round($price * $settings->getValute($valute));
 			$index = 'EUR';
 		}
-		
+
 		if($valute == 'gbp')
 		{
 			$price =  round($price * $settings->getValute($valute));

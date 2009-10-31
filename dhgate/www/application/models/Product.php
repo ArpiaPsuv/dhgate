@@ -60,27 +60,27 @@ class Product extends Zend_Db_Table_Abstract
 		}else{
 			$childs=$catalog->fetchAll();
 		}
-		
+
 		foreach ($childs as $childCategory) {
 			$select->orWhere("c.category_id  = ".$childCategory->id);
 			$select->Where("`title` LIKE '%$searchText%' or `short_about` LIKE '%$searchText%' or `about` LIKE '%$searchText%'");
 		}
-		
+
 		$paginatorAdapter = new Zend_Paginator_Adapter_DbSelect($select);
 		$paginator = new Zend_Paginator($paginatorAdapter);
 		$paginator->setItemCountPerPage(10);
-		
+
 		if($page !== null){
 			$paginator->setCurrentPageNumber($page);
 		}
-		
+
 		return $paginator;
-		
-	
+
+
 	}
-	
-/*	public function search($search)
-	{
+
+	/*	public function search($search)
+	 {
 		$select = $this->select()->from($this->_name)
 		->where("title like  '%$search%'")
 		->orwhere("about like '%$search%'")
@@ -88,7 +88,7 @@ class Product extends Zend_Db_Table_Abstract
 		->orwhere("about like '%$search%'")
 		->orwhere("specifications like '%$search%'");
 		return  new Zend_Paginator(new Zend_Paginator_Adapter_DbTableSelect($select));
-	}*/
+		}*/
 
 	public function getLeftProducts()
 	{

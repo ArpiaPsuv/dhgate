@@ -1,197 +1,167 @@
-<?php 
-	$navigate = array(
-		array('href'=>'/catalog/view/', 'text'=>'Catalog'),
-	);
-	if($this->currentCategory){
-		if($this->parent){
-			array_push($navigate, array('href'=>'/catalog/category/id/'.$this->parent->id, 'text'=>$this->parent->title)); 	
-		}
-		array_push($navigate, array('href'=>'/catalog/category/id/'.$this->currentCategory->id, 'text'=>$this->currentCategory->title));
+<?php
+$navigate = array(
+array('href'=>'/catalog/view/', 'text'=>'Catalog'),
+);
+if($this->currentCategory){
+	if($this->parent){
+		array_push($navigate, array('href'=>'/catalog/category/id/'.$this->parent->id, 'text'=>$this->parent->title));
 	}
-	
+	array_push($navigate, array('href'=>'/catalog/category/id/'.$this->currentCategory->id, 'text'=>$this->currentCategory->title));
+}
+
 ?>
 
 <?=$this->navigate($navigate)?>
-			<div id="main_container">
-				<div id="left_container">
-					
-					<div class="title_left_menu_gray">Refine your Search</div>
-					
-					<?php if($this->currentCategory->level == 0):?>
-					<div class="refine_your_search_title">
-					<img src="/application/public/img/strong_bg1.gif" alt="">Subcategories</div>
-					<div class="left_block_contain">
-						<div class="refine_your_search_ul">
-							<ul>
-							<?php foreach ($this->subCategories as $subCategory):?>
-								
-								<li><a href="/catalog/category/id/<?=$subCategory->id?>"><?=$subCategory->title?></a></li>
-								
-							<?php endforeach;?>	
-							</ul>
-						</div>
-					<?php if($_SESSION['admin']):?>
-						<?=$this->form;?>
-					<?php endif;?>	
-					</div>
-					
-					<?php endif;?>
-					
-					<?php if($_SESSION['admin']):?>
-						<?php echo $this->formMoveCategory($this->currentCategory->id)?>
-					<?php endif;?>	
-					
-					
-					<div class="refine_your_search_title">
-					<img src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
-					<div class="left_block_contain">
-						<div class="refine_your_search_ul">
-							<ul>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-							</ul>
-						</div>
-					</div>
-					<div class="refine_your_search_title"><img src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
-					<div class="left_block_contain">
-						<div class="refine_your_search_ul">
-							<ul>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-							</ul>
-						</div>
-					</div>
-					<div class="refine_your_search_title"><img src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
-					<div class="left_block_contain">
-						<div class="refine_your_search_ul">
-							<ul>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-								<li><input type="radio"> Parametr</li>
-							</ul>
-						</div>
-					</div>
-					<div class="left_block_down"></div>
-					
-					<div class="title_left_menu_gray">Categories</div>
-					<ul>
-						<?=$this->categorys()?>
-						<?php if($_SESSION['admin']):?>
-						<?php echo $this->formAddCategory()?>
-						<?php endif;?>
-					</ul>
-					</div>
-			<div id="right_product_frame">
-				<div id="right_product_frame_up_bar">Category</div>
-				<div id="right_product_frame_contain">
-					<div id="info_found_items">
-						<a href="#">Try the US/AU In-Stock Products here</a>
-						<span class="orange"> <?=$this->products->getCurrentItemCount()?> </span>
-						wholesale items found  in 
-						<span class="bold"> <?=$this->currentCategory->title?> </span>
-					</div>
-					<div id="view_bar">
-						<div id="view_bar_right">
-							<span> Sort by: </span>
-							<select></select>
-						</div>
-						<div id="view_bar_left">
-						View: 
-						</div>
-						<?php if($this->image):?>
-							<a id="show_type_noactive" href="<?=$this->url(array('image'=>0))?>"><img src="/application/public/img/list.gif" alt="">List</a>
-							<a id="show_type_active" href="<?=$this->url(array('image'=>1))?>"><img src="/application/public/img/gallery.gif" alt="">Gallery</a>
-						<?php else:?>
-						<a id="show_type_active" href="<?=$this->url(array('image'=>0))?>"><img src="/application/public/img/list.gif" alt="">List</a>
-					    <a id="show_type_noactive" href="<?=$this->url(array('image'=>1))?>"><img src="/application/public/img/gallery.gif" alt="">Gallery</a>
-						<?php endif;?>
-						</div>
-						<div class="clear"></div>
-					<div class="paginator">
-  						<?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
-					</div>
-					<!-- Начало блока с товаром -->
-					<?php if(count($this->products)):?>
-					<?php foreach($this->products as $product):?>
-					<?php if($this->image):?>
-						<div class="product_gallery_unit">
-							<img src="/application/public/img/product.gif" alt="">
-							<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
-							<a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>
-							<span>$ <?=$product['price']?> / Piece</span>
-							<a class="add_to_card_button" href="#"></a>
-						</div>
-					<?php else:?>
-					         <div class="product_list_unit">
-                              <div class="product_list_unit_image">
-                                   <img src="/application/public/img/product.gif" alt="">
-                              </div>
-                              <div class="product_list_unit_about">
-                                   <a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?> </a>
-                                   <p><?=$product['short_about']?></p>
-                                   <span></span>
-                                   <p>Effective Until 2009-09-28</p>
-                                   <!--<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
+<div id="main_container">
+<div id="left_container">
+
+<div class="title_left_menu_gray">Refine your Search</div>
+
+<?php if($this->currentCategory->level == 0):?>
+<div class="refine_your_search_title"><img
+	src="/application/public/img/strong_bg1.gif" alt="">Subcategories</div>
+<div class="left_block_contain">
+<div class="refine_your_search_ul">
+<ul>
+<?php foreach ($this->subCategories as $subCategory):?>
+
+	<li><a href="/catalog/category/id/<?=$subCategory->id?>"><?=$subCategory->title?></a></li>
+
+	<?php endforeach;?>
+</ul>
+</div>
+	<?php if($_SESSION['admin']):?> <?=$this->form;?> <?php endif;?></div>
+
+	<?php endif;?> <?php if($_SESSION['admin']):?> <?php echo $this->formMoveCategory($this->currentCategory->id)?>
+	<?php endif;?>
+
+
+<div class="refine_your_search_title"><img
+	src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
+<div class="left_block_contain">
+<div class="refine_your_search_ul">
+<ul>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+</ul>
+</div>
+</div>
+<div class="refine_your_search_title"><img
+	src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
+<div class="left_block_contain">
+<div class="refine_your_search_ul">
+<ul>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+</ul>
+</div>
+</div>
+<div class="refine_your_search_title"><img
+	src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
+<div class="left_block_contain">
+<div class="refine_your_search_ul">
+<ul>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+	<li><input type="radio"> Parametr</li>
+</ul>
+</div>
+</div>
+<div class="left_block_down"></div>
+
+<div class="title_left_menu_gray">Categories</div>
+<ul>
+<?=$this->categorys()?>
+<?php if($_SESSION['admin']):?>
+<?php echo $this->formAddCategory()?>
+<?php endif;?>
+</ul>
+</div>
+<div id="right_product_frame">
+<div id="right_product_frame_up_bar">Category</div>
+<div id="right_product_frame_contain">
+<div id="info_found_items"><a href="#">Try the US/AU In-Stock Products
+here</a> <span class="orange"> <?=$this->products->getTotalItemCount();
+
+?>
+</span> wholesale items found in <span class="bold"> <?=$this->currentCategory->title?>
+</span></div>
+<div id="view_bar">
+<div id="view_bar_right"><span> Sort by: </span> <select></select></div>
+<div id="view_bar_left">View:</div>
+<?php if($this->image):?> <a id="show_type_noactive"
+	href="<?=$this->url(array('image'=>0))?>"><img
+	src="/application/public/img/list.gif" alt="">List</a> <a
+	id="show_type_active" href="<?=$this->url(array('image'=>1))?>"><img
+	src="/application/public/img/gallery.gif" alt="">Gallery</a> <?php else:?>
+<a id="show_type_active" href="<?=$this->url(array('image'=>0))?>"><img
+	src="/application/public/img/list.gif" alt="">List</a> <a
+	id="show_type_noactive" href="<?=$this->url(array('image'=>1))?>"><img
+	src="/application/public/img/gallery.gif" alt="">Gallery</a> <?php endif;?>
+</div>
+<div class="clear"></div>
+<div class="paginator"><?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+</div>
+<!-- Начало блока с товаром --> <?php if(count($this->products)):?> <?php foreach($this->products as $product):?>
+<?php if($this->image):?>
+<div class="product_gallery_unit"><img
+	src="/application/public/img/product.gif" alt="">
+<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"
+	alt=""> Enlarge</a></p>
+<a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>
+<span>$ <?=$product['price']?> </span> <a
+	class="add_to_card_button" href="#"></a></div>
+<?php else:?>
+<div class="product_list_unit">
+<div class="product_list_unit_image"><img
+	src="/application/public/img/product.gif" alt=""></div>
+<div class="product_list_unit_about"><a
+	href="/product/index/id/<?=$product['id']?>"><?=$product['title']?> </a>
+<p><?=$product['short_about']?></p>
+<span></span>
+<!--<p>Effective Until 2009-09-28</p>
+--><!--<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
                                    <img src="/application/public/img/home.gif" alt="">-->
-                                   <p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
-                              </div>
-                              <div class="product_list_unit_price">
-                                  
-                                   <span>$ <?=$product['price']?> / Piece</span>
-                                   <a href="#"></a>
-                              </div>
-                         </div>
-                         <div class="clear"></div>
-					<?php endif;?>
-					<?php endforeach;?>
-					<?php else:?>
-						<p>This category is currently empty</p>
-						
-					<?php endif;?>
-					
-					<?php if($_SESSION['admin']):?>
-						<p><a href="/product/add/category/<?=$this->currentCategory->id?>">add product</a></p>
-						
-					
-					<?php endif;?>
-					
-					<div id="Items_per_page">
-					<!-- Исправил ошибку с выбором кол-ва товара на странице-->
-						Items per page: 
-						<?php if($this->count != 20):?>
-							<a href="#" class='count'>20</a>
-						<?php else :?>
-							<span>20</span>
-						<?php endif?>
-						|
-						<?php if($this->count != 40):?>
-							<a href="#" class='count'>40</a>
-						<?php else :?>
-							<span>40</span>
-						<?php endif?>
-					</div>
-					<div class="paginator">
-					
-					  <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
-					</div>
-			<script>
+<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"
+	alt=""> Enlarge</a></p>
+</div>
+<div class="product_list_unit_price"><span>$ <?=$product['price']?> </span> <a href="#"></a></div>
+</div>
+<div class="clear"></div>
+<?php endif;?> <?php endforeach;?> <?php else:?>
+<p>This category is currently empty</p>
+
+<?php endif;?> <?php if($_SESSION['admin']):?>
+<p><a href="/product/add/category/<?=$this->currentCategory->id?>">add
+product</a></p>
+
+
+<?php endif;?>
+
+<div id="Items_per_page"><!-- Исправил ошибку с выбором кол-ва товара на странице-->
+Items per page: <?php if($this->count != 20):?> <a href="#"
+	class='count'>20</a> <?php else :?> <span>20</span> <?php endif?> | <?php if($this->count != 40):?>
+<a href="#" class='count'>40</a> <?php else :?> <span>40</span> <?php endif?>
+</div>
+<div class="paginator"><?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+</div>
+<script>
 			$(document).ready(function(){
 				$('.count').click(function(){
 					value = $(this).text();
 					window.location.href = '<?= $this->url(array('count'=>null));?>'+'/count/'+value;
 				});
 			})
-			</script>
-				</div>
-			</div>
+			</script></div>
+</div>

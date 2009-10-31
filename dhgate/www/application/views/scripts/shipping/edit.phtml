@@ -1,25 +1,26 @@
- <div class="line_center_container"></div>
-	<div id="head_center_container">
-		<div id="contain_head_center_container">
-				<div id="left_contain_head_center_container">
-					<a href="#">Home</a> > <a href="#">Online Store</a> > Edit Shipping Method 
-				</div>
-		</div>
-	</div>
+
 <div class="line_center_container"></div>
-<div class="allowed_country">  
-   <h3>Edit Shipping Method</h3>
-	<div class="delimiter"></div>
-	<h4>Image</h4>
-   <p><img src="/application/public/images/shipping/s/<?=$this->shipping->id?>.jpeg"></p>
-   <form action="/shipping/edit/id/<?=$this->shipping->id?>" method="post" enctype="multipart/form-data">
-      <div class="delimiter"></div>
-	  <input type="file" name="file" value="<?=$this->shipping->name?>">
-	  <h4>Name of shipping method</h4>
-      <p><input type="text" name="name"></p>
-	  <h4>About shipping method</h4>
-      <p><textarea cols="40" rows="5" name="text"><?=$this->shipping->text?></textarea></p>
-      <div class="delimiter"></div>
-	  <input type="submit" value="Update">
-   </form>
+<div id="head_center_container">
+<div id="contain_head_center_container">
+<div id="left_contain_head_center_container"><a href="#">Home</a> > <a
+	href="#">Online Store</a> > Edit Shipping Method</div>
+</div>
+</div>
+<div class="line_center_container"></div>
+<div class="allowed_country">
+<h3>Edit Shipping Method</h3>
+<div class="delimiter"></div>
+<h4>Image</h4>
+<p><img
+	src="/application/public/images/shipping/s/<?=$this->shipping->id?>.jpeg"></p>
+<form action="/shipping/edit/id/<?=$this->shipping->id?>" method="post"
+	enctype="multipart/form-data">
+<div class="delimiter"></div>
+<input type="file" name="file" value="<?=$this->shipping->name?>">
+<h4>Name of shipping method</h4>
+<p><input type="text" name="name"></p>
+<h4>About shipping method</h4>
+<p><textarea cols="40" rows="5" name="text"><?=$this->shipping->text?></textarea></p>
+<div class="delimiter"></div>
+<input type="submit" value="Update"></form>
 </div>

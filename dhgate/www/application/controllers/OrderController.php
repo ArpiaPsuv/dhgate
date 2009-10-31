@@ -134,7 +134,7 @@ class OrderController extends Zend_Controller_Action
 		} else {
 			$shipping = new Shipping();
 			$shipping = $shipping->fetchAll();
-			 
+
 			$this->view->shipping = $shipping[0];
 			$_SESSION['shipping'] = 0;
 		}

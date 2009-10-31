@@ -1,147 +1,153 @@
 <div class="line_center_container"></div>
-				<div id="head_center_container">
-					<div id="contain_head_center_container">
-						<div id="right_contain_head_center_container"></div>
-						<div id="left_contain_head_center_container">
-							<a href="#">Home</a> > Online Store
-						</div>
-					</div>
-				</div>
+<div id="head_center_container">
+<div id="contain_head_center_container">
+<div id="right_contain_head_center_container"></div>
+<div id="left_contain_head_center_container"><a href="#">Home</a> >
+Online Store</div>
+</div>
+</div>
 <div class="line_center_container"></div>
 <div class="cart_big_title">Checkout</div>
 <div class="step_for_ships">
-	<div class="step_for_ships_container">
-		<a href="#">Shipping address</a>
-		<p>Ship Methods</p>
-		<p>Payment Method</p>
-		<p>Complete Order</p>
-	</div>
+<div class="step_for_ships_container"><a href="#">Shipping address</a>
+<p>Ship Methods</p>
+<p>Payment Method</p>
+<p>Complete Order</p>
+</div>
 </div>
 <div class="cart_title_bar">
-		<div class="cart_product_name_title">Name</div>
-		<div class="cart_product_SKU_title">SKU</div>
-		<div class="cart_product_price_title">Price</div>
-		<div class="cart_product_quantity_title">Quantity / Update</div>
-		<div class="cart_product_subtotal_title">Subtotal</div>
-</div> 
-		<!--Содержимое корзины -->
-			
-		<!--Содержимое корзины -->
-		<?php $total = 0; foreach($this->products as $product):?>
-			<div class="cart_product_container">
-				<div class="cart_product_name"><a href="/product/index/id/<?=$product['product']['id']?>"><?=$product['product']['title']?></a></div>
-				  <div class="cart_product_SKU">NBK-AS-T91-BK</div>
-				<div class="cart_product_price"><?=$this->valute($product['product']['price'])?></div>
-				<div class="cart_product_quantity">
-					<input type="text" value="<?=$product['count']?>">
-					<a href="#" class="plus"><img src="/application/public/img/qty-more.png"></a>
-					<a href="#" class="minus"><img src="/application/public/img/remove_f.png"></a>
-					<span class="price_" style="display: none"><?=$product['product']['price']?></span>
-					<span class="product_id" style="display: none;"><?=$product['product']['id']?></span>
-				</div>
-				<div class="cart_product_subtotal"><?=$this->valute($product['product']['price'] * $product['count'], 'subprice')?></span></div>
-			</div>
-			<?php $total+=$product['product']['price'] * $product['count']?>
-		<?php endforeach;?>
-		<!--Конец блока содержимого корзины -->
+<div class="cart_product_name_title">Name</div>
+<div class="cart_product_SKU_title">SKU</div>
+<div class="cart_product_price_title">Price</div>
+<div class="cart_product_quantity_title">Quantity / Update</div>
+<div class="cart_product_subtotal_title">Subtotal</div>
+</div>
+<!--Содержимое корзины -->
 
-		<!-- <div class="sum_cart_block">
+<!--Содержимое корзины -->
+<?php $total = 0; foreach($this->products as $product):?>
+<div class="cart_product_container">
+<div class="cart_product_name"><a
+	href="/product/index/id/<?=$product['product']['id']?>"><?=$product['product']['title']?></a></div>
+<div class="cart_product_SKU">NBK-AS-T91-BK</div>
+<div class="cart_product_price"><?=$this->valute($product['product']['price'])?></div>
+<div class="cart_product_quantity"><input type="text"
+	value="<?=$product['count']?>"> <a href="#" class="plus"><img
+	src="/application/public/img/qty-more.png"></a> <a href="#"
+	class="minus"><img src="/application/public/img/remove_f.png"></a> <span
+	class="price_" style="display: none"><?=$product['product']['price']?></span>
+<span class="product_id" style="display: none;"><?=$product['product']['id']?></span>
+</div>
+<div class="cart_product_subtotal"><?=$this->valute($product['product']['price'] * $product['count'], 'subprice')?></span></div>
+</div>
+<?php $total+=$product['product']['price'] * $product['count']?>
+<?php endforeach;?>
+<!--Конец блока содержимого корзины -->
+
+<!-- <div class="sum_cart_block">
 			<div class="sum_cart_block_price">AU $2,572.00</div>
 			Subtotal:
 		</div> -->
-		
-		<div class="sum_cart_block">
-			<div class="sum_cart_block_price"><p><?=$this->valute($total,'total')?></span></p></div>
-			<p>Total:</p>
-		</div>
-		<!--<div class="sum_cart_block">
+
+<div class="sum_cart_block">
+<div class="sum_cart_block_price">
+<p><?=$this->valute($total,'total')?></span></p>
+</div>
+<p>Total:</p>
+</div>
+<!--<div class="sum_cart_block">
 			<div class="sum_cart_block_price">AU $2,572.00</div>
 			GST Included in Total: 
 		</div> -->
-		<div class="clear"></div>
+<div class="clear"></div>
 
 <div class="shop-checkout-address">
-	<div class="shop-checkout-address-inner">
-    	<table border="0" cellspacing="0" cellpadding="2" width="100%">
-	        <tr class="sectiontableheader">
-	            <th colspan="2" align="left">Billing Information</th>
-	        </tr>
-	         
-	        <?php if($this->user->company):?>
-	        <tr>
-	           <td nowrap="nowrap" width="10%" align="right">Company: </td>
-	           <td width="90%">qwer</td>
-	        </tr>
-	        <?php endif;?>
-	        <?php if(trim($this->user->firstname) != '' && trim($this->user->middlename) != '' && trim($this->user->lastname) != '' ):?>
-	        <tr>
-	           <td nowrap="nowrap" width="10%" align="right">Full Name:</td>
-	           <td width="90%"><?php $this->user->firstname . ' ' . $this->user->middlename . ' ' . $this->user->lastname?></td>
-	        </tr>
-	        <?php endif;?>
-	        <?php if($this->user->adress):?>
-	        <tr>
-	           <td nowrap="nowrap" width="10%" align="right">Address: </td>
-	           <td width="90%">	<?=$this->user->adress?><td>
-	        </tr>
-	        <?php endif;?>
-	        <?php if($this->countiry):?>
-	        <tr>
-	           <td nowrap="nowrap" width="10%" align="right">&nbsp;</td>
-	           <td width="90%"><?=$this->country->name?></td>
-	        </tr>
-	        <?php endif;?>
-	        <?php if($this->user->phone):?>
-	        <tr>
-	           <td nowrap="nowrap" width="10%" align="right">Phone: </td>
-	           <td width="90%"><?=$this->user->phone?></td>
-	        </tr>
-	        <?php endif;?>
-	        <?php if($this->user->fax):?>
-	        <tr>
-	           <td nowrap="nowrap"width="10%" align="right">Fax: </td>
-	           <td width="90%"><?=$this->user->fax?></td>
-	        </tr>
-	        <?php endif;?>
-	        <?php if($this->user->mail):?>
-	        <tr>
-	           <td nowrap="nowrap" width="10%" align="right">Email: </td>
-	           <td width="90%"><?=$this->user->mail?></td>
-	        </tr>
-	        <?php endif;?>
-	        <tr><td align="center" colspan="2">
-	            </td>
-	        </tr>
-	    </table>
-	</div>
+<div class="shop-checkout-address-inner">
+<table border="0" cellspacing="0" cellpadding="2" width="100%">
+	<tr class="sectiontableheader">
+		<th colspan="2" align="left">Billing Information</th>
+	</tr>
+
+	<?php if($this->user->company):?>
+	<tr>
+		<td nowrap="nowrap" width="10%" align="right">Company:</td>
+		<td width="90%">qwer</td>
+	</tr>
+	<?php endif;?>
+	<?php if(trim($this->user->firstname) != '' && trim($this->user->middlename) != '' && trim($this->user->lastname) != '' ):?>
+	<tr>
+		<td nowrap="nowrap" width="10%" align="right">Full Name:</td>
+		<td width="90%"><?php $this->user->firstname . ' ' . $this->user->middlename . ' ' . $this->user->lastname?></td>
+	</tr>
+	<?php endif;?>
+	<?php if($this->user->adress):?>
+	<tr>
+		<td nowrap="nowrap" width="10%" align="right">Address:</td>
+		<td width="90%"><?=$this->user->adress?>
+		
+		
+		<td>
+	
+	</tr>
+	<?php endif;?>
+	<?php if($this->countiry):?>
+	<tr>
+		<td nowrap="nowrap" width="10%" align="right">&nbsp;</td>
+		<td width="90%"><?=$this->country->name?></td>
+	</tr>
+	<?php endif;?>
+	<?php if($this->user->phone):?>
+	<tr>
+		<td nowrap="nowrap" width="10%" align="right">Phone:</td>
+		<td width="90%"><?=$this->user->phone?></td>
+	</tr>
+	<?php endif;?>
+	<?php if($this->user->fax):?>
+	<tr>
+		<td nowrap="nowrap" width="10%" align="right">Fax:</td>
+		<td width="90%"><?=$this->user->fax?></td>
+	</tr>
+	<?php endif;?>
+	<?php if($this->user->mail):?>
+	<tr>
+		<td nowrap="nowrap" width="10%" align="right">Email:</td>
+		<td width="90%"><?=$this->user->mail?></td>
+	</tr>
+	<?php endif;?>
+	<tr>
+		<td align="center" colspan="2"></td>
+	</tr>
+</table>
+</div>
 </div>
 <div class="line_center_container"></div>
 <div class="shipto-addresses-block-inner">
-	<div class="sectiontableheader">Shipping Information</div>
-	<div class="please_select">Please select a Shipping Address!</div>
-	
-	<div class="shipping_information_radio">
-		<input type="radio" name="adress" checked value="0" class="adress">
-		<p>- Default (Same as Billing)</p>
-	</div>
-	<div class="clear"></div>
+<div class="sectiontableheader">Shipping Information</div>
+<div class="please_select">Please select a Shipping Address!</div>
+
+<div class="shipping_information_radio"><input type="radio"
+	name="adress" checked value="0" class="adress">
+<p>- Default (Same as Billing)</p>
+</div>
+<div class="clear"></div>
 	<?php foreach($this->adreses as $adress):?>
-	<div class="shipping_information_radio">
-		<input type="radio" name="adress" value="<?=$adress->id?>" class="adress">
-		<p> -<?=$adress->nickname?> <a href="/adress/edit/id/<?=$adress->id?>/">update adress</a> <a href="/adress/delete/id/<?=$adress->id?>/">delete</a></p>
-	</div>
-	<div class="clear"></div>
+<div class="shipping_information_radio"><input type="radio"
+	name="adress" value="<?=$adress->id?>" class="adress">
+<p>-<?=$adress->nickname?> <a href="/adress/edit/id/<?=$adress->id?>/">update
+adress</a> <a href="/adress/delete/id/<?=$adress->id?>/">delete</a></p>
+</div>
+<div class="clear"></div>
 	<?php endforeach;?>
-	
-	<div class="add_new_address">
-		<p>Add a new <a href="/adress/add/">Shipping Address</a>.</p>
-	</div>
+
+<div class="add_new_address">
+<p>Add a new <a href="/adress/add/">Shipping Address</a>.</p>
+</div>
 </div>
 <div class="line_center_container"></div>
 <form action='/order/step2/' method="post">
 <div class="next_button"><input type="submit" value="Next"></div>
 </form>
-				<script type="text/javascript">
+<script type="text/javascript">
 					function getTotalPrice(){
 						total = 0;
 						$('.subprice').each(function(){
@@ -202,122 +208,122 @@
 						});
 					})
 				</script>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-<?php 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<?php
 	/*										/ india\
-               _/     \_/                  (  4ever )                       
-             _'  '-.  /              _.. _  \____ _/       
-            /       \|              / /'''\\     0                           
-           /          \            / /_   _|\ . o       
-          /            |          / |   ^  |\                               
-         |      /       |        /-'|-. ~  / \                      
-         /     /      @ |   _.--'     '\ -/  |                              
-        |     |        |  /         _    ( /  \                      
-       /     /         /  \   \.-.-'-     \  \ |                            
-       |   |/          |   \   \ |\     .   \ \|                    
-      |    ||          /-._ \   /            @ \          _.--,             
-      |    |          :    ''\  \-.       \_.<  \''''----'  /-|             
- -----|    |          |===.--._  \_\     |----\.____.....,.|=/--------------
- -----|   /      \   /_- /   /    _\'   /-----------------------------------
- -----|   /       : /  .'   <//||/</   /------------------------------------
- -----|   |       \m   |    </ ||'  \ /-------------------------------------
- -----|    \       ##_.-\            \----------------------
- -----|     |      ) _.--'\           \-------------------
- -----\||| \>      |"     ~\           |-----------------
- -------\\_\       |       |\          \----------------------
- ---------\        |       |--\         |----------------------------
- ------------------------------\        \---------                                                      
+	 _/     \_/                  (  4ever )
+	 _'  '-.  /              _.. _  \____ _/
+	 /       \|              / /'''\\     0
+	 /          \            / /_   _|\ . o
+	 /            |          / |   ^  |\
+	 |      /       |        /-'|-. ~  / \
+	 /     /      @ |   _.--'     '\ -/  |
+	 |     |        |  /         _    ( /  \
+	 /     /         /  \   \.-.-'-     \  \ |
+	 |   |/          |   \   \ |\     .   \ \|
+	 |    ||          /-._ \   /            @ \          _.--,
+	 |    |          :    ''\  \-.       \_.<  \''''----'  /-|
+	 -----|    |          |===.--._  \_\     |----\.____.....,.|=/--------------
+	 -----|   /      \   /_- /   /    _\'   /-----------------------------------
+	 -----|   /       : /  .'   <//||/</   /------------------------------------
+	 -----|   |       \m   |    </ ||'  \ /-------------------------------------
+	 -----|    \       ##_.-\            \----------------------
+	 -----|     |      ) _.--'\           \-------------------
+	 -----\||| \>      |"     ~\           |-----------------
+	 -------\\_\       |       |\          \----------------------
+	 ---------\        |       |--\         |----------------------------
+	 ------------------------------\        \---------
 	 * */
-?>
+	?>

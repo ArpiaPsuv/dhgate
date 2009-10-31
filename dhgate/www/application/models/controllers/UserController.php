@@ -29,7 +29,7 @@ class UserController extends MainController
 	{
 		$country = new Country();
 		$this->view->countrys = $country->fetchAll();
-		 
+			
 		$checkout = $this->_getParam('checkout',0);
 		if($this->_request->isPost()){
 			$userTable = new User();

@@ -43,7 +43,7 @@ class App_Validate_NoDbRecordExists extends Zend_Validate_Abstract
 	 * @var unknown_type
 	 */
 	protected $_adapter = null;
-	 
+
 	/**
 	 * Конструктор
 	 *
@@ -59,7 +59,7 @@ class App_Validate_NoDbRecordExists extends Zend_Validate_Abstract
 		if ($adapter == null) {
 			// Если адаптер не задан, пробуем подключить адаптер заданный по умолчанию для Zend_Db_Table
 			$adapter = Zend_Db_Table::getDefaultAdapter();
-			 
+
 			// Если адаптер по умолчанию не задан выбрасываем исключение
 			if ($adapter == null) {
 				throw new Exception('No user and no default adapter was found');
@@ -81,15 +81,15 @@ class App_Validate_NoDbRecordExists extends Zend_Validate_Abstract
 		$adapter = $this->_adapter;
 
 		$select = $adapter->select()
-			->from($this->_table)
-			->where($adapter->quoteIdentifier($this->_field) . ' = ?', $value)
-			->limit(1)
+		->from($this->_table)
+		->where($adapter->quoteIdentifier($this->_field) . ' = ?', $value)
+		->limit(1)
 		;
 		$stmt = $adapter->query($select);
 		$result = $stmt->fetch(Zend_Db::FETCH_ASSOC);
 
 		if ($result !== false) {
-		//	$this->_error();
+			//	$this->_error();
 			return false;
 		}
 

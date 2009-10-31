@@ -40,7 +40,7 @@ class AdressController extends Zend_Controller_Action {
 		$state = new State();
 		$this->view->states = $state->fetchAll('country_id=' . $adressRow->country);
 		if($this->_request->isPost()){
-			 
+
 			if($_POST['nickname'] !=''
 			&& $_POST['firstname'] != ''
 			&& $_POST['adress'] != ''

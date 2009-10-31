@@ -5,7 +5,7 @@ class IndexController extends MainController
 	{
 		$product = new Product();
 		$this->view->products = $product->fetchAll();
-				
+
 	}
 
 	public function infoAction()
@@ -18,7 +18,7 @@ class IndexController extends MainController
 		if($_SESSION['admin']){
 			if($this->_request->isPost()){
 				$filter = Zend_Registry::get('autoFilter');
-				 
+					
 				$settings->update(array($page => $filter->postCopy['text']), 'id = 1');
 				$this->_redirect('/index/info/page/' . $page . '/');
 			}

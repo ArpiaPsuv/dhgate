@@ -2,11 +2,10 @@
 
 <h3>Select Allowed Countries</h3>
 
-<form>
-	<?php foreach($this->countrys as $country):?>
-		<p><input type="checkbox" value="<?=$country->id?>" class='allowed' <?php if($country->allowed){echo "checked";}?>><?=$country->name?></p>
-	<?php endforeach;?>
-</form>
+<form><?php foreach($this->countrys as $country):?>
+<p><input type="checkbox" value="<?=$country->id?>" class='allowed'
+<?php if($country->allowed){echo "checked";}?>><?=$country->name?></p>
+<?php endforeach;?></form>
 
 </div>
 

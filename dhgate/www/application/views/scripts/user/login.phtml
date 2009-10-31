@@ -1,27 +1,29 @@
 <?=$this->message?>
 <?php //echo $this->form?>
-		<div id="product_path">
-			<a href="/">Home</a> > <span>Sign in</span>
-		</div>
-				<div class="sign_in_account">
-					<div class="sign_in_form">
-						<div class="sign_in_head">
-							<h2>Sign into your account</h2>
-						</div>
-						<form action="<?=$this->form->getAction()?>" method="<?=$this->form->getMethod()?>">
-						<p>E-mail Address :<?=$this->form->getElement('mail')?></p>
-						<p>Password :<?=$this->form->getElement('pass')?></p>
-						<p><?=$this->form->getElement('remember')?> Remember my E-mail address for this computer.</p>
-						<p class="sign_in_button_big"><?=$this->form->getElement('submit')?></p>
-						<p><a href="/user/recover/">Forgot your password?</a></p>
-						</form>
-						
-					</div>
-					<div class="new_to_dhgate">
-						<div class="sign_in_head_ntd">
-							<h2>New to DHgate.com</h2>
-						</div>
-						<p>If you want to sign in, you'll need to register first. Registration is fast and free!</p>
-						<p><a href="/user/register/"><img src="/application/public/img/Join.gif" alt=""></a></p>
-					</div>
-				</div>
+<div id="product_path"><a href="/">Home</a> > <span>Sign in</span></div>
+<div class="sign_in_account">
+<div class="sign_in_form">
+<div class="sign_in_head">
+<h2>Sign into your account</h2>
+</div>
+<form action="<?=$this->form->getAction()?>"
+	method="<?=$this->form->getMethod()?>">
+<p>E-mail Address :<?=$this->form->getElement('mail')?></p>
+<p>Password :<?=$this->form->getElement('pass')?></p>
+<p><?=$this->form->getElement('remember')?> Remember my E-mail address
+for this computer.</p>
+<p class="sign_in_button_big"><?=$this->form->getElement('submit')?></p>
+<p><a href="/user/recover/">Forgot your password?</a></p>
+</form>
+
+</div>
+<div class="new_to_dhgate">
+<div class="sign_in_head_ntd">
+<h2>New to DHgate.com</h2>
+</div>
+<p>If you want to sign in, you'll need to register first. Registration
+is fast and free!</p>
+<p><a href="/user/register/"><img src="/application/public/img/Join.gif"
+	alt=""></a></p>
+</div>
+</div>
