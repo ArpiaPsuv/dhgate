@@ -7,17 +7,23 @@
 						</div>
 					</div>
 				</div>
+				<h3>Your Search Text is "<?=$this->textsearch?>" in <?=$this->category_title?></h3>
+				
+				
 			    <div class="paginator">
-    				Display #
+    			
+    				<div class="paginator_content_right">
+    				    <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+    				    	Display <?=$this->count?>
     				<select name="account_pages">
-    					<option value="0">#</option>
+    					<option value="0">-</option>
     					<option class='count' value="50">50</option>
     					<option class='count' value="20">20</option>
     					<option class='count' value="10">10</option>
     				</select>
-    				<div class="paginator_content_right">
-    				    <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
     				</div>
+    				
+    				
 				</div>
 				<div class="line_center_container"> </div>
 				<?php 
@@ -50,15 +56,17 @@
 				<?php $i++; endforeach; ?>
 				<div class="clear"></div>
 				<div class="paginator">
-    				Display #
+    			
+    				<div class="paginator_content_right">
+    				    <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+    				    
+    				    	Display <?=$this->count?>
     				<select name="account_pages">
-    					<option value="0">#</option>
+    					<option value="0">-</option>
     					<option class='count' value="50">50</option>
     					<option class='count' value="20">20</option>
     					<option class='count' value="10">10</option>
     				</select>
-    				<div class="paginator_content_right">
-    				    <?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
     				</div>
 				</div>
 			<script>

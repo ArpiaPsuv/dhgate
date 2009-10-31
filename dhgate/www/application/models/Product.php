@@ -46,7 +46,7 @@ class Product extends Zend_Db_Table_Abstract
 		return $this->getAdapter()->fetchAll($select);
 	}
 
-	public function search($category_id = 0,$searchText)
+	public function search($category_id = 0,$searchText, $page=0)
 	{
 
 
@@ -69,6 +69,10 @@ class Product extends Zend_Db_Table_Abstract
 		$paginatorAdapter = new Zend_Paginator_Adapter_DbSelect($select);
 		$paginator = new Zend_Paginator($paginatorAdapter);
 		$paginator->setItemCountPerPage(10);
+		
+		if($page !== null){
+			$paginator->setCurrentPageNumber($page);
+		}
 		
 		return $paginator;
 		

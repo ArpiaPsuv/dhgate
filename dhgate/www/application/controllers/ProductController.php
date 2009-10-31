@@ -136,21 +136,36 @@ class ProductController extends MainController
 
 	public function searchAction()
 	{
-		if($this->_request)
-		{
+		if($this->_request->isPost()){
+			$_SESSION['category_id']=$_POST['category'];
+			if($_POST['category']){
+				$catalog = new Catalog();
+				$_SESSION['category_title']=$catalog->find($_POST['category'])->current()->title;
+			}else{
+				$_SESSION['category_title']='All Categories';
+			}
+		
+			$_SESSION['text_search']=$_POST['text_search'];
+		}
+		
+			if ($_SESSION['text_search'] == ''){
+				$this->_redirect('/');
+			}
 			
-			$count = (int) $this->_getParam('count' , 10 );
+			$this->view->count=$count = (int) $this->_getParam('count' , 10 );
 			$page = (int) $this->_getParam('page' , 0 );
-			$this->view->category=$category=$this->_request->getParam('category');
-			$this->view->textsearch=$textsearch=$this->_request->getParam('text_search');
+			$category_id=$_SESSION['category_id'];
+			
+			$this->view->category_id=$_SESSION['category_id'];
+			$this->view->category_title=$_SESSION['category_title'];
+			$this->view->textsearch=$textsearch=$_SESSION['text_search'];
 			
 			$product = new Product();
-			$products = $product->search($category,$textsearch,$page);
+			$products = $product->search($category_id,$textsearch,$page);
 			$products->setItemCountPerPage($count);
 			$this->view->products = $products;
-			Zend_Debug::dump($this->_request);
 			
-		}
+		
 	}
 
 	public function onmainAction()
