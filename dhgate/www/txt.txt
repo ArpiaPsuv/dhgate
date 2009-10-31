@@ -1,3 +1,6 @@
+УБРАТЬ ЗНАЧИТ ЗАКОММЕНТИТЬ
+
+
 1. Редактирование пользователя (смена пароля)+
 	user/profile+
 		/edit+
@@ -22,3 +25,53 @@
 
 12. навигация у товара (home/catalog/category/subcategory/product)
 
+
+
+
+
+!!!!!!!!!!!!!!todo!!!!!!!!!!
+
+
+
+
+к товару поле main --вывод на главной
+собственно вывод товаров на главную
+Watch Our Info Clip -- убрать
+добавить сообщение когда данные пользователя изменились
+убрать отчество
+
+убрать форму перемещения если нельзя переместить
+
+
+	удаление категорий(всех её подкатегорий и товаров) и из таблици коннект
+	
+	удаление товаров
+	перенос товаров в различные категории
+	
+	добавление товаров
+	\в корзину
+	\ вывод карзины
+	
+	Admin is loged ..... Logout? -- убрать
+	
+	Select * FROM products where category_id = $category_id and (`title` LIKE '%$search%' or description LIKE '%$search%' ... )
+	поиск по title, description, about
+	
+	
+	у товара
+	
+	Progressing->processing
+	
+	
+	 / Piece убрать везде
+	Detail
+	Time Left: 	27 days 8 hours 
+	Options:
+Payment: 	PayPal, VISA, West Union Detail -----убрать
+Effective Until 2009-09-28---
+
+
+загрузка картинок--- доделать......вывод
+	
+	
+	
