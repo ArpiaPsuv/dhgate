@@ -5,15 +5,7 @@ class IndexController extends MainController
 	{
 		$product = new Product();
 		$this->view->products = $product->fetchAll();
-		if ($this->auth->hasIdentity()){
-			if ($this->admin){
-				echo '<h1> Admin is loged ..... <a href="/user/logout/">Logout?</a></h1>';
-			} else {
-				echo '<h1> User is loged ..... <a href="/user/logout/">Logout?</a></h1>';
-			}
-		}
-		
-		
+				
 	}
 
 	public function infoAction()

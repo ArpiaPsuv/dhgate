@@ -34,15 +34,11 @@
 					<?php endif;?>
 						<div class="fl_left articule_head">
 							<h3><a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a></h3>
-							<?php if($product['oldprice']):?>
-								<p class="old_price">RRP:<?=$this->valute($product['oldprice'])?></p>
-							<?php endif; ?>
+							
 						</div>
 					<div class="clear"> </div>
 					<p class="price"><?=$this->valute($product['price'])?> <span class="small_price">(inc 10% GST)</span></p>
-					<?php if($product['oldprice']):?>
-						<p class="save">You Save: AU $<?=$this->valute($product['oldprice'] - $product['price'])?></p>
-					<?php endif;?>
+					
 					<p class="overview"><?=$product['short_about']?></p>
 					</div>
 				</div></div>

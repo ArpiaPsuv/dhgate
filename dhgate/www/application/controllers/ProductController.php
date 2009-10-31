@@ -136,18 +136,19 @@ class ProductController extends MainController
 
 	public function searchAction()
 	{
-		if($this->_request->isPost())
+		if($this->_request)
 		{
+			
 			$count = (int) $this->_getParam('count' , 10 );
 			$page = (int) $this->_getParam('page' , 0 );
-			//$this->view->category=$category=$this->_getParam['category'];
-			//$this->view->textsearch=$textsearch=$this->_getParam['text_search'];
-			//Zend_Debug::dump
+			$this->view->category=$category=$this->_request->getParam('category');
+			$this->view->textsearch=$textsearch=$this->_request->getParam('text_search');
+			
 			$product = new Product();
 			$products = $product->search($category,$textsearch,$page);
 			$products->setItemCountPerPage($count);
 			$this->view->products = $products;
-			Zend_Debug::dump($products);
+			Zend_Debug::dump($this->_request);
 			
 		}
 	}
