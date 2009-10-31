@@ -4,7 +4,7 @@ class CatalogController extends MainController
 	public function indexAction()
 	{
 	
-            
+      
          
      
             
@@ -14,10 +14,7 @@ class CatalogController extends MainController
 		$this->_redirect('/catalog/view/');
 
 	}
-	public function searchAction()
-	{
-		Zend_Debug::dump($_POST);
-	}
+
 	public function categoryAction()
 	{
 		$id = (int)$this->_getParam('id',0);

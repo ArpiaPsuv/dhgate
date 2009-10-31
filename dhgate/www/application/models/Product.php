@@ -46,7 +46,36 @@ class Product extends Zend_Db_Table_Abstract
 		return $this->getAdapter()->fetchAll($select);
 	}
 
-	public function search($search)
+	public function search($category_id = 0,$searchText,$page = null)
+	{
+
+
+		$select = $this->getAdapter()->select()->from(array('p'=>'product'))
+		->join(array('c'=>'connect_catalog_product'), 'p.id = c.item_id')
+		->Where('c.category_id = '. $category_id)
+		->where(" `title` LIKE '%$searchText%' or `short_about` LIKE '%$searchText%' or `about` LIKE '%$searchText%'");
+		$catalog= new Catalog();
+		if ($category_id){
+			$childs=$catalog->getLevel($category_id);
+		}else{
+			$childs=$catalog->fetchAll();
+		}
+		foreach ($childs as $childCategory) {
+			$select->orWhere("c.category_id  = ".$childCategory->id);
+			$select->Where("`title` LIKE '%$searchText%' or `short_about` LIKE '%$searchText%' or `about` LIKE '%$searchText%'");
+		}
+		$paginatorAdapter = new Zend_Paginator_Adapter_DbSelect($select);
+		$paginator = new Zend_Paginator($paginatorAdapter);
+		$paginator->setItemCountPerPage(10);
+		if($page !== null){
+			$paginator->setCurrentPageNumber((int)$page);
+		}
+		return $paginator;
+	
+	
+	}
+	
+/*	public function search($search)
 	{
 		$select = $this->select()->from($this->_name)
 		->where("title like  '%$search%'")
@@ -55,7 +84,7 @@ class Product extends Zend_Db_Table_Abstract
 		->orwhere("about like '%$search%'")
 		->orwhere("specifications like '%$search%'");
 		return  new Zend_Paginator(new Zend_Paginator_Adapter_DbTableSelect($select));
-	}
+	}*/
 
 	public function getLeftProducts()
 	{

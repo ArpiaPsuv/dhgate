@@ -19,6 +19,7 @@ class Catalog extends App_TreeTable
 		foreach ($childs as $childCategory) {
 			$select->orWhere('c.category_id  = '.$childCategory->id);
 		}
+		
 		/////
 		$paginatorAdapter = new Zend_Paginator_Adapter_DbSelect($select);
 		$paginator = new Zend_Paginator($paginatorAdapter);
