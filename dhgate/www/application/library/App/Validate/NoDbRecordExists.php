@@ -81,15 +81,15 @@ class App_Validate_NoDbRecordExists extends Zend_Validate_Abstract
 		$adapter = $this->_adapter;
 
 		$select = $adapter->select()
-		->from($this->_table)
-		->where($adapter->quoteIdentifier($this->_field) . ' = ?', $value)
-		->limit(1)
+			->from($this->_table)
+			->where($adapter->quoteIdentifier($this->_field) . ' = ?', $value)
+			->limit(1)
 		;
 		$stmt = $adapter->query($select);
 		$result = $stmt->fetch(Zend_Db::FETCH_ASSOC);
 
 		if ($result !== false) {
-			$this->_error();
+		//	$this->_error();
 			return false;
 		}
 

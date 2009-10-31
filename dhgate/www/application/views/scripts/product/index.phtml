@@ -3,6 +3,7 @@
 				<img class="up_border" src="/application/public/img/Item_border_up.gif" alt="">
 				<div id="item_description_contain">
 				<p class="img_container">
+					<a href="#" id="upload">upload</a>
 					<img src="/application/public/img/productimg.jpg" alt="">
 					<a href="#"></a>
 				</p>
@@ -149,4 +150,21 @@
 					</div>
 					<img class="description_border_up" src="/application/public/img/desc_down.gif">
 				</div>
+					<script type="text/javascript" src="/application/public/js/ocupload.js"></script>
+	<script type="text/javascript">
+		$('#upload').upload({
+		       name: 'file',
+		       method: 'post',
+		       enctype: 'multipart/form-data',
+		       action: '/product/upload/id/' + '<?=$this->product->id?>',
+		       onComplete: function(data) {
+				$.ajax({
+					   url: '/product/getimages/id/<?=$this->product->id?>',
+					   success: function(msg){
+					  		alert(msg);
+					   }
+				});
+		       }
+		});
+	</script>
 			

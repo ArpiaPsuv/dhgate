@@ -161,10 +161,9 @@ a:hover {
 }
 
 .go_button {
-	float:left;
+	float:left; 
 	width: 35px;
 	height: 25px;
-	background-image: url(/application/public/img/input_go_no_active.gif);
 	margin: 8px 0 0 12px;
 }
 

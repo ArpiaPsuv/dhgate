@@ -27,6 +27,8 @@ class App_Album_Product{
 	{
 		$this->_image->setUploadPath($this->path);
 		$this->_image->upload();
+		//$images = $this->getImages('s');
+		//$this->setMainImage($images[0]);
 	}
 	 
 	// вовзвращает массив путей к картинкам входящий параметр префикс папки

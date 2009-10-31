@@ -51,7 +51,7 @@ class AdminController extends Zend_Controller_Action {
 		if (($id > 0) and ($id != $currentAdminID)) {
 			$user = new User();
 			$currentUser=$user->find($id)->current();
-			$currentUser->admin=(bool)!$currentUser->admin;
+			$currentUser->admin=(int)!$currentUser->admin;
 			$currentUser->save();
 		}
 		$this->_redirect("/admin/userlist");

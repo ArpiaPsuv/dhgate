@@ -88,6 +88,7 @@ class Cart extends Connect
 		if($count<1){
 			$this->deleteItem(null, $product_id);
 		}
+		
 		if(Zend_Auth::getInstance()->hasIdentity())
 		{
 			$cart = new Cart();
@@ -96,6 +97,7 @@ class Cart extends Connect
 			setcookie("p#".$product_id, $count, mktime(0,0,0,01,25,2099),'/');
 		}
 	}
+	
 	public function setActive($id)
 	{
 		$row  = $this->find($id)->current();
