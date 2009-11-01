@@ -231,7 +231,7 @@ class UserController extends MainController
 	public function logoutAction()
 	{
 		Zend_Auth::getInstance()->clearIdentity();
-		$this->_redirect($_SERVER['HTTP_REFERER']);
+		$this->_redirect('/');
 	}
 
 

@@ -3,11 +3,16 @@
 	src="/application/public/img/escrow_n.gif" alt=""></a>
 <div class="clear"></div>
 <div id="sign_in">
+<?php if(!Zend_Auth::getInstance()->hasIdentity()):?>
 <div id="please_sign_in">Please <a href="/user/login/"> Sign In</a></div>
 
 <!-- <div id="watch_our"><a href="#">Watch Our Info Clip</a></div> -->
 
 <div id="button_join_free"><a href="/user/register/"></a></div>
+<?php else:?>
+<div id="please_sign_in"><h3>Hello, <?=Zend_Auth::getInstance()->getIdentity()->login ?></h3></div>
+<h4><a href="/user/">Go To Your Profile</a></h4>
+<?php endif;?>
 </div>
 <div id="hot_deals_up">Hot Deals</div>
 <div id="hot_deals_content">

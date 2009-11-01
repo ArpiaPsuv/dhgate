@@ -32,9 +32,9 @@ class Product extends Zend_Db_Table_Abstract
 		$this->delete('id = ' . $id);
 		$connectTable = new Connect_Catalog();
 		$connectTable->deleteItem(null, $id);
-		//@todo удалять картинки
-		//$album = App_Album::create('product',$id);
-		//$album->deleteAll();
+		
+		$album = App_Album::create('product',$id);
+		$album->RecursiveDelete($album->fullPath);
 		return $category;
 	}
 
@@ -79,17 +79,14 @@ class Product extends Zend_Db_Table_Abstract
 
 	}
 
-	/*	public function search($search)
-	 {
-		$select = $this->select()->from($this->_name)
-		->where("title like  '%$search%'")
-		->orwhere("about like '%$search%'")
-		->orwhere("short_about like '%$search%'")
-		->orwhere("about like '%$search%'")
-		->orwhere("specifications like '%$search%'");
-		return  new Zend_Paginator(new Zend_Paginator_Adapter_DbTableSelect($select));
-		}*/
 
+
+	public function moveProduct($product_id,$category_id) 
+	{
+		$data=array('category_id'=>$category_id);
+		$this->getAdapter()->update('connect_catalog_product',$data,'item_id = '.$product_id);
+	}
+	
 	public function getLeftProducts()
 	{
 		$select = $this->select()->from(array('p'=>'product'))->where('p.left=1');

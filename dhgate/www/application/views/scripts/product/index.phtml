@@ -1,3 +1,11 @@
+<a href="/">Home</a> /
+<?php if(isset($this->parents[0]->id)):?>
+<a href="/catalog/category/id/<?=$this->parents[0]->id?>"><?=$this->parents[0]->title?></a> / 
+<?php endif?>
+<a href="/catalog/category/id/<?=$this->category[0]['id']?>"><?=$this->category[0]['title']?></a> / 
+<?=$this->product->title?>
+
+
 
 <div id="item_description"><img class="up_border"
 	src="/application/public/img/Item_border_up.gif" alt="">
@@ -82,6 +90,7 @@
 -->
 </div>
 </div>
+
 <img class="down_border"
 	src="/application/public/img/Item_border_down.gif" alt=""></div>
 
@@ -91,38 +100,8 @@
 <img class="description_border_up"
 	src="/application/public/img/desc_up.gif">
 <div id="cover_description_table"><!--Табличка с полным описанием товара, по задумке хавается из базы -->
-<?=$this->product->about?> <!--<table id="description_table">
-							
-							<tr>
-								<td class="desc_left_td">Product Name:</td>
-								<td>SONY VGN-CR382/mini version Computers & Networking Laptops & Notebooks Netbook PC</td>
-							</tr>
-							<tr>
-								<td class="desc_left_td">Item Code:</td>
-								<td>65636851</td>
-							</tr>
-							<tr>
-								<td class="desc_left_td">Catalog:</td>
-								<td>Netbook PC  <a href="#">Add to My Favorite Catalog</a></td>
-							</tr>
-							<tr>
-								<td class="desc_left_td">Short Description:</td>
-								<td>top wholesale SONY VGN-CR382 /mini version Computers & Networking>>Laptops & Notebooks>>Netbook PC lat tops. lattop, Sony lattop Samsung's memory and hard drive will greatly improve the stability of the machine, with the A-han, as the odd screen, so that the entire machine to upgrade the hardware, the use of three power enhanced the stability of the machine used to solve the 2133 die before the fixed hard drive,</td>
-							</tr>
-							<tr>
-								<td class="desc_left_td">Quantity:</td>
-								<td>1   Piece </td>
-							</tr>
-							<tr>
-								<td class="desc_left_td">Package Size:</td>
-								<td>30.0 * 20.0 * 2.9 ( cm ) </td>
-							</tr>
-							<tr>
-								<td class="desc_left_td">Gross weight/Package:</td>
-								<td>3.0 ( kg )</td>
-							</tr>
-						</table>
-						--><!-- Конец таблички с полным описанием товара --></div>
+<?=$this->product->about?> 
+</div>
 <img class="description_border_up"
 	src="/application/public/img/desc_down.gif"></div>
 <script
@@ -137,9 +116,34 @@
 				$.ajax({
 					   url: '/product/getimages/id/<?=$this->product->id?>',
 					   success: function(msg){
-					  		alert(msg);
+							$('#test').append(msg);
+			  				
 					   }
 				});
 		       }
 		});
 	</script>
+	
+	
+<script type="text/javascript">
+		$('#setmain').upload({
+		       name: 'e',
+		       method: 'post',
+		       action: '/product/setmain/id/' + '<?=$this->product->id?>',
+		       data: 'src=123'
+		       onComplete: function(data) {
+				$.ajax({
+					   url: '/product/getimages/id/<?=$this->product->id?>',
+					   success: function(msg){
+							$('#test').append(msg);
+			  				
+					   }
+				});
+		       }
+		});
+	</script>	
+
+	
+	<div id=test><?php echo $this->images($this->product->id)?></div>
+	
+	<div id=setmain>13</div>

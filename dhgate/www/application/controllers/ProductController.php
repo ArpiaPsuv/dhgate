@@ -13,10 +13,15 @@ class ProductController extends MainController
 		$category = $productTable->getCategory($productRow->id);
 		$this->view->category = $category;
 		$catalogTable = new Catalog();
-		$this->view->parents = $catalogTable->getParentsRecursive($category[0]['id']);
+		
+		
+		$this->view->parents = $parents= $catalogTable->getParentsRecursive($category[0]['id']);
 		$this->view->album = App_Album::create('product',$productRow->id);
 		$this->view->allProducts = $productTable->fetchAll();
 		$this->view->interested = $productTable->getInterested($productRow->id);
+		$this->view->category =$category;
+		
+	//Zend_Debug::dump($parents);
 	}
 
 	public function addAction()
@@ -56,15 +61,59 @@ class ProductController extends MainController
 		}
 	}
 
+	public function moveAction()
+	{
+		if(!$_SESSION['admin']){
+			$this->_redirect('/');
+		}
+		
+		if($this->_request->isPost()){
+			$category_id=$_POST['category_id'];
+			$product_id=$_POST['product_id'];
+			if($category_id >0){
+			$product= new Product();
+			$product->moveProduct($product_id,$category_id);	
+			}
+			
+		}
+		$this->_redirect($_SERVER['HTTP_REFERER']);
+	}
+	
+	
+	public function mainpageAction() 
+	{
+		if(!$_SESSION['admin']){
+			$this->_redirect('/');
+		}	
+		
+		$id = (int) $this->_getParam('id',0);
+		
+		if($id<1){
+			$this->_redirect('/');
+		}
+		
+		$products= new Product();
+		$productMain=$products->find($id)->current();
+		$productMain->main=!$productMain->main;
+		$productMain->save();
+		$this->_redirect($_SERVER['HTTP_REFERER']);
+		
+	}
+	
 	public function deleteAction()
 	{
+		if((bool)$_SESSION['admin']){
 		$id = (int) $this->_getParam('id',0);
 		if($id<1){
 			$this->_redirect('/');
 		}
 		$productTable = new Product();
 		$category = $productTable->deleteProduct($id);
-		$this->_redirect('/catalog/category/id/' . $category[0]['id']);
+		$this->_redirect('/catalog/category/id/' . $category[0]["id"]);
+		//Zend_Debug::dump($category);
+		}else{
+			$this->_redirect($_SERVER['HTTP_REFERER']);
+		}
 	}
 
 	public function addinterestedAction()

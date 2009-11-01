@@ -23,12 +23,15 @@ class App_Album_Product{
 		$this->_image = new App_Image();
 	}
 
-	public function upload()
+	public function upload($main = null)
 	{
 		$this->_image->setUploadPath($this->path);
-		$this->_image->upload();
-		//$images = $this->getImages('s');
-		//$this->setMainImage($images[0]);
+		return $this->_image->upload();
+		if (main){
+		$images = $this->getImages('s');
+		$this->setMainImage($images[0]);	
+		}
+	
 	}
 
 	// вовзвращает массив путей к картинкам входящий параметр префикс папки
@@ -51,7 +54,7 @@ class App_Album_Product{
 	}
 
 
-	// возвращает главную картинку по префиксам
+	// возвращает главную картинку ; префиксам
 	public function getMainImage($prefix)
 	{
 		if(!file_exists($this->fullPath.'main/')){
@@ -123,6 +126,31 @@ class App_Album_Product{
 	public function delete($path)
 	{
 		@unlink($_SERVER['DOCUMENT_ROOT']. $path);
+		return $_SERVER['DOCUMENT_ROOT']. $path;
 	}
+	
+	function RecursiveDelete($folderPath)   
+	{	   
+	    if (is_dir($folderPath)){   
+	        foreach (scandir($folderPath) as $value){   
+	            if ( $value != "." && $value != ".." ){   
+	                $value = $folderPath . "/" . $value;   
+	                if (is_dir ($value)){   
+	                    $this->RecursiveDelete($value);   
+	                }   
+	                elseif (is_file ($value))   
+	                {   
+	                    @unlink ($value);   
+	                }   
+	            }   
+	        }   
+	        return rmdir ($folderPath);   
+	    }   
+	    else   
+	    {   
+	        return FALSE;   
+	    }   
+	} 
+	
 }
 ?>

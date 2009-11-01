@@ -15,6 +15,8 @@ class CatalogController extends MainController
 
 	}
 
+
+	
 	public function categoryAction()
 	{
 		$id = (int)$this->_getParam('id',0);
@@ -33,9 +35,6 @@ class CatalogController extends MainController
 
 		$products =$catalogTable->getItems($currentCategory->id, (int) $this->_getParam('page',0));
 
-	
-		
-		
 		$this->view->count = $count = (int)$this->_getParam('count',20);
 		$products->setItemCountPerPage($count);
 		
@@ -94,13 +93,30 @@ class CatalogController extends MainController
 			$this->_redirect('/');
 		}
 
-		//По моему не правильная реализация удаления категории (не удаляются дочернии категории и их товары)
+		//удаляются текущая категория её подкатегории и все продукты
 		$catalogTable = new Catalog();
-		$currentRow = $catalogTable->getCurrent($id);
-		$parent = $currentRow->parent;
 		$connectTable = new Connect_Catalog();
-		$connectTable->deleteItem($id);
-		$currentRow->delete();
+		$productTable = new Product();
+		$currentRow = $catalogTable->getCurrent($id);
+		
+		$childs = $catalogTable->getLevel($id);
+		foreach ($childs as $child) {
+			$products = $connectTable->fetchAll('category_id = '.$child->id);
+			foreach ($products as $product){
+				$productTable->deleteProduct($product->id);
+			}
+			$connectTable->delete('category_id = '.$child->id);
+		}
+		$catalogTable->delete('parent = '. $id);
+		
+		$products = $connectTable->fetchAll('category_id = '.$id);
+		foreach ($products as $product){
+			$productTable->deleteProduct($product->id);
+		}
+		$connectTable->delete('category_id = '.$id);
+		$catalogTable->delete('id = '.$id);
+		
+		$parent = $currentRow->parent;
 		if($parent !=0 ){
 			$this->_redirect('/catalog/category/id/' . $parent);
 		} else {

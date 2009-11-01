@@ -23,16 +23,22 @@ if($this->currentCategory){
 <div class="left_block_contain">
 <div class="refine_your_search_ul">
 <ul>
-<?php foreach ($this->subCategories as $subCategory):?>
+	<?php foreach ($this->subCategories as $subCategory):?>
 
 	<li><a href="/catalog/category/id/<?=$subCategory->id?>"><?=$subCategory->title?></a></li>
 
 	<?php endforeach;?>
 </ul>
 </div>
-	<?php if($_SESSION['admin']):?> <?=$this->form;?> <?php endif;?></div>
-
-	<?php endif;?> <?php if($_SESSION['admin']):?> <?php echo $this->formMoveCategory($this->currentCategory->id)?>
+	<?php if($_SESSION['admin']):?> 
+	<?=$this->form;?> 
+	<?php endif;?></div>
+	<?php endif;?>
+	
+	<?php if($_SESSION['admin']):?>
+	<?php echo $this->formMoveCategory($this->currentCategory->id)?>
+	<p><a href="/catalog/delete/id/<?=$this->currentCategory->id?>">Delete Category</a></p>
+	
 	<?php endif;?>
 
 
@@ -113,7 +119,8 @@ here</a> <span class="orange"> <?=$this->products->getTotalItemCount();
 <div class="clear"></div>
 <div class="paginator"><?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
 </div>
-<!-- Начало блока с товаром --> <?php if(count($this->products)):?> <?php foreach($this->products as $product):?>
+<!-- Начало блока с товаром --> 
+<?php if(count($this->products)):?> <?php foreach($this->products as $product):?>
 <?php if($this->image):?>
 <div class="product_gallery_unit"><img
 	src="/application/public/img/product.gif" alt="">
@@ -135,6 +142,17 @@ here</a> <span class="orange"> <?=$this->products->getTotalItemCount();
                                    <img src="/application/public/img/home.gif" alt="">-->
 <p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"
 	alt=""> Enlarge</a></p>
+	<?php if ($_SESSION['admin']):?>
+	<p> <?=$this->moveProduct($product['id'])?></p>
+	<p><a href="/product/delete/id/<?=$product['id']?>">Delete Product</a></p>
+	<p><a href="/product/mainpage/id/<?=$product['id']?>">
+	<?php if($product['main']):?>
+	Remove from the Main
+	<?php else:?>
+	Add To Main
+	<?php endif;?>
+	</a></p>
+	<?php endif?>
 </div>
 <div class="product_list_unit_price"><span>$ <?=$product['price']?> </span> <a href="#"></a></div>
 </div>
