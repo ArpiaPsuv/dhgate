@@ -29,20 +29,39 @@ class App_Form_AddProduct extends App_Form  {
 		 Description
 		 processing*/
 
-		$title= new Zend_Form_Element_Text('title');
-		$title->setLabel('Name');
+		$title= new Zend_Form_Element_Text('title',array(
+		'required' => true,
+		'label'=>'Name :',
+		'validators' => array('Alnum')
+		));
+		
 
-		$price=new Zend_Form_Element_Text('price');
-		$price->setLabel('Price');
+		$price=new Zend_Form_Element_Text('price',array(
+		'required' => true,
+		'label'=>'Price :',
+		'validators' => array('Int')
+		));
+		
 
-		$shortDescription= new Zend_Form_Element_Text('short_about');
-		$shortDescription->setLabel('Short Description');
+		$shortDescription= new Zend_Form_Element_Text('short_about',array(
+		'required' => true,
+		'label'=>'Short about :',
+//		'validators' => array('Int')
+		));
 
-		$description= new Zend_Form_Element_Textarea('about');
-		$description->setLabel('Description');
+		
+		$description= new Zend_Form_Element_Textarea('about', array(
+		'required' => true,
+		'label'=>'About :',
+//		'validators' => array('Int')
+		));
 
-		$procressing= new Zend_Form_Element_Text('progressing');
-		$procressing->setLabel('Processing');
+		$procressing= new Zend_Form_Element_Text('proсressing',array(
+		'required' => true,
+		'label'=>'Processing :',
+		'validators' => array('Int')
+		));
+		
 
 
 

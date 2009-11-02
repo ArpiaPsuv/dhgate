@@ -16,9 +16,13 @@ class App_Form_Search extends App_Form  {
 			$category->addMultiOption($row->id , $row->title);
 		}
 
-		$textSearch= new Zend_Form_Element_Text('text_search');
+		$textSearch= new Zend_Form_Element_Text('text_search',array(
+		'id'=>'input_searched_text'
+		));
 			
-		$go = new Zend_Form_Element_Image('go', array('src'=>'/application/public/img/input_go_no_active.gif'));
+		$go = new Zend_Form_Element_Image('go', array('src'=>'/application/public/img/input_go_no_active.gif',
+		'class'=>'go_button'
+		));
 
 
 		$this->addElements(array(

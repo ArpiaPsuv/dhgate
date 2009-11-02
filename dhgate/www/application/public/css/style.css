@@ -141,7 +141,7 @@ a:hover {
 	line-height: 42px;
 }
 
-#search_pannel form input {
+#input_searched_text {
 	display: block;
 	float: left;
 	width: 336px;
@@ -162,7 +162,7 @@ a:hover {
 	float: left;
 	width: 35px;
 	height: 25px;
-	margin: 8px 0 0 12px;
+	margin: 4px 0 0 12px;
 }
 
 .go_button a {
@@ -290,6 +290,7 @@ a:hover {
 }
 
 .right_fall_list {
+	z-index: 1000;
 	position: absolute;
 	left: 188px;
 	display: none;
@@ -315,6 +316,7 @@ a:hover {
 }
 
 .items_title {
+	z-index: 100;
 	display: block;
 	font-weight: normal;
 	font-size: 11px;
@@ -746,6 +748,8 @@ a:hover {
 }
 
 .arrows {
+	margin-top: 8px;
+	margin-right: 5px;
 	display: block;
 	float: right;
 }
@@ -1001,6 +1005,7 @@ a:hover {
 }
 
 #Items_per_page {
+	float: left;
 	border-top: solid 1px #ccc;
 	height: 40px;
 	width: 740px;

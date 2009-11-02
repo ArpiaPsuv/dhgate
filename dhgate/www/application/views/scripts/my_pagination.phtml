@@ -29,9 +29,9 @@ if (($this->current!=$this->first+1)&&($this->previous <> '')){
 		?>
 <span class="paginator_active_page"><?=$this->current?></span>
 		<?}
-		if ($this->current!=$this->last-1){
+		if ($this->current != $this->last-1){
 			?>
-<a href="<?= $this->url(array('page' =>$this->next)); ?>"><?=$this->next?></a>
+				<a href="<?= $this->url(array('page' =>$this->next)); ?>"><?=$this->next?></a>
 
 			<?
 
@@ -41,7 +41,7 @@ if (($this->current!=$this->first+1)&&($this->previous <> '')){
 		<?
 		}
 		if($this->last != $this->current){?>
-<a href="<?= $this->url(array('page' =>$this->last)); ?>"><?= $this->last ?></a>
+			<a href="<?= $this->url(array('page' =>$this->last)); ?>"><?= $this->last ?></a>
 		<?php }?>
-<a href="<?= $this->url(array('page' =>$this->current+1));?>">Next »</a>
+			<a href="<?= $this->url(array('page' =>$this->current+1));?>">Next »</a>
 		<?php }?> 
