@@ -207,6 +207,7 @@ class UserController extends MainController
 					}
 					$currentUser->save();
 					$this->view->form = $form;
+					$this->view->message='	Information successfully updated';
 				}else{
 					$this->view->form = $form;
 				}
