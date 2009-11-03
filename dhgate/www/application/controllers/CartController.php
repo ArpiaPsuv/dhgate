@@ -4,19 +4,52 @@ class CartController extends MainController
 	public function indexAction()
 	{// @todo сделать корзину пользователя
 	$cart = new Cart();
-	if(Zend_Auth::getInstance()->hasIdentity())
+	$products = $this->view->products = $cart->getProducts();
+	//Zend_Debug::dump($products);
+	
+	}
+	public function testAction()
 	{
-		$products = $this->view->products = $cart->getProducts(Zend_Auth::getInstance()->getIdentity()->id);
-	} else {
-		$products = $this->view->products = $cart->getProducts();
-	}
-	}
+		//$cart = new Cart();
+		Zend_Layout::getMvcInstance()->disableLayout();
+//		if(!isset($_COOKIE['session_id'])){
+//			Zend_Session::rememberMe(3600*24*7);
+//			setcookie("session_id", Zend_Session::getId(), time()+3600*24*7,'/'); 
+//		}else{
+//			if($_COOKIE['session_id'] != Zend_Session::getId()){
+//				Zend_Session::rememberMe(3600*24*7);	
+//				setcookie("session_id", Zend_Session::getId(), time()+3600*24*7,'/'); 
+//			}
+//		}
+		
+		//Zend_Session::rememberMe(30);
+		//Zend_Session::rememberUntil(10);
+		//session_set_cookie_params(60);
+		//$q=	session_get_cookie_params();
+		if(zend_session::isRegenerated()){
+			echo "321";
+		}else{
+			echo "123";
+		}
+		//Zend_Debug::dump($q);
 
+	}
 	public function addAction()
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();
+		
+		//$this->_redirect('/');
+		$id = (int)$this->_getParam('id',0);
+		
 		$cart = new Cart();
-		$cart->add($_POST['item_id'], $_POST['count']);
+		
+		if($id>0){
+			$cart->addProduct($id,1);	
+		}
+		
+		
+		echo $cart->getCount();
+	
 	}
 
 	public function updatecountAction()

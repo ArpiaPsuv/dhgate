@@ -41,6 +41,10 @@ class CatalogController extends MainController
 		$products->setView($this->view);
 		$this->view->products = $products;
 		$this->view->current_category_id = $currentCategory->id;
+		$cart= new Cart();
+		
+		
+		$this->view->cart = $cart;
 		if($_SESSION['admin'])
 		{
 			$this->view->categorys = $catalogTable->fetchAll();

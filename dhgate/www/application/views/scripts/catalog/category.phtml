@@ -38,7 +38,7 @@ if($this->currentCategory){
 	<?php if($_SESSION['admin']):?>
 	<?php echo $this->formMoveCategory($this->currentCategory->id)?>
 	<p><a href="/catalog/delete/id/<?=$this->currentCategory->id?>">Delete Category</a></p>
-	
+	<p><a href="/product/add/category/<?=$this->currentCategory->id?>">Add product</a></p>
 	<?php endif;?>
 
 
@@ -46,44 +46,15 @@ if($this->currentCategory){
 	src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
 <div class="left_block_contain">
 <div class="refine_your_search_ul">
-<ul>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-</ul>
+
+qwe
+qwe
+qwe
 </div>
 </div>
-<div class="refine_your_search_title"><img
-	src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
-<div class="left_block_contain">
-<div class="refine_your_search_ul">
-<ul>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-</ul>
-</div>
-</div>
-<div class="refine_your_search_title"><img
-	src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
-<div class="left_block_contain">
-<div class="refine_your_search_ul">
-<ul>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-	<li><input type="radio"> Parametr</li>
-</ul>
-</div>
-</div>
+
+
+
 <div class="left_block_down"></div>
 
 <div class="title_left_menu_gray">Categories</div>
@@ -127,8 +98,26 @@ here</a> <span class="orange"> <?=$this->products->getTotalItemCount();
 <p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"
 	alt=""> Enlarge</a></p>
 <a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>
-<span>$ <?=$product['price']?> </span> <a
-	class="add_to_card_button" href="#"></a></div>
+<span>$ <?=$product['price']?> </span> 
+
+
+
+
+<!-- При выводе кнопки проверить есть ли товар в корзине -->
+
+<div product_id="<?=$product['id']?>">
+<?php if(!$this->cart->isProductInCart($product['id'])):?>
+<div class="add_to_card_button" id="<?=$product['id']?>" ></div>
+<?php else:?>
+Already in your cart
+<?php endif?>
+</div>
+
+
+
+
+</div>
+
 <?php else:?>
 <div class="product_list_unit">
 <div class="product_list_unit_image"><img
@@ -137,13 +126,10 @@ here</a> <span class="orange"> <?=$this->products->getTotalItemCount();
 	href="/product/index/id/<?=$product['id']?>"><?=$product['title']?> </a>
 <p><?=$product['short_about']?></p>
 <span></span>
-<!--<p>Effective Until 2009-09-28</p>
---><!--<p class="wholesaler">Wholesaler: <a href="#">scofield</a></p>
-                                   <img src="/application/public/img/home.gif" alt="">-->
-<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"
-	alt=""> Enlarge</a></p>
+
+<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+	
 	<?php if ($_SESSION['admin']):?>
-	<p> <?=$this->moveProduct($product['id'])?></p>
 	<p><a href="/product/delete/id/<?=$product['id']?>">Delete Product</a></p>
 	<p><a href="/product/mainpage/id/<?=$product['id']?>">
 	<?php if($product['main']):?>
@@ -154,18 +140,33 @@ here</a> <span class="orange"> <?=$this->products->getTotalItemCount();
 	</a></p>
 	<?php endif?>
 </div>
-<div class="product_list_unit_price"><span>$ <?=$product['price']?> </span> <a href="#"></a></div>
+
+<div class="product_list_unit_price"><span>$ <?=$product['price']?> </span> 
+
+
+<div product_id="<?=$product['id']?>">
+		
+<?php if(!$this->cart->isProductInCart($product['id'])):?>
+<div class="add_to_card_button" id="<?=$product['id']?>" ></div>
+<?php else:?>
+Already in your cart
+<?php endif?>
+	
+	
+</div>
+
+
+
+</div>
+
+
 </div>
 <div class="clear"></div>
 <?php endif;?> <?php endforeach;?> <?php else:?>
 <p>This category is currently empty</p>
 
-<?php endif;?> <?php if($_SESSION['admin']):?>
-<p><a href="/product/add/category/<?=$this->currentCategory->id?>">add
-product</a></p>
+<?php endif;?> 
 
-
-<?php endif;?>
 
 <div id="Items_per_page"><!-- Исправил ошибку с выбором кол-ва товара на странице-->
 Items per page: <?php if($this->count != 20):?> <a href="#"
@@ -174,12 +175,36 @@ Items per page: <?php if($this->count != 20):?> <a href="#"
 </div>
 <div class="paginator"><?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
 </div>
-<script>
+			<script>
 			$(document).ready(function(){
 				$('.count').click(function(){
 					value = $(this).text();
 					window.location.href = '<?= $this->url(array('count'=>null));?>'+'/count/'+value;
 				});
 			})
-			</script></div>
+			</script>
 </div>
+</div>
+			<script>
+			$(document).ready(function(){
+				$('.add_to_card_button').click(function(){
+					var id = $(this).attr("id");
+					$("div[product_id='"+id+"']").html('Please wait...');
+
+					$.ajax({
+						   url: '/cart/add/id/'+id,
+						   success: function(msg){
+						   	//msg ответ от сервера(будем передавать колво товаров в корзине)
+							$('#cart_items_count').html(msg);
+							$("div[product_id='"+id+"']").html('Added To Cart');
+						   }
+					});
+
+
+					
+					
+					
+					});
+			})
+			</script>
+		<div id="test"></div>

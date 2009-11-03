@@ -140,7 +140,7 @@ class UserController extends MainController
 						}
 					}
 					$cart = new Cart();
-					$cart->savecookie();
+					$cart->saveCartFromSession();
 					$this->_redirect('/');
 				}else{
 					$this->view->message = 'Failed';

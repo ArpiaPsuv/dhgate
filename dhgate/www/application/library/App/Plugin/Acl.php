@@ -2,6 +2,9 @@
 class App_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 	function __construct()
 	{
+
+
+
 		$auth = Zend_Auth::getInstance();
 		if($auth->hasIdentity()){
 			$user = $auth->getIdentity();
