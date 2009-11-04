@@ -32,7 +32,7 @@ class App_Form_AddProduct extends App_Form  {
 		$title= new Zend_Form_Element_Text('title',array(
 		'required' => true,
 		'label'=>'Name :',
-		'validators' => array('Alnum')
+		
 		));
 		
 

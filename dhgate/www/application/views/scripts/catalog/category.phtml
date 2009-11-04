@@ -43,13 +43,10 @@ if($this->currentCategory){
 
 
 <div class="refine_your_search_title"><img
-	src="/application/public/img/strong_bg1.gif" alt="">Parametr</div>
+	src="/application/public/img/strong_bg1.gif" alt="">Price</div>
 <div class="left_block_contain">
 <div class="refine_your_search_ul">
-
-qwe
-qwe
-qwe
+<?=$this->formPrice?>
 </div>
 </div>
 
@@ -94,7 +91,7 @@ here</a> <span class="orange"> <?=$this->products->getTotalItemCount();
 <?php if(count($this->products)):?> <?php foreach($this->products as $product):?>
 <?php if($this->image):?>
 <div class="product_gallery_unit"><img
-	src="/application/public/img/product.gif" alt="">
+	src="<?=$this->imageSmall($product['id'])?>" alt="">
 <p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"
 	alt=""> Enlarge</a></p>
 <a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>
@@ -120,8 +117,11 @@ Already in your cart
 
 <?php else:?>
 <div class="product_list_unit">
-<div class="product_list_unit_image"><img
-	src="/application/public/img/product.gif" alt=""></div>
+<div class="product_list_unit_image">
+
+<img src="<?=$this->imageSmall($product['id'])?>" alt="">
+
+</div>
 <div class="product_list_unit_about"><a
 	href="/product/index/id/<?=$product['id']?>"><?=$product['title']?> </a>
 <p><?=$product['short_about']?></p>
@@ -147,7 +147,8 @@ Already in your cart
 <div product_id="<?=$product['id']?>">
 		
 <?php if(!$this->cart->isProductInCart($product['id'])):?>
-<div class="add_to_card_button" id="<?=$product['id']?>" ></div>
+
+<a class="add_to_card_button"  id="<?=$product['id']?>" href="#add"></a>
 <?php else:?>
 Already in your cart
 <?php endif?>
@@ -190,21 +191,16 @@ Items per page: <?php if($this->count != 20):?> <a href="#"
 				$('.add_to_card_button').click(function(){
 					var id = $(this).attr("id");
 					$("div[product_id='"+id+"']").html('Please wait...');
-
-					$.ajax({
-						   url: '/cart/add/id/'+id,
-						   success: function(msg){
-						   	//msg ответ от сервера(будем передавать колво товаров в корзине)
-							$('#cart_items_count').html(msg);
-							$("div[product_id='"+id+"']").html('Added To Cart');
-						   }
+						$.ajax({
+							   url: '/cart/add/id/'+id,
+							   success: function(msg){
+							   	//msg ответ от сервера(будем передавать колво товаров в корзине)
+								$('#cart_items_count').html(msg);
+								$("div[product_id='"+id+"']").html('Added To Cart');
+							   }
+						});
 					});
-
-
-					
-					
-					
-					});
+				
 			})
 			</script>
-		<div id="test"></div>
+		

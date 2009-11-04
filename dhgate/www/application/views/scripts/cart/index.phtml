@@ -1,8 +1,53 @@
-<?php foreach ($this->products as $product):?>
-<p><?=$product['id']?></p>
-<p><?=$product['title']?></p>
-<p><?=$product['short_about']?></p>
-<p><?=$product['price']?></p>
-<p>&nbsp;</p>
+<p><a href="/cart/clear/">Clear Cart</a></p>
 
-<?php endforeach;?>
+
+
+
+
+<div id="product_path">
+<a href="\">Home</a> &gt; Cart & Checkout
+</div>
+			<div id="main_container">
+
+				<div id="checkout_stpes">
+					<img src="img/checkout_1.gif" alt="">
+				</div>
+				<div id="shopping_cart">
+					<img src="img/cart_big_img.gif" alt="">
+					Shopping Cart
+				</div>
+				<div id="cart_items_first_head">
+					<p>Cart Items - To Buy Now</p>
+
+				</div>
+				<div id="cart_items_second_head">
+					<p class="head_desc">Description</p>
+					<p class="head_price">Price</p>
+					<p class="head_quantity">Quantity</p>
+					<p class="head_amount">Amount</p>
+					<p class="head_buttons"></p>
+
+				</div>
+			
+			
+			
+				
+				
+				<?=$this->productsInCart()?>
+				
+			
+
+
+				<div class="update_quantity">
+
+					<input value="Update Quantity" type="submit">
+				</div>
+				<div class="clear"></div>
+				<div class="update_quantity">Subtotal : <span class="red_price bold"> USD 661.64</span></div>
+				<div class="checkout_down">
+					<div class="checkout_down_contain">
+						<a href="#">« Continue shopping</a>
+
+						<a class="checkout_down_contain_button" href="#"><img src="img/check_out_account_close.gif" alt=""></a>
+					</div>
+				</div>

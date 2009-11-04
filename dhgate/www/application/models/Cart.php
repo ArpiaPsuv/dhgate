@@ -148,6 +148,27 @@ class Cart extends Zend_Db_Table_Abstract
 		}
 		return $count;
 	}
+	public function getProductCount($productId = 0)
+	{
+		$cart=$this->getCart();
+		foreach ($cart as $product){
+		if($product['product_id'] == $productId){
+				return $product['count'];
+				break;
+			}	
+		}
+		
+	}
+
+	public function getProduct($productId)
+	{
+		$select = $this->getAdapter()->select();
+		$select->from(array('p' => 'product'));
+		$select->Where('p.id  = ?',$productId)
+		->limit(1);
+		return $this->getAdapter()->fetchRow($select);		
+	}
+	
 	
 	public function isProductInCart($productId)
 	{
@@ -237,6 +258,16 @@ class Cart extends Zend_Db_Table_Abstract
 	public function clearCartInSession() 
 	{
 		unset($_SESSION['cart']);
+	}
+	
+	public function clearCart()
+	{
+		$userId=$this->getUserId();
+		if($userId){
+			$this->delete("user_id = $userId and active = 1");
+		}else{
+			unset($_SESSION['cart']);
+		}
 	}
 	
 	public function saveCartFromSession()

@@ -21,7 +21,15 @@ class ProductController extends MainController
 		$this->view->interested = $productTable->getInterested($productRow->id);
 		$this->view->category =$category;
 		
-	//Zend_Debug::dump($parents);
+		$album = new App_Album_Product($id);
+		$image = $album->getMainImage('m');
+		if(!$image){
+			$image='/application/public/img/productimg.jpg';
+		}
+		$this->view->image = $image;
+		$cart= new Cart();
+		$this->view->cart = $cart;
+//	  	Zend_Debug::dump($image);
 	}
 
 	public function addAction()
@@ -48,6 +56,9 @@ class ProductController extends MainController
 	}
 	public function editAction()
 	{
+		if(!$_SESSION['admin']){
+			$this->_redirect('/');
+		}
 		$id = (int) $this->_getParam('id',0);
 		if($id<1){
 			$this->_redirect('/');
@@ -107,7 +118,7 @@ class ProductController extends MainController
 	
 	public function deleteAction()
 	{
-		if((bool)$_SESSION['admin']){
+		if($_SESSION['admin']){
 		$id = (int) $this->_getParam('id',0);
 		if($id<1){
 			$this->_redirect('/');
@@ -117,23 +128,11 @@ class ProductController extends MainController
 		$this->_redirect('/catalog/category/id/' . $category[0]["id"]);
 		//Zend_Debug::dump($category);
 		}else{
-			$this->_redirect($_SERVER['HTTP_REFERER']);
+			$this->_redirect('/');
 		}
 	}
 
-	public function addinterestedAction()
-	{
 
-	}
-
-	public function expressAction()
-	{
-		$id = (int) $this->_getParam('id', 0);
-		$act = (int) $this->_getParam('act',0);
-		$productTable = new Product();
-		$productTable->update(array('freeexpress'=>$act), 'id = ' . $id);
-		$this->_redirect($_SERVER['HTTP_REFERER']);
-	}
 
 	public function uploadAction()
 	{
@@ -142,6 +141,7 @@ class ProductController extends MainController
 		if($this->_request->isPost()){
 			$album = new App_Album_Product($id);
 			$album->upload();
+			
 		}
 		echo $this->view->images($id);
 	}
@@ -150,43 +150,13 @@ class ProductController extends MainController
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();
 		$id = (int) $this->_getParam('id',0);
+		$size = $this->_getParam('size','m');
 		$album = new App_Album_Product($id);
-		$images = $album->getImages('m');
-		$count = (int)$this->_getParam('count',0);
-		$next = (int)$this->_getParam('next',0);
-		if($next !=0)
-		{
-			$img = abs($count+$next) % (count($images));
-		} else {
-			$img = $count;
-		}
-		$this->view->src = $images[$img];
+		$image = $album->getMainImage($size);
+		$this->view->src = $image;
 	}
 
-	public function setmainAction()
-	{
-		Zend_Layout::getMvcInstance()->disableLayout();
-		$id = (int) $this->_getParam('id',0);
-		$this->view->id = $id;
-		$album = new App_Album_Product($id);
-		$album->setMainImage($_POST['src']);
-	}
 
-	public function deleteimageAction()
-	{
-		Zend_Layout::getMvcInstance()->disableLayout();
-		$id = (int) $this->_getParam('id',0);
-		$this->view->id = $id;
-		$album = new App_Album_Product($id);
-		$album->delete($_POST['src']);
-	}
-
-	public function getimagesAction()
-	{
-		Zend_Layout::getMvcInstance()->disableLayout();
-		$id = (int) $this->_getParam('id', 0);
-		$this->view->id = $id;
-	}
 
 	public function searchAction()
 	{
@@ -222,21 +192,4 @@ class ProductController extends MainController
 
 	}
 
-	public function onmainAction()
-	{
-		$id = (int) $this->_getParam('id' , 0 );
-		$product = new Product();
-		$act = (int) $this->_getParam('act',0);
-		$product->update(array('main'=>$act), 'id = ' . $id);
-		$this->_redirect($_SERVER['HTTP_REFERER']);
-	}
-
-	public function onleftAction()
-	{
-		$id = (int) $this->_getParam('id' , 0 );
-		$product = new Product();
-		$act = (int) $this->_getParam('act',0);
-		$product->update(array('left'=>$act), 'id = ' . $id);
-		$this->_redirect($_SERVER['HTTP_REFERER']);
-	}
 }

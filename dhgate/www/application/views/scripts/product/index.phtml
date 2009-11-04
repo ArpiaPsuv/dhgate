@@ -1,18 +1,49 @@
-<a href="/">Home</a> /
+<a href="/">Home</a> >
+<a href="/catalog/">Cataog</a> >
 <?php if(isset($this->parents[0]->id)):?>
-<a href="/catalog/category/id/<?=$this->parents[0]->id?>"><?=$this->parents[0]->title?></a> / 
+<a href="/catalog/category/id/<?=$this->parents[0]->id?>"><?=$this->parents[0]->title?></a> > 
 <?php endif?>
-<a href="/catalog/category/id/<?=$this->category[0]['id']?>"><?=$this->category[0]['title']?></a> / 
+<a href="/catalog/category/id/<?=$this->category[0]['id']?>"><?=$this->category[0]['title']?></a> >
 <?=$this->product->title?>
-
-
+<p>&nbsp;</p>
 
 <div id="item_description"><img class="up_border"
 	src="/application/public/img/Item_border_up.gif" alt="">
 <div id="item_description_contain">
-<p class="img_container"><a href="#" id="upload">upload</a> <img
-	src="/application/public/img/productimg.jpg" alt=""> <a href="#"></a></p>
+<p class="img_container">
+<?php if($_SESSION['admin']):?>
+<a href="#" id="upload">upload</a>
+<?php endif?>
+
+<script type="text/javascript">
+		$('#upload').upload({
+		       name: 'file',
+		       method: 'post',
+		       enctype: 'multipart/form-data',
+		       action: '/product/upload/id/' + '<?=$this->product->id?>',
+		       onComplete: function(data) {
+				$.ajax({
+					   url: '/product/getimage/id/<?=$this->product->id?>',
+					   success: function(msg){
+							
+							$('#main_image').html(msg);
+					
+															
+							
+					   }
+				});
+		       }
+		});
+	</script>
+<span id=main_image>
+<img id=test src="<?php echo $this->image?>" alt=""><a href="#"></a>
+</span>
+</p>
+
 <div id="item_details">
+<?php if($_SESSION['admin']):?>
+<p> <?=$this->moveProduct($this->product->id)?></p>
+ <?php endif;?>
 <h1><?=$this->product->title?></h1>
 <table class="item_detail_table">
 	<tr>
@@ -71,8 +102,21 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td><a href="#"><img src="/application/public/img/addtocart.gif"
-			alt=""></a></td>
+		<td>
+		
+		<div product_id="<?=$this->product->id?>">
+		<?php if(!$this->cart->isProductInCart($this->product->id)):?>
+		<a class="add_to_card"  id="<?=$this->product->id?>" href="#add">
+		<img src="/application/public/img/addtocart.gif" alt="">
+		</a>
+		<?php else:?>
+		Already in your cart
+		<?php endif?>
+		</div>
+		
+		
+		
+</td>
 	</tr>
 </table>
 
@@ -93,7 +137,7 @@
 
 <img class="down_border"
 	src="/application/public/img/Item_border_down.gif" alt=""></div>
-<p> <?=$this->moveProduct($this->product->id)?></p>
+
 <div id="item_description_container">
 <div id="head_item_description"><img class="desc_top"
 	src="/application/public/img/description_tab.gif" alt=""></div>
@@ -106,44 +150,21 @@
 	src="/application/public/img/desc_down.gif"></div>
 <script
 	type="text/javascript" src="/application/public/js/ocupload.js"></script>
-<script type="text/javascript">
-		$('#upload').upload({
-		       name: 'file',
-		       method: 'post',
-		       enctype: 'multipart/form-data',
-		       action: '/product/upload/id/' + '<?=$this->product->id?>',
-		       onComplete: function(data) {
-				$.ajax({
-					   url: '/product/getimages/id/<?=$this->product->id?>',
-					   success: function(msg){
-							$('#test').append(msg);
-			  				
-					   }
-				});
-		       }
-		});
-	</script>
 	
-	
-<script type="text/javascript">
-		$('#setmain').upload({
-		       name: 'e',
-		       method: 'post',
-		       action: '/product/setmain/id/' + '<?=$this->product->id?>',
-		       data: 'src=123'
-		       onComplete: function(data) {
-				$.ajax({
-					   url: '/product/getimages/id/<?=$this->product->id?>',
-					   success: function(msg){
-							$('#test').append(msg);
-			  				
-					   }
-				});
-		       }
-		});
-	</script>	
-
-	
-	<div id=test><?php echo $this->images($this->product->id)?></div>
-	
-	<div id=setmain>13</div>
+<script>
+			$(document).ready(function(){
+				$('.add_to_card').click(function(){
+					var id = $(this).attr("id");
+					$("div[product_id='"+id+"']").html('Please wait...');
+						$.ajax({
+							   url: '/cart/add/id/'+id,
+							   success: function(msg){
+							   	//msg ответ от сервера(будем передавать колво товаров в корзине)
+								$('#cart_items_count').html(msg);
+								$("div[product_id='"+id+"']").html('Added To Cart');
+							   }
+						});
+					});
+				
+			})
+			</script>	

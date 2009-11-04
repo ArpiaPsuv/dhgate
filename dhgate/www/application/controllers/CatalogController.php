@@ -3,14 +3,6 @@ class CatalogController extends MainController
 {
 	public function indexAction()
 	{
-
-
-			
-			
-
-
-
-
 		$this->_redirect('/catalog/view/');
 
 	}
@@ -27,23 +19,40 @@ class CatalogController extends MainController
 		if($id < 1){
 			$this->_redirect('/');
 		}
+		
+		
 		$this->view->image = (int) $this->_getParam('image',0);
 		$catalogTable = new Catalog();
 		$currentCategory = $this->view->currentCategory  = $catalogTable->getCurrent($id);
 		$this->view->subCategories = $catalogTable->getLevel($id);
 		$this->view->parent = $catalogTable->getParent($currentCategory->id);
+		
+		
+		$formPrice= new App_Form_Price();
+		$formPrice->setAction('/catalog/category/id/'.$id);
+		$formPrice->setMethod('POST');
+	
+		
+		if($this->_request->isPOST()){
+			$formPrice->populate($this->_request->getPOST());
+		}
+		
 
-		$products =$catalogTable->getItems($currentCategory->id, (int) $this->_getParam('page',0));
+		$products =$catalogTable->getItems($currentCategory->id, (int) $this->_getParam('page',0),
+		(int) $this->_getParam('from',0),(int) $this->_getParam('to',0));
 
 		$this->view->count = $count = (int)$this->_getParam('count',20);
 		$products->setItemCountPerPage($count);
 		
+	
 		$products->setView($this->view);
 		$this->view->products = $products;
 		$this->view->current_category_id = $currentCategory->id;
+		
+	
+				
+		$this->view->formPrice=$formPrice;
 		$cart= new Cart();
-		
-		
 		$this->view->cart = $cart;
 		if($_SESSION['admin'])
 		{

@@ -26,12 +26,10 @@ class App_Album_Product{
 	public function upload($main = null)
 	{
 		$this->_image->setUploadPath($this->path);
-		return $this->_image->upload();
-		if (main){
-		$images = $this->getImages('s');
-		$this->setMainImage($images[0]);	
+		if($this->_image->upload()){
+			$this->setMainImage($this->_image->file);
 		}
-	
+		return $this->_image->upload();
 	}
 
 	// вовзвращает массив путей к картинкам входящий параметр префикс папки
