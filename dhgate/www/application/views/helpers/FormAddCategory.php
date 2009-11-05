@@ -25,7 +25,8 @@ class Zend_View_Helper_FormAddCategory {
 		// TODO Auto-generated Zend_View_Helper_FormAddCategory::formAddCategory() helper
 		$form= new App_Form_AddCategory();
 		$form->getElement('parent_id')->setValue($parent_id);
-		$form->getElement('title')->setLabel('Category');
+//		$form->getElement('title')->setLabel('Category');
+//		$form->getElement('coef')->setLabel('Coef');
 		return $form;
 
 	}

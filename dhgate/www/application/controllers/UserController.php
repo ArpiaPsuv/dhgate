@@ -136,7 +136,7 @@ class UserController extends MainController
 
 					if (isset($_POST['remember'])){
 						if((bool)$_POST['remember']){
-							Zend_Session::rememberMe(10000*10000);
+							Zend_Session::rememberMe(3600*24*7);
 						}
 					}
 					$cart = new Cart();
@@ -193,9 +193,9 @@ class UserController extends MainController
 					$User = new User();
 					$currentUser=$User->find($id)->current();
 					$passMD5 = $currentUser->pass;
-
 					if($_POST['pass']!= ''){
 						$_POST['pass']=md5($_POST['pass']);
+						
 					}else{
 						$_POST['pass']= $passMD5;
 					}
@@ -206,6 +206,14 @@ class UserController extends MainController
 						}
 					}
 					$currentUser->save();
+					
+					
+					
+					$auth = Zend_Auth::getInstance();
+					$auth->getStorage()->write($currentUser);
+					Zend_Auth::getInstance()->getIdentity()->pass='';
+					
+					
 					$this->view->form = $form;
 					$this->view->message='	Information successfully updated';
 				}else{

@@ -10,7 +10,7 @@ class App_Form_AddCategory extends App_Form  {
 
 		$cat = new Zend_Form_Element_Text(
 			'title', array(
-			 'label'=>'Subcategory: ',
+			 'label'=>'Category title: ',
 			 'required'    => true,
 			 'maxlength'   => '30',
 			 'validators'  => array(
@@ -26,21 +26,33 @@ class App_Form_AddCategory extends App_Form  {
 		array('value'=>0)
 		);
 
+		$coef = new Zend_Form_Element_Text('coef',array(
+		'required'=>true,
+		'label'=>'Category coef:',
+		'size'=>3,
+		'value'=>1,
+		'validators' => array(
+		'float'
+		)
+		));
+		
 		//$cat->setName('name');
 
 			
 		$submit = new Zend_Form_Element_Submit('submit', array(
             'label'       => 'Add',
 		));
+		
 
+		$this->addElement($coef);
 		$this->addElement($submit);
 		$this->addElement($parentId);
 
-		foreach($this->getElements() as $element){
-			$element->clearDecorators()
-			->addDecorator("ViewHelper")
-			->addDecorator("Errors");
-		}
+//		foreach($this->getElements() as $element){
+//			$element->clearDecorators()
+//			->addDecorator("ViewHelper")
+//			->addDecorator("Errors");
+//		}
 
 	}
 }

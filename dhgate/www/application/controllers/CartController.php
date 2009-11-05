@@ -5,15 +5,26 @@ class CartController extends MainController
 	{// @todo сделать корзину пользователя
 	$cart = new Cart();
 	$products = $this->view->products = $cart->getProducts();
+	$this->view->total_price=$cart->getTotalPrice();
 	//Zend_Debug::dump($products);
 	
+
 	}
 	public function testAction()
 	{
 	
 		Zend_Layout::getMvcInstance()->disableLayout();
 
-
+		
+	$cart=new Cart();
+//		Zend_Debug::dump($cart->getCart());
+//		$id=85;
+		
+		//$cart->updateCount($id,10);
+		//$cart->deleteProduct($id);
+		 Zend_Debug::dump($cart->getCart());
+		//$form=new App_Form_Regions();
+ 
 	}
 	public function addAction()
 	{
@@ -26,15 +37,23 @@ class CartController extends MainController
 		echo $cart->getCount();
 	}
 
-	public function updatecountAction()
+	public function deleteAction()
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();
-		$count = $this->_getParam('count', 0);
-		if($this->_request->isPost())
-		{
-			$cart = new Cart();
-			$cart->updateCount($_POST['product_id'], $count);
-		}
+		$id = $this->_getParam('id', 0);
+		$cart = new Cart();
+		$cart->deleteProduct($id);
+		echo $cart->getCount();
+	}
+	
+	public function updateAction()
+	{
+		Zend_Layout::getMvcInstance()->disableLayout();
+		$id = $this->_getParam('id', 0);
+		$count=$this->_getParam('count', 0);
+		$cart = new Cart();
+		$cart->updateCount($id,$count);
+		echo $cart->getCount();
 	}
 	
 	public function clearAction()

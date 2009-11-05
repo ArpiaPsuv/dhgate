@@ -12,9 +12,9 @@ class CatalogController extends MainController
 	public function categoryAction()
 	{
 		$id = (int)$this->_getParam('id',0);
-		$form= new App_Form_AddCategory();
-		$form->getElement('parent_id')->setValue($id);
-		$this->view->form=$form;
+//		$form= new App_Form_AddCategory();
+//		$form->getElement('parent_id')->setValue($id);
+//		$this->view->form=$form;
 
 		if($id < 1){
 			$this->_redirect('/');
@@ -65,8 +65,13 @@ class CatalogController extends MainController
 		if(!$_SESSION['admin']){
 			$this->_redirect('/');
 		}
+	
+		 
 		if($this->_request->isPost()){
-			if (!$_POST['title']==''){
+			$form = new App_Form_AddCategory();
+			$coef=$_POST['coef'];
+			$_POST['coef']=str_replace('.',',',$coef) ; 
+			if ($form->isValid($_POST)){
 				$catalogTable = new Catalog();
 				$row = $catalogTable->createChildRow((int)$this->_getParam('parent_id'), $_POST);
 				$row->save();

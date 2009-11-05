@@ -45,7 +45,9 @@ class Zend_View_Helper_ProductsInCart {
 				$image="/application/public/img/product.gif";
 			}
 			
-			$html.=	'<div class="item_at_cart">
+			$html.=	'
+					<div class="item_at_cart">
+					<span product="'.$product['id'].'">
 					<div class="head_desc">
 						<div class="small_img_cover"><img src="'.$image.'" alt=""></div>
 						<div class="small_desc"><a href="/product/index/id/'.$product['id'].'">'.$product['title'].' / '.$product['short_about'].'</a></div>
@@ -54,10 +56,11 @@ class Zend_View_Helper_ProductsInCart {
 						The item(s) will be ready for shipment within <span class="bold"> '.$product['processing'].' working days</span> after payment is received.</div>
 					</div>
 					<p class="head_price">USD '.$product['price'].'</p>
-					<p class="head_quantity"><input type="text" value='.$count.'></p>
-					<p class="head_amount">USD  '.($product['price']*2).' </p>
-					<p class="head_buttons"><input type="submit" value="Delete"></p>
-				</div>';
+					<p class="head_quantity"><input class="count" price="'.$product['price'].'" product_id="'.$product['id'].'" type="text" value='.$count.'></p>
+					<p class="head_amount" product_id="'.$product['id'].'">USD  '.$count*$product['price'].' </p>
+					<p class="head_buttons"><span product_id="'.$product['id'].'"><input class="delete" product_id="'.$product['id'].'" type="submit" value="Delete"></p></span>
+					</span>
+					</div>';
 			
 					
 		}

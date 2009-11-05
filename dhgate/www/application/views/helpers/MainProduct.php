@@ -34,7 +34,7 @@ class Zend_View_Helper_MainProduct {
 			$category =$products->getCategory($product->id);
 			///image
 			//Zend_Debug::dump($category);
-			$html.='<div class="product"><img src="/application/public/img/hp1_0300.jpg"	alt="">';
+			$html.='<div class="product"><img src="/application/public/images/product/'.$product->id.'/index.png"	alt="">';
 			$html.='<a href="/product/index/id/'.$product->id.'">'.$product->title.'</a>';
 			if($_SESSION['admin']){
 				$html.='<p><a href="/product/mainpage/id/'.$product->id.'">Remove from the Main</a></p>';			

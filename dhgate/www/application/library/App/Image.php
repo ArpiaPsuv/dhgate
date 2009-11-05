@@ -54,7 +54,7 @@ class App_Image  {
 		$size_img = getimagesize($filename);
 		if (($size_img[0]<$w) && ($size_img[1]<$h)) {copy($filename, $smallimage); return true;  }
 		$src_ratio=$size_img[0]/$size_img[1];
-		if ($ratio<$src_ratio){
+		if ($ratio>$src_ratio){
 			$h = $w/$src_ratio;
 		}
 		else{
@@ -78,5 +78,60 @@ class App_Image  {
 			imagedestroy($src_img);
 			return true;
 	}
+	
+	public function writeText($text,$text_color,$bezel_color,$font_name,$font_size,$image_from_file,$path_to,$x = 0,$y = 0)
+	{
+		
+		$image_to_file_name= 'index.png';
+		$image_to_file= $path_to.$image_to_file_name;
+		
+		@unlink($image_to_file);
+		copy($image_from_file, $image_to_file);
+		$size = getimagesize($image_to_file);
+	
+		if ($size[2]==1) {
+			$res = imagecreatefromgif($image_to_file);
+		}		
+		if ($size[2]==2) {
+			$res = imagecreatefromjpeg($image_to_file);  
+		}
+		if ($size[2]==3) {
+			$res = imagecreatefrompng($image_to_file);
+		}
+		
+		
+		
+		
+		$font_path=$_SERVER['DOCUMENT_ROOT'].'/application/public/fonts/';
+		$font_file=$font_path.$font_name;
+		
+		
+		// создаем окантовочку
+		$y+=$font_size;
+	
+		$image= imagecreatetruecolor($size[0],$size[1]);
+		imagecopy($image,$res,0,0,0,0,$size[0],$size[1]);
+		
+
+//		//imagecolortransparent($image,$black);
+//		
+		imagettftext($image,$font_size,0,$x,$y - 1,$bezel_color,$font_file,$text);
+		imagettftext($image,$font_size,0,$x - 1,$y,$bezel_color,$font_file,$text);
+		imagettftext($image,$font_size,0,$x,$y + 1,$bezel_color,$font_file,$text);
+		imagettftext($image,$font_size,0,$x + 1,$y,$bezel_color,$font_file,$text);
+		
+		// "рисуем" сам текст
+		imagettftext($image,$font_size,0,$x,$y,$text_color,$font_file,$text);
+		
+		
+
+			imagepng($image, $image_to_file);
+
+		imagedestroy($image);
+		imagedestroy($res);
+		return true;
+		
+	}
+	
 }
 ?>

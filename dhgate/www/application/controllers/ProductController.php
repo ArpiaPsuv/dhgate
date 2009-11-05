@@ -37,10 +37,17 @@ class ProductController extends MainController
 		if(!$_SESSION['admin']){
 			$this->_redirect('/');
 		}
-
-		$category = $this->view->category = $this->_getParam('category',0);
+		$id = (int) $this->_getParam('category',0);
+		if($id<1){
+			$this->_redirect('/');
+		}
+		$category = $this->view->category = $id;
 		$catalogTable = new Catalog();
-		$currentCategory = $this->view->currentCategory  = $catalogTable->getCurrent($category);
+		
+		
+		$this->view->currentCategory=$currentCategory = $catalogTable->getCurrent($category);
+		$this->view->parent = $catalogTable->getParent($currentCategory->id);
+		
 		$form= new App_Form_AddProduct();
 		$form->setAction('/product/add/category/'.$category);
 		
@@ -63,18 +70,36 @@ class ProductController extends MainController
 		if($id<1){
 			$this->_redirect('/');
 		}
+		$form=new App_Form_AddProduct();
+		$form->setAction('/product/edit/id/'.$id);
+		$form->getElement('submit')->setLabel('Update product');
 		$productTable = new Product();
+		
 		$productRow = $this->view->product = $productTable->find($id)->current();
-		$category = $productTable->getCategory($productRow->id);
-		$this->view->category = $category;
+		
 		$catalogTable = new Catalog();
 		$this->view->parents = $catalogTable->getParentsRecursive($category[0]['id']);
+		$this->view->category =$category = $productTable->getCategory($productRow->id);
+		//$this->view->currentCategory=$currentCategory = $catalogTable->getCurrent($category);
+		$this->view->parent = $catalogTable->getParent($category[0]['id']);
+		
+		
 		if($this->_request->isPost()){
-			$filter = Zend_Registry::get('autoFilter');
-			$_POST['specifications'] = $filter->postCopy['specifications'];
-			$productTable->update($_POST, 'id = ' . $id);
+			if($form->isValid($_POST)){
+			$productTable->update(array(
+			'title'=>$_POST['title'],
+			'short_about'=>$_POST['short_about'],
+			'about'=>$_POST['about'],
+			'price'=>$_POST['price'],
+			'processing'=>$_POST['processing'],
+			)
+			, 'id = ' . $id);
 			$this->_redirect('/product/index/id/' . $id);
+			}
+		}else{
+			$form->populate($productRow->toArray());
 		}
+		$this->view->form=$form;
 	}
 
 	public function moveAction()
@@ -107,9 +132,27 @@ class ProductController extends MainController
 		if($id<1){
 			$this->_redirect('/');
 		}
+//			
 		
 		$products= new Product();
 		$productMain=$products->find($id)->current();
+		if(!$productMain->main){
+			$album = new App_Album_Product($id);
+			$image= new App_Image();
+			$image_path_to_file=$_SERVER['DOCUMENT_ROOT'].$album->getMainImage('s');
+		
+			if($album->getMainImage('s')==''){
+				//$image_path='...'//Картинка которая будет отображаться на главной в случае отсутствия изображения у товара
+				$image_path_to_file.='\application\public\img\product.gif';
+			}
+			$path_to_src_dir=$_SERVER['DOCUMENT_ROOT'].'/application/public/images/product/'.$id.'/';
+			$white=16777215;//dec
+ 			$color=10027008;//dec
+			$image->writeText('$'.$productMain->price,$color,$white,'BRITANIC.TTF',14,$image_path_to_file,$path_to_src_dir,10,10);
+		
+			
+		}
+		
 		$productMain->main=!$productMain->main;
 		$productMain->save();
 		$this->_redirect($_SERVER['HTTP_REFERER']);

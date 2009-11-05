@@ -5,7 +5,7 @@
 
 
 <div id="product_path">
-<a href="\">Home</a> &gt; Cart & Checkout
+<a href="/">Home</a> &gt; Cart & Checkout
 </div>
 			<div id="main_container">
 
@@ -38,12 +38,13 @@
 			
 
 
+				<p>&nbsp;</p>
 				<div class="update_quantity">
 
-					<input value="Update Quantity" type="submit">
+					<input class="update" value="Update Quantity" type="submit">
 				</div>
 				<div class="clear"></div>
-				<div class="update_quantity">Subtotal : <span class="red_price bold"> USD 661.64</span></div>
+				<div class="update_quantity">Subtotal : <span class="red_price bold"> USD <?=$this->total_price?></span></div>
 				<div class="checkout_down">
 					<div class="checkout_down_contain">
 						<a href="#">« Continue shopping</a>
@@ -51,3 +52,49 @@
 						<a class="checkout_down_contain_button" href="#"><img src="img/check_out_account_close.gif" alt=""></a>
 					</div>
 				</div>
+				
+			<script>
+			
+			$(document).ready(function(){
+				
+				$('.delete').click(function(){
+					var id = $(this).attr("product_id");
+					$("span[product_id='"+id+"']").html('Please wait...');
+						$.ajax({
+							   url: '/cart/delete/id/'+id,
+							   success: function(msg){
+							   	//msg ответ от сервера(будем передавать колво товаров в корзине)
+								$('#cart_items_count').html(msg);
+								$("span[product='"+id+"']").html('<p>Product Deleted From Cart</p>');
+							   }
+						});
+				});
+				
+				$('.update').click(function(){
+					var red_price = 0;
+					var products_count = 0;
+				
+					$('input[class="count"]').each(	function(n,element){
+						
+						var product_count= $(element).attr('value')-0;
+						var product_id = $(element).attr('product_id');	
+						var product_price =$(element).attr('price');
+						
+						
+						$.ajax({url: '/cart/update/id/'+product_id+'/count/'+product_count});
+						
+						
+						$('p[product_id="'+product_id+'"]').html('USD '+product_count*product_price);
+						red_price=red_price+product_count*product_price;
+						products_count += product_count;
+					});
+					
+										 
+					$('#cart_items_count').html(products_count);
+					$('span[class="red_price bold"]').html('USD '+ red_price);
+				});
+
+				
+				
+			})
+			</script>	

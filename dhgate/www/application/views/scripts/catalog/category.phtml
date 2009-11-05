@@ -17,6 +17,29 @@ if($this->currentCategory){
 
 <div class="title_left_menu_gray">Refine your Search</div>
 
+
+
+
+<div class="refine_your_search_title"><img
+	src="/application/public/img/strong_bg1.gif" alt="">For Administrators</div>
+<div class="left_block_contain">
+<div class="refine_your_search_ul">
+</div>
+	<?php if($this->currentCategory->level == 0):?>
+	<?php if($_SESSION['admin']):?> 
+	<?=$this->formAddCategory($this->currentCategory->id);?> 
+	<?php endif;?>
+	<?php endif;?>
+	
+	<?php if($_SESSION['admin']):?>
+	<?php echo $this->formMoveCategory($this->currentCategory->id)?>
+	<p><a href="/catalog/delete/id/<?=$this->currentCategory->id?>">Delete Category</a></p>
+	<p><a href="/product/add/category/<?=$this->currentCategory->id?>">Add product</a></p>
+	<?php endif;?>
+</div>
+
+
+
 <?php if($this->currentCategory->level == 0):?>
 <div class="refine_your_search_title"><img
 	src="/application/public/img/strong_bg1.gif" alt="">Subcategories</div>
@@ -30,17 +53,8 @@ if($this->currentCategory){
 	<?php endforeach;?>
 </ul>
 </div>
-	<?php if($_SESSION['admin']):?> 
-	<?=$this->form;?> 
-	<?php endif;?></div>
-	<?php endif;?>
-	
-	<?php if($_SESSION['admin']):?>
-	<?php echo $this->formMoveCategory($this->currentCategory->id)?>
-	<p><a href="/catalog/delete/id/<?=$this->currentCategory->id?>">Delete Category</a></p>
-	<p><a href="/product/add/category/<?=$this->currentCategory->id?>">Add product</a></p>
-	<?php endif;?>
-
+</div>
+<?php endif;?>
 
 <div class="refine_your_search_title"><img
 	src="/application/public/img/strong_bg1.gif" alt="">Price</div>
@@ -65,8 +79,7 @@ if($this->currentCategory){
 <div id="right_product_frame">
 <div id="right_product_frame_up_bar">Category</div>
 <div id="right_product_frame_contain">
-<div id="info_found_items"><a href="#">Try the US/AU In-Stock Products
-here</a> <span class="orange"> <?=$this->products->getTotalItemCount();
+<div id="info_found_items"> <span class="orange"> <?=$this->products->getTotalItemCount();
 
 ?>
 </span> wholesale items found in <span class="bold"> <?=$this->currentCategory->title?>
@@ -130,7 +143,6 @@ Already in your cart
 <p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
 	
 	<?php if ($_SESSION['admin']):?>
-	<p><a href="/product/delete/id/<?=$product['id']?>">Delete Product</a></p>
 	<p><a href="/product/mainpage/id/<?=$product['id']?>">
 	<?php if($product['main']):?>
 	Remove from the Main
@@ -138,6 +150,8 @@ Already in your cart
 	Add To Main
 	<?php endif;?>
 	</a></p>
+	<p><a href="/product/edit/id/<?=$product['id']?>">Edit Product</a></p>
+	<p><a href="/product/delete/id/<?=$product['id']?>">Delete Product</a></p>
 	<?php endif?>
 </div>
 
@@ -170,9 +184,9 @@ Already in your cart
 
 
 <div id="Items_per_page"><!-- Исправил ошибку с выбором кол-ва товара на странице-->
-Items per page: <?php if($this->count != 20):?> <a href="#"
+Items per page: <?php if($this->count != 20):?> <a href="#20"
 	class='count'>20</a> <?php else :?> <span>20</span> <?php endif?> | <?php if($this->count != 40):?>
-<a href="#" class='count'>40</a> <?php else :?> <span>40</span> <?php endif?>
+<a href="#40" class='count'>40</a> <?php else :?> <span>40</span> <?php endif?>
 </div>
 <div class="paginator"><?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
 </div>
