@@ -42,7 +42,7 @@ class App_Validate_Password extends Zend_Validate_Abstract
 		$this->_setValue($value);
 
 		// Валидатор проверки длины
-		$validatorStringLength = new Zend_Validate_StringLength(7, 30);
+		$validatorStringLength = new Zend_Validate_StringLength(6, 30);
 
 		// Проверка на допустимые символы
 		if (!preg_match("/^[~!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\\\\/\\{\\}\\[\\].,\\?<>:;a-z0-9]*$/i", $value)) {

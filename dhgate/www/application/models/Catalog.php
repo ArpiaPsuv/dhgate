@@ -25,7 +25,7 @@ class Catalog extends App_TreeTable
 		/////
 		$paginatorAdapter = new Zend_Paginator_Adapter_DbSelect($select);
 		$paginator = new Zend_Paginator($paginatorAdapter);
-		$paginator->setItemCountPerPage(2);
+		//$paginator->setItemCountPerPage(2);
 		if($page !== null){
 			$paginator->setCurrentPageNumber($page);
 		}
