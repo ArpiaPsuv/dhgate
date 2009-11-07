@@ -27,7 +27,7 @@ class ProductController extends MainController
 			$image='/application/public/img/productimg.jpg';
 		}
 		$this->view->image = $image;
-		$cart= new Cart();
+		$cart= Cart::create();
 		$this->view->cart = $cart;
 //	  	Zend_Debug::dump($image);
 	}

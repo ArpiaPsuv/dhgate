@@ -23,7 +23,7 @@ class Zend_View_Helper_CartCount {
 	 */
 	public function cartCount() {
 		// TODO Auto-generated Zend_View_Helper_CartCount::cartCount() helper 
-		$cart = new Cart();
+		$cart = Cart::create();
 		return $cart->getCount();
 	}
 	

@@ -2,46 +2,27 @@
 class CartController extends MainController
 {
 	public function indexAction()
-	{// @todo сделать корзину пользователя
-	$cart = new Cart();
-	$products = $this->view->products = $cart->getProducts();
-	$this->view->total_price=$cart->getTotalPrice();
-	//Zend_Debug::dump($products);
-	
-
-	}
-	public function testAction()
 	{
-	
-		Zend_Layout::getMvcInstance()->disableLayout();
-
-		
-	$cart=new Cart();
-//		Zend_Debug::dump($cart->getCart());
-//		$id=85;
-		
-		//$cart->updateCount($id,10);
-		//$cart->deleteProduct($id);
-		 Zend_Debug::dump($cart->getCart());
-		//$form=new App_Form_Regions();
- 
+		$cart = Cart::create();
+		$products = $this->view->products = $cart->getProducts();
 	}
+
 	public function addAction()
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();
 		$id = (int)$this->_getParam('id',0);
-		$cart = new Cart();
+		$count = (int) $this->_getParam('count',1);
+		$cart = Cart::create();
 		if($id>0){
-			$cart->addProduct($id,1);	
+			echo $cart->add($id,$count);
 		}
-		echo $cart->getCount();
 	}
 
 	public function deleteAction()
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();
 		$id = $this->_getParam('id', 0);
-		$cart = new Cart();
+		$cart = Cart::create();
 		$cart->deleteProduct($id);
 		echo $cart->getCount();
 	}
@@ -50,18 +31,8 @@ class CartController extends MainController
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();
 		$id = $this->_getParam('id', 0);
-		$count=$this->_getParam('count', 0);
-		$cart = new Cart();
-		$cart->updateCount($id,$count);
-		echo $cart->getCount();
+		$count = $this->_getParam('count', 0);
+		$cart = Cart::create();
+		echo $cart->updateCount($id,$count);
 	}
-	
-	public function clearAction()
-	{
-		$cart  = new Cart();
-		$cart->clearCart();
-		$this->_redirect($_SERVER['HTTP_REFERER']);
-	}
-	
-
 }

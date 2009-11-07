@@ -12,9 +12,6 @@ class CatalogController extends MainController
 	public function categoryAction()
 	{
 		$id = (int)$this->_getParam('id',0);
-//		$form= new App_Form_AddCategory();
-//		$form->getElement('parent_id')->setValue($id);
-//		$this->view->form=$form;
 
 		if($id < 1){
 			$this->_redirect('/');
@@ -52,7 +49,7 @@ class CatalogController extends MainController
 	
 				
 		$this->view->formPrice=$formPrice;
-		$cart= new Cart();
+		$cart= Cart::create();
 		$this->view->cart = $cart;
 		if($_SESSION['admin'])
 		{

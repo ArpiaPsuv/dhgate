@@ -1,198 +1,142 @@
--- phpMyAdmin SQL Dump
--- version 2.6.1
--- http://www.phpmyadmin.net
--- 
--- ����: localhost
--- ����� ��������: ��� 29 2009 �., 14:07
--- ������ �������: 5.0.45
--- ������ PHP: 5.2.4
--- 
--- ��: `dhgate`
--- 
-CREATE DATABASE `dhgate` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE dhgate;
+/*
+SQLyog Enterprise - MySQL GUI v6.56
+MySQL - 5.1.35-community : Database - dhgate
+*********************************************************************
+*/
 
--- --------------------------------------------------------
+/*!40101 SET NAMES utf8 */;
 
--- 
--- ��������� ������� `adress`
--- 
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`dhgate` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `dhgate`;
+
+/*Table structure for table `adress` */
+
+DROP TABLE IF EXISTS `adress`;
 
 CREATE TABLE `adress` (
-  `id` int(11) NOT NULL auto_increment,
-  `user_id` int(11) default NULL,
-  `nickname` text character set utf8,
-  `title` text character set utf8,
-  `company` text character set utf8,
-  `firstname` text character set utf8,
-  `lastname` text character set utf8,
-  `middlename` text character set utf8,
-  `adress` text character set utf8,
-  `adress2` text character set utf8,
-  `city` text character set utf8,
-  `zip` text character set utf8,
-  `country` text character set utf8,
-  `state` text character set utf8,
-  `phone` text character set utf8,
-  `mobilephone` text character set utf8,
-  `fax` text character set utf8,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=9 ;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `nickname` text,
+  `title` text,
+  `company` text,
+  `adress` text,
+  `adress2` text,
+  `city` text,
+  `zip` text,
+  `country` text,
+  `state` text,
+  `phone` text,
+  `fax` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `adress`
--- 
+/*Data for the table `adress` */
 
+/*Table structure for table `cart` */
 
--- --------------------------------------------------------
-
--- 
--- ��������� ������� `cart`
--- 
+DROP TABLE IF EXISTS `cart`;
 
 CREATE TABLE `cart` (
-  `id` int(11) NOT NULL auto_increment,
-  `category_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
+  `id` double NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
   `count` int(11) NOT NULL,
-  `active` int(11) default '1',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `active` int(11) DEFAULT '1',
+  `order_id` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `cart`
--- 
+/*Data for the table `cart` */
 
+insert  into `cart`(`id`,`user_id`,`product_id`,`count`,`active`,`order_id`) values (2,1,87,2,1,0);
 
--- --------------------------------------------------------
+/*Table structure for table `catalog` */
 
--- 
--- ��������� ������� `catalog`
--- 
+DROP TABLE IF EXISTS `catalog`;
 
 CREATE TABLE `catalog` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent` int(11) NOT NULL,
   `level` int(11) NOT NULL,
+  `coef` varchar(10) DEFAULT '1',
   `title` text NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `catalog`
--- 
+/*Data for the table `catalog` */
 
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (38, 0, 0, 'computer\\''s');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (37, 25, 1, 'item 1 - 1');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (36, 0, 0, 'item 11 - 1');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (35, 0, 0, 'ITEM 11');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (34, 0, 0, 'ITEM 10');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (33, 0, 0, 'ITEM 9');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (32, 0, 0, 'ITEM 8');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (31, 0, 0, 'ITEM 7');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (30, 0, 0, 'ITEM 6');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (29, 0, 0, 'ITEM 5');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (28, 0, 0, 'ITEM 4');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (27, 0, 0, 'ITEM 3');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (26, 0, 0, 'ITEM 2');
-INSERT INTO `catalog` (`id`, `parent`, `level`, `title`) VALUES (25, 0, 0, 'ITEM 1');
+insert  into `catalog`(`id`,`parent`,`level`,`coef`,`title`) values (85,0,0,'1','Ñ‚ÐµÑÑ‚');
 
--- --------------------------------------------------------
+/*Table structure for table `comment_user` */
 
--- 
--- ��������� ������� `comment_user`
--- 
+DROP TABLE IF EXISTS `comment_user`;
 
 CREATE TABLE `comment_user` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent` int(11) NOT NULL,
   `level` int(11) NOT NULL,
   `text` text NOT NULL,
   `user_id` int(11) NOT NULL,
-  `date` datetime default NULL,
+  `date` datetime DEFAULT NULL,
   `item_id` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `comment_user`
--- 
+/*Data for the table `comment_user` */
 
+/*Table structure for table `connect_catalog_product` */
 
--- --------------------------------------------------------
-
--- 
--- ��������� ������� `connect_catalog_product`
--- 
+DROP TABLE IF EXISTS `connect_catalog_product`;
 
 CREATE TABLE `connect_catalog_product` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `connect_catalog_product`
--- 
+/*Data for the table `connect_catalog_product` */
 
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (14, 10, 14);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (15, 10, 15);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (16, 23, 16);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (17, 13, 17);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (18, 25, 18);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (19, 25, 19);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (20, 25, 20);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (21, 25, 21);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (22, 25, 22);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (23, 37, 23);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (24, 36, 24);
-INSERT INTO `connect_catalog_product` (`id`, `category_id`, `item_id`) VALUES (25, 38, 25);
+insert  into `connect_catalog_product`(`id`,`category_id`,`item_id`) values (86,85,86),(87,85,87);
 
--- --------------------------------------------------------
+/*Table structure for table `connect_product_interested` */
 
--- 
--- ��������� ������� `connect_product_interested`
--- 
+DROP TABLE IF EXISTS `connect_product_interested`;
 
 CREATE TABLE `connect_product_interested` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `connect_product_interested`
--- 
+/*Data for the table `connect_product_interested` */
 
+/*Table structure for table `country` */
 
--- --------------------------------------------------------
-
--- 
--- ��������� ������� `country`
--- 
+DROP TABLE IF EXISTS `country`;
 
 CREATE TABLE `country` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
   `allowed` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `country`
--- 
+/*Data for the table `country` */
 
+/*Table structure for table `order` */
 
--- --------------------------------------------------------
-
--- 
--- ��������� ������� `order`
--- 
+DROP TABLE IF EXISTS `order`;
 
 CREATE TABLE `order` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `shipping` int(11) NOT NULL,
   `adress` int(11) NOT NULL,
   `payment` int(11) NOT NULL,
@@ -204,74 +148,52 @@ CREATE TABLE `order` (
   `status` varchar(20) NOT NULL,
   `comment` text NOT NULL,
   `date` date NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `order`
--- 
+/*Data for the table `order` */
 
+/*Table structure for table `product` */
 
--- --------------------------------------------------------
-
--- 
--- ��������� ������� `product`
--- 
+DROP TABLE IF EXISTS `product`;
 
 CREATE TABLE `product` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` text,
-  `price` int(11) default '0',
+  `price` int(11) DEFAULT '0',
   `short_about` text,
   `about` text NOT NULL,
-  `processing` int(11) default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+  `processing` int(11) DEFAULT '0',
+  `free_shipping` int(1) DEFAULT '0',
+  `main` int(1) DEFAULT '0',
+  `active` int(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `product`
--- 
+/*Data for the table `product` */
 
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (14, 'qwe', 123, '321', '321', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (15, 'weq', 123, 'sdf', 'sdf', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (16, 'sda', 3, 'dc', 'fdsa', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (17, 'fdgs', 11, 'dsaa', 'sdfasdf', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (18, '', 0, '', '', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (19, '', 0, '', '', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (20, 'wqer', 0, '', '', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (21, 'product', 0, 'product qwe', 'qwe', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (22, 'product', 150, 'wqer', '1221\r\n1221\r\n1221\r\n1221', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (23, 'item 1-1', 150, '123321321', '498464', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (24, 'qwe', 313, 'asdf', 'asdfasdfasdfasdf\r\nas\r\ndf\r\nasd\r\nа\r\nasd\r\nfa\r\nsdf\r\nas\r\ndf\r\nasd\r\nа\r\nфыв', 0);
-INSERT INTO `product` (`id`, `title`, `price`, `short_about`, `about`, `processing`) VALUES (25, 'safdsa', 150, 'adsa', 'sdfasdfasdfasd\r\nsadf\r\nasd\r\nf', 0);
+insert  into `product`(`id`,`title`,`price`,`short_about`,`about`,`processing`,`free_shipping`,`main`,`active`) values (86,'Ñ„Ñ‹Ð²Ð°',32,'32','Ð¹Ñ†ÑƒÐºÐ¹Ñ†ÑƒÐºÐ¹Ñ†ÑƒÐº',2,0,0,1),(87,'345',3,'345','34523',4,0,0,1);
 
--- --------------------------------------------------------
+/*Table structure for table `rating_comment_user` */
 
--- 
--- ��������� ������� `rating_comment_user`
--- 
+DROP TABLE IF EXISTS `rating_comment_user`;
 
 CREATE TABLE `rating_comment_user` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `mark` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `rating_comment_user`
--- 
+/*Data for the table `rating_comment_user` */
 
+/*Table structure for table `settings` */
 
--- --------------------------------------------------------
-
--- 
--- ��������� ������� `settings`
--- 
+DROP TABLE IF EXISTS `settings`;
 
 CREATE TABLE `settings` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `gbp` double NOT NULL,
   `usd` double NOT NULL,
   `eur` double NOT NULL,
@@ -286,101 +208,70 @@ CREATE TABLE `settings` (
   `buy` text NOT NULL,
   `payment` text NOT NULL,
   `mail` text NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `settings`
--- 
+/*Data for the table `settings` */
 
+/*Table structure for table `shipping` */
 
--- --------------------------------------------------------
-
--- 
--- ��������� ������� `shipping`
--- 
+DROP TABLE IF EXISTS `shipping`;
 
 CREATE TABLE `shipping` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
   `name` text NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `shipping`
--- 
+/*Data for the table `shipping` */
 
+/*Table structure for table `state` */
 
--- --------------------------------------------------------
-
--- 
--- ��������� ������� `state`
--- 
+DROP TABLE IF EXISTS `state`;
 
 CREATE TABLE `state` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
-  `country_id` int(11) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+  `country_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `state`
--- 
+/*Data for the table `state` */
 
+/*Table structure for table `user` */
 
--- --------------------------------------------------------
-
--- 
--- ��������� ������� `user`
--- 
+DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` text NOT NULL,
   `pass` text NOT NULL,
   `mail` text NOT NULL,
   `firstname` text,
   `middlename` text,
   `lastname` text,
-  `admin` int(1) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+  `admin` int(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `user`
--- 
+/*Data for the table `user` */
 
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (10, 'Admin', 'afe4f7f8e079efa8b651df30159ceed3', 'vikhodcev@mail.ru', NULL, NULL, NULL, 1);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (8, 'viknet', 'a7a58978071b5f28a0b2a8ed826f9140', 'vikhodcev', NULL, NULL, NULL, 0);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (11, 'lexa.viknet', 'b366b51cfff2a0190d6c00e711ec402c', 'lexa.viknet@gmail.com', NULL, NULL, NULL, 0);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (12, 'asd', '7815696ecbf1c96e6894b779456d330e', 'asd', NULL, NULL, NULL, 0);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (13, 'qwe', '76d80224611fc919a5d54f0ff9fba446', 'qwe@qwe.qw', NULL, NULL, NULL, 0);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (14, 'god', 'a7a58978071b5f28a0b2a8ed826f9140', 'god@king.com', NULL, NULL, NULL, 0);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (15, 'Zloy', '25f9e794323b453885f5181f1b624d0b', 'max.zloy@gmail.com', NULL, NULL, NULL, 0);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (16, 'MONSTER', '8bf61b20db14077e1f7a6c77f8f488a4', 'ru@ru.ru', '�������', '�����������', '��������', 1);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (17, 'test', '05a671c66aefea124cc08b76ea6d30bb', 'test@test.ru', NULL, NULL, NULL, 0);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (18, '321', '9f33252320de0aa30c9ca682135aa9d4', 'qwe@qew.ru', NULL, NULL, NULL, 0);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (19, '123', '9fbc1cfb009579090be0396f7c719cb1', 'qwe@qew.com', NULL, NULL, NULL, 0);
-INSERT INTO `user` (`id`, `login`, `pass`, `mail`, `firstname`, `middlename`, `lastname`, `admin`) VALUES (20, 'user', '25f9e794323b453885f5181f1b624d0b', 'user@user.com', NULL, NULL, NULL, 0);
+insert  into `user`(`id`,`login`,`pass`,`mail`,`firstname`,`middlename`,`lastname`,`admin`) values (1,'asdf','6a204bd89f3c8348afd5c77c717a097a','zloy.max@gmail.com',NULL,NULL,NULL,0);
 
--- --------------------------------------------------------
+/*Table structure for table `user_rating` */
 
--- 
--- ��������� ������� `user_rating`
--- 
+DROP TABLE IF EXISTS `user_rating`;
 
 CREATE TABLE `user_rating` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `mark` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
--- ���� ������ ������� `user_rating`
--- 
+/*Data for the table `user_rating` */
 
-        
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

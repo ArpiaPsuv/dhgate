@@ -105,7 +105,8 @@
 							   success: function(msg){
 							   	//msg ответ от сервера(будем передавать колво товаров в корзине)
 								$('#cart_items_count').html(msg);
-								$("span[product='"+id+"']").html('<p>Product Deleted From Cart</p>');
+								// тут был косяк когда много товаров удаляешь
+								$("span[product='"+id+"']").remove();
 							   }
 						});
 				});

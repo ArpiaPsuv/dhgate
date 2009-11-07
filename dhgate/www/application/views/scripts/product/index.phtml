@@ -24,12 +24,8 @@
 		       onComplete: function(data) {
 				$.ajax({
 					   url: '/product/getimage/id/<?=$this->product->id?>',
-					   success: function(msg){
-							
+					   success: function(msg){							
 							$('#main_image').html(msg);
-					
-															
-							
 					   }
 				});
 		       }
@@ -93,7 +89,7 @@
 <table class="yellow_table">
 	<tr>
 		<td>Purchase Quantity</td>
-		<td><input type="text"> Lot</td>
+		<td><input type="text" id='count' value='1'> Lot</td>
 	</tr>
 	<tr>
 		<td></td>
@@ -103,15 +99,10 @@
 	<tr>
 		<td></td>
 		<td>
-		
 		<div product_id="<?=$this->product->id?>">
-		<?php if(!$this->cart->isProductInCart($this->product->id)):?>
-		<a class="add_to_card"  id="<?=$this->product->id?>" href="#add">
-		<img src="/application/public/img/addtocart.gif" alt="">
+			<a class="add_to_card"  id="<?=$this->product->id?>" href="#add">
+			<img src="/application/public/img/addtocart.gif" alt="">
 		</a>
-		<?php else:?>
-		Already in your cart
-		<?php endif?>
 		</div>
 		
 		
@@ -155,13 +146,13 @@
 			$(document).ready(function(){
 				$('.add_to_card').click(function(){
 					var id = $(this).attr("id");
-					$("div[product_id='"+id+"']").html('Please wait...');
+					//$("div[product_id='"+id+"']").html('Please wait...');
 						$.ajax({
-							   url: '/cart/add/id/'+id,
+							   url: '/cart/add/id/'+id+'/count/'+parseInt($('#count').val()),
 							   success: function(msg){
 							   	//msg ответ от сервера(будем передавать колво товаров в корзине)
 								$('#cart_items_count').html(msg);
-								$("div[product_id='"+id+"']").html('Added To Cart');
+								//$("div[product_id='"+id+"']").html('Added To Cart');
 							   }
 						});
 					});
