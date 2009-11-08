@@ -1,38 +1,35 @@
 <?php
 class AdressController extends Zend_Controller_Action {
+	
 	public function indexAction() {
-		$user_id = (int) $this->_getParam('user_id',0);
-		$user = new User();
-		$this->view->user = $user->find($user_id)->current();
+		if(!Zend_Auth::getInstance()->hasIdentity()){
+			$this->_redirect('/');
+		}
 		$adress = new Adress();
-		$this->view->adreses = $adress->fetchAll('user_id = ' . $user_id);
-
+		$this->view->adresses = $adress->fetchAll('user_id = ' . Zend_Auth::getInstance()->getIdentity()->id);
 	}
 	public function addAction()
 	{
-		$country = new Country();
-		$this->view->user_id = $this->_getParam('user_id',0);
-		$this->view->countrys = $country->fetchAll();
-		if($this->_request->isPost()){
-			$adress = new Adress();
-			if($_POST['nickname'] !=''
-			&& $_POST['firstname'] != ''
-			&& $_POST['adress'] != ''
-			&& $_POST['city'] != ''
-			&& $_POST['zip'] != ''
-			&& $_POST['country'] != ''
-			&& $_POST['state'] != ''
-			&& $_POST['phone'] != '')
-			{
-					
-				$adress->add(Zend_Auth::getInstance()->getIdentity()->id, $_POST);
-				if($this->_getParam('user_id',0)){
-					$this->_redirect('/adress/index/user_id/' . $this->_getParam('user_id',0));
-				} else {
-					$this->_redirect('/order/step1/');
+		Zend_Layout::getMvcInstance()->disableLayout();
+		if(Zend_Auth::getInstance()->hasIdentity()){
+
+		
+		
+		$form = new App_Form_Address();
+		$this->view->form = $form;
+			if($this->getRequest()->isPost()){
+				if($form->isValid($this->getRequest()->getPost())){
+					$adress = new Adress();
+					$_POST['shipping'] = (int) $this->_getParam('shipping',0);
+					unset($_POST['submit']);
+					$_POST['user_id'] = Zend_Auth::getInstance()->getIdentity()->id;
+					$result = $adress->get((int) $this->_getParam('shipping',0));
+					if(count($result)){
+						$adress->update($this->getRequest()->getPost(), 'id = ' . $result[0]['id']);
+					} else {
+						$adress->insert($this->getRequest()->getPost());
+					}
 				}
-			} else {
-				$this->view->message = 'Error : Empty fields';
 			}
 		}
 	}
@@ -41,31 +38,16 @@ class AdressController extends Zend_Controller_Action {
 	{
 		$id = (int) $this->_getParam('id',0);
 		$adress = new Adress();
-		$adressRow = $this->view->adress = $adress->find($id)->current();
-		$country = new Country();
-		$this->view->countrys = $country->fetchAll();
-		$state = new State();
-		$this->view->states = $state->fetchAll('country_id=' . $adressRow->country);
-		$this->view->user_id = (int) $this->_getParam('user_id',0);
-		if($this->_request->isPost()){
-
-			if($_POST['nickname'] !=''
-			&& $_POST['firstname'] != ''
-			&& $_POST['adress'] != ''
-			&& $_POST['city'] != ''
-			&& $_POST['zip'] != ''
-			&& $_POST['country'] != ''
-			&& $_POST['state'] != ''
-			&& $_POST['phone'] != '')
-			{
-				$adress->add(Zend_Auth::getInstance()->getIdentity()->id, $_POST, $id);
-				if($this->_getParam('user_id',0)){
-					$this->_redirect('/adress/index/user_id/' . $this->_getParam('user_id',0));
-				} else {
-					$this->_redirect('/order/step1/');
-				}
-			} else {
-				$this->view->message = 'Error : Empty fields';
+		$row = $adress->find($id)->current();
+		$form = new App_Form_Address();
+		$form->setAction('/adress/edit/id/' . $id);
+		$form->populate($row->toArray());
+		$this->view->form = $form;
+		if($this->getRequest()->isPost()){
+			unset($_POST['submit']);
+			if($form->isValid($this->getRequest()->getPost())){
+				$adress->update($this->getRequest()->getPost(), 'id = ' . $id);
+				$this->_redirect('/adress/');
 			}
 		}
 	}
@@ -76,14 +58,5 @@ class AdressController extends Zend_Controller_Action {
 		$adress = new Adress();
 		$adress->delete('id=' . $id);
 		$this->_redirect($_SERVER['HTTP_REFERER']);
-	}
-
-	public function setAction()
-	{
-		Zend_Layout::getMvcInstance()->disableLayout();
-		$_SESSION['adres'] = $this->_getParam('val',0);
-		$user = new User();
-		$user_id = (int) $this->_getParam('user_id',0);
-		$user->update(array('current_adress'=>$this->_getParam('val',0)), 'id = ' . $user_id);
 	}
 }

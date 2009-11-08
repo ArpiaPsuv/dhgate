@@ -1,23 +1,11 @@
 <?php
 class Adress extends Zend_Db_Table_Abstract {
-	protected $_name = 'adress';
-
-	public function add($user_id , $data ,$id = null)
+	protected $_name = 'address';
+	
+	public function get($shipping = 0)
 	{
-		$data['user_id'] = $user_id;
-		if($id === null){
-			$row = $this->createRow();
-		} else {
-			$row = $this->find($id)->current();
-		}
-		return $this->insert($data);
-
-		foreach($data as $key=>$value){
-			if(isset($row->$key)){
-				$row->$key = $value;
-			}
-		}
-		$row->save();
-		return $row;
+		$select = $this->select()->from($this->_name)->where('user_id = ' . Zend_Auth::getInstance()->getIdentity()->id)
+			->where('shipping = ' . $shipping);
+		return  $this->fetchAll($select);
 	}
 }

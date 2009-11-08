@@ -2,7 +2,7 @@
 
 
 
-<?php if ($this->pageCount): ?>
+<?php if ($this->pageCount > 1): ?>
 <div id="paginationControl">
 
 Results
@@ -19,6 +19,7 @@ Page&nbsp;
 
 
 <!-- Первая страница -->
+
 <?php if (isset($this->previous)): ?>
   <a href="<?= $this->url(array('page' => $this->first)); ?>">First</a>
 <?php else: ?>
@@ -54,6 +55,8 @@ Page&nbsp;
 <?php else: ?>
   <a href="#last">Last</a>
 <?php endif; ?>
+
+
 
 </div>
 <?php endif; ?>

@@ -17,7 +17,7 @@ class App_Form_AddCategory extends App_Form  {
 		array('Alnum', true, array(true)),
 		array('StringLength', true, array(0, 30))
 		),
-            'filters'     => array('StringTrim'), 
+           'filters'=>array('StringTrim','StripTags'),
 
 		));
 		$this->addElement($cat);
@@ -31,10 +31,12 @@ class App_Form_AddCategory extends App_Form  {
 		'label'=>'Category coef:',
 		'size'=>3,
 		'value'=>1,
+		'filters'=>array('StringTrim','StripTags'),
 		'validators' => array(
 		'float'
 		)
 		));
+		  
 		
 		//$cat->setName('name');
 

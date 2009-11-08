@@ -11,6 +11,7 @@ class App_Form_Recover extends App_Form {
 		'required'=> true,
 		'label'=>'E-mail Address :',
 		'maxlength' => '80',
+		'filters'=>array('StringTrim','StripTags'),
 		'validators'=> array('EmailAddress', 'NotEmpty')
 		));
 		$this->addElement($mail);

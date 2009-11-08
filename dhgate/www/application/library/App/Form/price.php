@@ -9,12 +9,12 @@ class App_Form_Price extends App_Form {
 
 	
 		$from = new Zend_Form_Element_Text('from',array(
-		
+		'filters'=>array('StringTrim','StripTags'),
 		'size'=>2
 		));
 		$this->addElement($from);
 		$to = new Zend_Form_Element_Text('to',array(
-		
+		'filters'=>array('StringTrim','StripTags'),
 		'size'=>2
 		));
 		$this->addElement($to);

@@ -52,50 +52,67 @@
 			<div class="checkout_down">
 					<div class="checkout_down_contain">
 						<a href="#">«Continue shopping</a>
-						<a class="checkout_down_contain_button" href="#"><img src="application/public/img/check_out_account_close.gif" alt=""></a>
+						<img class="checkout_down_contain_button" src="/application/public/img/check_out_account_close.gif" alt="">
 					</div>
-				</div
 				
-				<div class="processed_checkout_head">
-					<img src="img/check_out_account_open.gif" alt="">
-				</div>
-				<div class="processed_checkout_container">
-					<div class="processed_checkout_right">
-						<p class="create_account"><span class="bold">Create a DHgate account</span></p>
-						<p class="processed_checkout_right_title">Email Address : </p>
-						<p class="processed_checkout_right_text"><input type="text"><img src="img/check_out_account_corret.gif" alt=""></p>
-						<p class="small_gray">This will be used to sign into your account.</p>
-						<p class="small_gray red_price">Email address is required. Please try again.</p>
-						<p class="processed_checkout_right_title">Password : </p>
-						<p class="processed_checkout_right_text"><input type="text"><img src="img/check_out_account_corret.gif" alt=""></p>
-						<p class="small_gray">Must have 6 to 30 characters and no spaces.</p>
-						<p class="small_gray red_price">A password is required. Please try again.</p>
-						<p class="processed_checkout_right_title">Re-type Password : </p>
-						<p class="processed_checkout_right_text"><input type="text"><img src="img/check_out_account_corret.gif" alt=""></p>
-						<p class="small_gray red_price">A password is required. Please try again.</p>
-						<p class="processed_checkout_right_title">Nickname : </p>
-						<p class="processed_checkout_right_text"><input type="text"><img src="img/check_out_account_corret.gif" alt=""></p>
-						<p class="small_gray">Email address is not allowed.</p>
-						<p class="small_gray red_price">A nickname is required. Please try again.</p>
-						<p class="processed_checkout_right_title">Email Verification Code : </p>
-						<p class="processed_checkout_right_text"><input type="text"><img src="img/verifycode.jpg" alt=""><a href="#"><img src="img/check_out_account_refresh.gif" alt=""></a></p>
-						
-						<p class="small_gray red_price">Verification code is required. Please try again.</p>
+				<div id="forms">
+					<div class="processed_checkout_head">
+						<img src="img/check_out_account_open.gif" alt="">
 					</div>
-					<div class="processed_checkout_left">
-						<p><span class="bold">Already have an account?</span></p>
-						<div class="clear"></div>
-						<p>You have an account with DHgate.com, Please login.</p>
-						<div class="clear"></div>
-						<p><a href="#">Sign in here</a></p>
+					
+					<div class="processed_checkout_container">
+					
+						<div class="processed_checkout_right">
+							<p class="create_account">
+							<span class="bold">Create a DHgate account</span>
+							</p>
+							<?=$this->register(); ?>
+						</div>
+						<div class="processed_checkout_left">
+							<p><span class="bold">Already have an account?</span></p>
+							<div class="clear"></div>
+							<p>You have an account with DHgate.com, Please login.</p>
+							<div class="clear"></div>
+							<p><a href="#">Sign in here</a></p>
+								
+						</div>
+					<?=$this->login();?>
 					</div>
-					<div class="sign_up"><input type="submit" value="Sign Up & Check Out"></div>
 				</div>
+				
+				</div>
+				
 			</div>
 				
-			<script>
+
 			
+			
+			<script>
 			$(document).ready(function(){
+
+			      
+			       
+				   $('.processed_checkout_container').hide();
+					$('.checkout_down_contain_button').click(function(){
+						var src = $(this).attr('src');
+						
+						if(src =='/application/public/img/check_out_account_open.gif')
+						{
+							$(this).attr('src','/application/public/img/check_out_account_close.gif');
+						}else{
+							$(this).attr('src','/application/public/img/check_out_account_open.gif');
+						}
+						
+						
+					   $('.processed_checkout_head').slideToggle();
+					   $('.processed_checkout_container').slideToggle();
+					   return false;
+					});
+					
+			
+
+
+				
 				
 				$('.delete').click(function(){
 					var id = $(this).attr("product_id");

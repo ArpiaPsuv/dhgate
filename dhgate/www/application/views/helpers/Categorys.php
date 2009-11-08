@@ -9,18 +9,30 @@ class Zend_View_Helper_Categorys {
 		if(count($categorys)>0){
 			for($i=0;$i<count($categorys);$i++){
 				if($categorys[$i]->parent == 0){
-					$html.='<li class="title_left_menu">
-							 <a href="/catalog/category/id/' . $categorys[$i]->id . '/">' . $categorys[$i]->title . '<img class="arrows" src="/application/public/img/arrows-ffffff.gif"></a>
-								<ul class="right_fall_list">
-									';
+					$childrenCategorys = array();
 					for($j=0;$j<count($categorys);$j++){
-							
 						if($categorys[$i]->id == $categorys[$j]->parent){
-							$html.='<li class="items_title"><a href="/catalog/category/id/' . $categorys[$j]->id . '/">' . $categorys[$j]->title . '</a></li>';
+							array_push($childrenCategorys, $categorys[$j]);
 						}
 					}
-					$html.='</ul>
-							</li>';
+					$html.='<li class="title_left_menu">
+							 <a href="/catalog/category/id/' . $categorys[$i]->id . '/">' . $categorys[$i]->title ;
+					if(count($childrenCategorys)){ 
+						$html.='<img class="arrows" src="/application/public/img/arrows-ffffff.gif">';
+					}
+							 $html.='</a>';
+
+					if(count($childrenCategorys)){
+						$html .='<ul class="right_fall_list">';
+						for($j=0;$j<count($categorys);$j++){
+								
+							if($categorys[$i]->id == $categorys[$j]->parent){
+								$html.='<li class="items_title"><a href="/catalog/category/id/' . $categorys[$j]->id . '/">' . $categorys[$j]->title . '</a></li>';
+							}
+						}
+						$html.='</ul>';
+					}
+					$html .='</li>';
 				}
 			}
 		} else {

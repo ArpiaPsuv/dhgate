@@ -78,8 +78,9 @@ class ProductController extends MainController
 		$productRow = $this->view->product = $productTable->find($id)->current();
 		
 		$catalogTable = new Catalog();
-		$this->view->parents = $catalogTable->getParentsRecursive($category[0]['id']);
+		
 		$this->view->category =$category = $productTable->getCategory($productRow->id);
+		$this->view->parents = $catalogTable->getParentsRecursive($category[0]['id']);
 		//$this->view->currentCategory=$currentCategory = $catalogTable->getCurrent($category);
 		$this->view->parent = $catalogTable->getParent($category[0]['id']);
 		
@@ -148,7 +149,7 @@ class ProductController extends MainController
 			$path_to_src_dir=$_SERVER['DOCUMENT_ROOT'].'/application/public/images/product/'.$id.'/';
 			$white=16777215;//dec
  			$color=10027008;//dec
-			$image->writeText('$'.$productMain->price,$color,$white,'BRITANIC.TTF',14,$image_path_to_file,$path_to_src_dir,10,10);
+			$image->writeText('$'.$productMain->price,$color,$white,'AGCOO13.TTF',14,$image_path_to_file,$path_to_src_dir,10,10);
 		
 			
 		}
@@ -219,7 +220,7 @@ class ProductController extends MainController
 			$this->_redirect('/');
 		}
 			
-		$this->view->count=$count = (int) $this->_getParam('count' , 10 );
+		$this->view->count = $count = (int)$this->_getParam('count',20);
 		$page = (int) $this->_getParam('page' , 0 );
 		$category_id=$_SESSION['category_id'];
 			

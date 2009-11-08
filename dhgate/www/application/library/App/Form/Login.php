@@ -11,7 +11,8 @@ class App_Form_Login extends App_Form {
 		'required'=> true,
 		'label'=>'E-mail Address :',
 		'maxlength' => '80',
-		'validators'=> array('EmailAddress', 'NotEmpty')
+		'validators'=> array('EmailAddress', 'NotEmpty'),
+		'filters'=>array('StringTrim','StripTags'),
 		));
 		$this->addElement($mail);
 
@@ -20,6 +21,7 @@ class App_Form_Login extends App_Form {
 		'label'=>'Password :',
 		'maxlength' => '30',
 		'validators' => array('Password'),
+		'filters'=>array('StringTrim','StripTags'),
 		));
 		$this->addElement($pass);
 			

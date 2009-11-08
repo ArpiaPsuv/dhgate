@@ -39,6 +39,7 @@ if($request->getControllerName() != 'user'):
 if($request->getControllerName() != 'cart'):
 if($request->getControllerName() != 'product'):
 if($request->getControllerName() != 'admin'):
+if($request->getControllerName() != 'order'):
 if($request->getActionName() != 'category'):
 if(($request->getControllerName() !='catalog' )and
 $request->getActionName() != 'view'):
@@ -50,17 +51,21 @@ $request->getActionName() != 'view'):
 <?php endif;?>
 <?php endif;?>
 <?php endif;?> 
+<?php endif;?> 
 <?=$this->layout()->content?> 
 <?php
 if($request->getControllerName() != 'admin'):
 if($request->getControllerName() != 'user'):
 if($request->getControllerName() != 'cart'):
+if($request->getControllerName() != 'order'):
 if($request->getActionName() != 'category' && $request->getControllerName() != 'product'):
 if(($request->getControllerName() !='catalog' )and $request->getActionName() != 'view'):
 ?>
 </div>
 <?=$this->render('right.phtml')?>
-<?php endif;?> 
+
+<?php endif;?>
+<?php endif;?>
 <?php endif;?>
 <?php endif;?>
 <?php endif;?>

@@ -24,7 +24,7 @@ class UserController extends MainController
 		/*                if (Zend_Auth::getInstance()->hasIdentity()){
 
 		$id = Zend_Auth::getInstance()->getIdentity()->id;
-		$user = new User();
+		$user = new User();  
 		//$this->view->user =
 		$userData = $user->find($id)->current()->toArray();
 		$this->view->form = $form->populate($userData);
@@ -95,9 +95,13 @@ class UserController extends MainController
 	public function registerAction()
 	{
 
-
+		$checkout = (int)$this->_getParam('checkout',0);
+	
 		$form= new App_Form_Register();
 		$this->view->form = $form;
+		if($checkout){
+			$form->setAction('/user/register/checkout/1/');
+		}
 		if ($this->getRequest()->isPost()){
 			if ($form->isValid($this->getRequest()->getPost())){
 					
@@ -112,36 +116,59 @@ class UserController extends MainController
 				}
 				$row->save();
 				if($this->_login($_POST['mail'], $passTmp)){
-					$this->_redirect('/');
+				
+					if($checkout){
+						$this->_redirect('/cart/');
+					}else{
+						$this->_redirect('/');
+					}
 				}
 				$cart = new Cart();
 				$cart->savecookie();
 
 			}
+			
 		}
 	}
 
 
 	public function loginAction()
 	{
+		
 		if($this->auth->hasIdentity()){
 			$this->_redirect('/');
 		}
+		$checkout = (int)$this->_getParam('checkout',0);
+
+		
+		
 		$form= new App_Form_Login();
+		
+		if($checkout){
+		$form->setAction('/user/login/checkout/1/');
+		}
+		
 		$this->view->form=$form;
+		
+
 		if($this->_request->isPost())
 		{
 			if ($form->isValid($this->getRequest()->getPost())){
 				if($this->_login($_POST['mail'], $_POST['pass'])){
-
+					
 					if (isset($_POST['remember'])){
 						if((bool)$_POST['remember']){
 							Zend_Session::rememberMe(3600*24*7);
 						}
 					}
-					$cart = new Cart();
-					$cart->saveCartFromSession();
-					$this->_redirect('/');
+					$cart = new Cart_Cookie();
+					$cart->saveCookie();
+					if($checkout){
+						$this->_redirect('/cart/');
+					}else{
+						$this->_redirect('/');
+					}
+					
 				}else{
 					$this->view->message = 'Failed';
 				}

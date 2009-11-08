@@ -17,7 +17,8 @@ class App_Form_Search extends App_Form  {
 		}
 
 		$textSearch= new Zend_Form_Element_Text('text_search',array(
-		'id'=>'input_searched_text'
+		'id'=>'input_searched_text',
+		'filters'=>array('StringTrim','StripTags'),
 		));
 			
 		$go = new Zend_Form_Element_Image('go', array('src'=>'/application/public/img/input_go_no_active.gif',

@@ -7,67 +7,157 @@
 Search</div>
 </div>
 </div>
-<h3>Your Search Text is "<?=$this->textsearch?>" in <?=$this->category_title?>;	Number of items found: <?=$this->products->getTotalItemCount()?></h3>
 
 
-<div class="paginator">
+<div id="right_product_frame">
+<div id="right_product_frame_up_bar">Results</div>
+<div id="right_product_frame_contain">
 
-<div class="paginator_content_right"><?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
-Display <?=$this->count?> <select name="account_pages">
-	<option value="0">-</option>
-	<option class='count' value="50">50</option>
-	<option class='count' value="20">20</option>
-	<option class='count' value="10">10</option>
-</select></div>
-
-
+<div id="info_found_items"> 
+Your Search Text is  "<span class="bold"><?=$this->textsearch?></span>" in  <span class="bold"> 
+<?=$this->category_title?>;	</span>
+Number of items found:  <span class="bold"> <?=$this->products->getTotalItemCount();?></span>
 </div>
-<div class="line_center_container"></div>
-<?php
-$i=0;
-foreach($this->products as $product):
-?>
-<div class="left_articule">
-<div class="articule">
-<div class="articule_content"><?php $album = new App_Album_Product($product['id']);
-if($album->getMainImage('s')):
-?> <img src="<?=$album->getMainImage('s')?>"
-	alt="<?=$product['title']?>"> <?php endif;?>
-<div class="fl_left articule_head">
-<h3><a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a></h3>
 
-</div>
 <div class="clear"></div>
-<p class="price"><?=$this->valute($product['price'])?> <span
-	class="small_price">(inc 10% GST)</span></p>
 
-<p class="overview"><?=$product['short_about']?></p>
+
+<div id="Items_per_page">
+Items per page:
+<?php if($this->count != 20):?> 
+<a href="#20" class='count'>20</a> 
+<?php else :?>
+ <span>20</span> 
+ <?php endif?> | <?php if($this->count != 40):?>
+<a href="#40" class='count'>40</a> 
+<?php else :?> 
+<span>40</span> 
+<?php endif?>
 </div>
+<div class="paginator"><?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+
 </div>
+<!-- Начало блока с товаром --> 
+<?php if(count($this->products)):?> <?php foreach($this->products as $product):?>
+<?php if($this->image):?>
+<div class="product_gallery_unit"><img
+	src="<?=$this->imageSmall($product['id'])?>" alt="">
+<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"
+	alt=""> Enlarge</a></p>
+<a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>
+<span>$ <?=$product['price']?> </span> 
+
+
+
+
+
+
+
+<div class="add_to_card_button" id="<?=$product['id']?>" ></div>
+
+
+
+
+
 </div>
-<?php if($i%2 == 0):?>
-<div class="v_line_articule_bar"></div>
+
 <?php else:?>
-<div class="h_line_articule_bar"></div>
-<?php endif;?>
-<?php $i++; endforeach; ?>
-<div class="clear"></div>
-<div class="paginator">
+<div class="product_list_unit">
+<div class="product_list_unit_image">
 
-<div class="paginator_content_right"><?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+<img src="<?=$this->imageSmall($product['id'])?>" alt="">
 
-Display <?=$this->count?> <select name="account_pages">
-	<option value="0">-</option>
-	<option class='count' value="50">50</option>
-	<option class='count' value="20">20</option>
-	<option class='count' value="10">10</option>
-</select></div>
 </div>
-<script>
+<div class="product_list_unit_about"><a
+	href="/product/index/id/<?=$product['id']?>"><?=$product['title']?> </a>
+<p><?=$product['short_about']?></p>
+<span></span>
+
+<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+	
+	<?php if ($_SESSION['admin']):?>
+	<p><a href="/product/mainpage/id/<?=$product['id']?>">
+	<?php if($product['main']):?>
+	Remove from the Main
+	<?php else:?>
+	Add To Main
+	<?php endif;?>
+	</a></p>
+	<p><a href="/product/edit/id/<?=$product['id']?>">Edit Product</a></p>
+	<p><a href="/product/delete/id/<?=$product['id']?>">Delete Product</a></p>
+	<?php endif?>
+</div>
+
+<div class="product_list_unit_price"><span>$ <?=$product['price']?> </span> 
+
+
+
+		
+
+
+<a class="add_to_card_button"  id="<?=$product['id']?>" href="#add"></a>
+
+
+
+
+</div>
+
+
+</div>
+<div class="clear"></div>
+<?php endif;?> <?php endforeach;?> <?php else:?>
+<p>No results</p>
+
+<?php endif;?> 
+
+
+<div id="Items_per_page">
+Items per page:
+<?php if($this->count != 20):?> 
+<a href="#20" class='count'>20</a> 
+<?php else :?>
+ <span>20</span> 
+ <?php endif?> | <?php if($this->count != 40):?>
+<a href="#40" class='count'>40</a> 
+<?php else :?> 
+<span>40</span> 
+<?php endif?>
+</div>
+<div class="paginator"><?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
+
+
+
+
+</div>
+		
+</div>
+</div>
+			<script>
 			$(document).ready(function(){
 				$('.count').click(function(){
-					value = $(this).val();
+					value = $(this).text();
 					window.location.href = '<?= $this->url(array('count'=>null));?>'+'/count/'+value;
+
 				});
 			})
 			</script>
+			
+			<script>
+			$(document).ready(function(){
+				$('.add_to_card_button').click(function(){
+					var id = $(this).attr("id");
+					
+						$.ajax({
+							   url: '/cart/add/id/'+id,
+							   success: function(msg){
+							   	//msg ответ от сервера(будем передавать колво товаров в корзине)
+								$('#cart_items_count').html(msg);
+								
+							   }
+						});
+					});
+				
+			})
+			</script>
+
+

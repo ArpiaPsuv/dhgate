@@ -113,14 +113,10 @@ if($this->currentCategory){
 
 
 
-<!-- При выводе кнопки проверить есть ли товар в корзине -->
+
 
 <div product_id="<?=$product['id']?>">
-<?php if(!$this->cart->isProductInCart($product['id'])):?>
 <div class="add_to_card_button" id="<?=$product['id']?>" ></div>
-<?php else:?>
-Already in your cart
-<?php endif?>
 </div>
 
 
@@ -158,12 +154,12 @@ Already in your cart
 <div class="product_list_unit_price"><span>$ <?=$product['price']?> </span> 
 
 
-<div product_id="<?=$product['id']?>">
+
 		
 
 
 <a class="add_to_card_button"  id="<?=$product['id']?>" href="#add"></a>
-</div>
+
 
 
 
@@ -178,14 +174,19 @@ Already in your cart
 <?php endif;?> 
 
 
-<div id="Items_per_page"><!-- Исправил ошибку с выбором кол-ва товара на странице-->
-Items per page: <?php if($this->count != 20):?> <a href="#20"
-	class='count'>20</a> <?php else :?> <span>20</span> <?php endif?> | <?php if($this->count != 40):?>
+<div id="Items_per_page">
+Items per page: 
+<?php if($this->count != 20):?> 
+<a href="#20"class='count'>20</a> <?php else :?> <span>20</span> <?php endif?> | <?php if($this->count != 40):?>
 <a href="#40" class='count'>40</a> <?php else :?> <span>40</span> <?php endif?>
 </div>
+
 <div class="paginator"><?=$this->paginationControl($this->products, 'Sliding', 'my_pagination.phtml'); ?>
 </div>
-			<script>
+		
+</div>
+</div>
+	<script>
 			$(document).ready(function(){
 				$('.count').click(function(){
 					value = $(this).text();
@@ -193,19 +194,18 @@ Items per page: <?php if($this->count != 20):?> <a href="#20"
 				});
 			})
 			</script>
-</div>
-</div>
+			
 			<script>
 			$(document).ready(function(){
 				$('.add_to_card_button').click(function(){
 					var id = $(this).attr("id");
-					$("div[product_id='"+id+"']").html('Please wait...');
+					
 						$.ajax({
 							   url: '/cart/add/id/'+id,
 							   success: function(msg){
 							   	//msg ответ от сервера(будем передавать колво товаров в корзине)
 								$('#cart_items_count').html(msg);
-								$("div[product_id='"+id+"']").html('Added To Cart');
+								
 							   }
 						});
 					});

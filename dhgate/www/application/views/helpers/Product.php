@@ -3,7 +3,7 @@ class Zend_View_Helper_Product
 {
 	public $view;
 	public function product($product) {
-		Zend_debug::dump($product);
+		//Zend_debug::dump($product);
 		return "
         <div class='product'>
         	<p><a href='/product/index/id/{$product['id']}/'>{$product['title']}</a></p>

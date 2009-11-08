@@ -13,6 +13,7 @@ Class App_Form_User extends App_Form {
 		'validators' => array(
 		array('Alnum', true, array(true)),
 		array('StringLength', true, array(0, 30),'NotEmpty')),
+		'filters'=>array('StringTrim','StripTags'),
         'filters' => array('StringTrim'), 
 		));
 		//$login->addValidator('NoDbRecordExists', true, array('user', 'login'));
@@ -20,6 +21,7 @@ Class App_Form_User extends App_Form {
 		$pass = new Zend_Form_Element_Password('pass',array(
 		'label'=>'New password: ',
 		'maxlength' => '30',
+		'filters'=>array('StringTrim','StripTags'),
 		'validators' => array('Password',
 		array('EqualInputs', true, array('pass_approve'))),
 		));
@@ -27,6 +29,7 @@ Class App_Form_User extends App_Form {
 		$passApprove=new Zend_Form_Element_Password('pass_approve',array(
 		'label'=>'Password approve: ',
 		'maxlength' => '30',
+		'filters'=>array('StringTrim','StripTags'),
 		'validators' => array(array('EqualInputs', true, array('pass'))),
 		));
 
@@ -35,6 +38,7 @@ Class App_Form_User extends App_Form {
 		'required'=> true,
 		'label'=>'E-mail Address: ',
 		'maxlength' => '80',
+		'filters'=>array('StringTrim','StripTags'),
 		'validators'=> array('EmailAddress', 'NotEmpty')
 		));
 		//$mail->addValidator('NoDbRecordExists', true, array('user', 'mail'));
@@ -50,7 +54,7 @@ Class App_Form_User extends App_Form {
 		'validators' => array(
 		array('Alnum', true, array(true)),
 		array('StringLength', true, array(0, 30))),
-        'filters' => array('StringTrim'), 
+        'filters'=>array('StringTrim','StripTags'),
 		));
 
 		$middlename=  new Zend_Form_Element_Text('middlename', array(

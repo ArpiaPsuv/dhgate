@@ -4,7 +4,7 @@ class Cart extends Zend_Db_Table_Abstract
 	protected $_name = 'cart';
 	protected $_userId;
 	
-	public function __construct($user_id)
+	public function __construct($user_id = null)
 	{
 		parent::__construct();
 		$this->_userId = $user_id; 
@@ -22,7 +22,7 @@ class Cart extends Zend_Db_Table_Abstract
 	public function add($product_id,  $count)
 	{
 		if($this->inCart($product_id)){
-			 $this->updateCount($product_id, $this->inCart($product_id));
+			 $this->updateCount($product_id, $count);
 		} else {
 			 $this->insert(array('product_id'=>(int) $product_id, 'count' => (int) $count , 'user_id'=>$this->_userId));
 		}
@@ -51,18 +51,21 @@ class Cart extends Zend_Db_Table_Abstract
 		return $this->getAdapter()->fetchAll($select);
 	}
 	
-	public function updateCount($product_id, $count)
+	public function updateCount($product_id, $count, $flag= FALSE)
 	{
 		if($this->inCart($product_id)){
 			$select = $this->select()->from($this->_name)
 				->where('product_id = ?', (int) $product_id)
 				->where('user_id = ?' , $this->_userId);
 			$product =  $this->fetchRow($select);
-			$count = $product['count']+(int)$count;
+			if(!$flag){
+				$count = $product['count']+(int)$count;
+			}
 			if($count >0){
 				$this->update(array('count' => $count ), "product_id =  $product_id AND user_id = {$this->_userId}");
 				return $count;
 			} else {
+				$this->deleteProduct($product_id);
 				return 0;
 			}
 			
@@ -78,10 +81,12 @@ class Cart extends Zend_Db_Table_Abstract
 	
 	public function getCount($order_id = 0)
 	{
+		
 		$select = $this->select()->from($this->_name,array('count'=>'sum(count)'))
 			->where('user_id=?', $this->_userId)
 			->where('order_id=?', $order_id);
 		$result =  $this->fetchAll($select);
-		return $result[0]['count'];
+		
+		return (int)$result[0]['count'];
 	}
 }

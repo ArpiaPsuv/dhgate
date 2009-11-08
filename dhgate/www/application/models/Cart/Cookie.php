@@ -4,12 +4,14 @@ class Cart_Cookie  extends Cart{
 	public function __construct(){}
 	public function add($product_id, $count)
 	{
+		parent::__construct();
 		if($this->inCart($product_id)){
 			return $this->updateCount($product_id, $count);
 		} else {
 			setcookie("p#".$product_id , $count, mktime(0,0,0,01,25,2050),'/');
 			return $this->getCount();
 		}
+		
 	}
 	
 	public function getProducts($order_id = 0)
@@ -29,7 +31,7 @@ class Cart_Cookie  extends Cart{
 		return $products;
 	}
 	
-	public function updateCount($product_id , $count)
+	public function updateCount($product_id , $count, $flag=FALSE)
 	{
 		if($this->inCart($product_id)){
 			$count = $_COOKIE['p#'.$product_id] + $count;
@@ -70,6 +72,31 @@ class Cart_Cookie  extends Cart{
 			return $_COOKIE["p#$product_id"];
 		} else {
 			return 0;
+		}
+	}
+	
+	public function inCart($product_id)
+	{
+		foreach ($this->getProducts() as $product) {
+			if($product['id'] == $product_id){
+				return $product['count'];
+			}
+		}
+		return false;
+	}
+	
+	public function saveCookie()
+	{
+		if(Zend_Auth::getInstance()->hasIdentity()){
+			$cart = new Cart(Zend_Auth::getInstance()->getIdentity()->id);
+			$count = 0;
+			foreach ($this->getProducts() as $product){
+				$cart->add($product['id'], $product['count']);
+				$count+=$product['count'];
+			}
+			return $count;
+		} else {
+			return false;
 		}
 	}
 }

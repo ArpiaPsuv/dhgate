@@ -33,6 +33,6 @@ class CartController extends MainController
 		$id = $this->_getParam('id', 0);
 		$count = $this->_getParam('count', 0);
 		$cart = Cart::create();
-		echo $cart->updateCount($id,$count);
+		echo $cart->updateCount($id,$count,true);
 	}
 }
