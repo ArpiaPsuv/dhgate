@@ -93,6 +93,7 @@ class Cart_Cookie  extends Cart{
 			foreach ($this->getProducts() as $product){
 				$cart->add($product['id'], $product['count']);
 				$count+=$product['count'];
+				$this->deleteProduct($product['id']);
 			}
 			return $count;
 		} else {

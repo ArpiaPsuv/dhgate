@@ -13,35 +13,7 @@ class UserController extends MainController
 
 	public function profileAction()
 	{
-		//$id = (int) $this->_getParam('id',0);
-		// $form= new App_Form_User();
-
-		/* if ($this->getRequest()->isPost()){
-		 if ($form->isValid($this->getRequest()->getPost()))
-		 {
-		 ///Сохраняем и выводим заполненную форму
-		 }*/
-		/*                if (Zend_Auth::getInstance()->hasIdentity()){
-
-		$id = Zend_Auth::getInstance()->getIdentity()->id;
-		$user = new User();  
-		//$this->view->user =
-		$userData = $user->find($id)->current()->toArray();
-		$this->view->form = $form->populate($userData);
-		}else{
-		$this->_redirect($_SERVER['HTTP_REFERER']);
-		}*/
-			
-		/*  if ($id >){
-		 $user = new User();
-		 $this->view->user = $userData = $user->find($id)->current();//->toArray();
-
-		 $form->populate($userData);
-		 $this->view->form=$form;
-		 }else{
-		 $this->view->id=$id;
-		 //$this->_redirect($_SERVER['HTTP_REFERER']);
-		 }*/
+		
 
 		if (!Zend_Auth::getInstance()->hasIdentity()){
 			$this->_redirect('/');
@@ -82,15 +54,6 @@ class UserController extends MainController
 	}
 
 
-	/* public function userAction()
-	 {
-	 if($this->_request->isPost())
-	 {
-	 $this->_login($_POST['login'], $_POST['pass'], true);
-	 $this->_redirect($_SERVER['HTTP_REFERER']);
-	 }
-	 }*/
-
 
 	public function registerAction()
 	{
@@ -118,7 +81,7 @@ class UserController extends MainController
 				if($this->_login($_POST['mail'], $passTmp)){
 				
 					if($checkout){
-						$this->_redirect('/cart/');
+						$this->_redirect('/order/step1/');
 					}else{
 						$this->_redirect('/');
 					}
@@ -163,8 +126,9 @@ class UserController extends MainController
 					}
 					$cart = new Cart_Cookie();
 					$cart->saveCookie();
+					
 					if($checkout){
-						$this->_redirect('/cart/');
+						$this->_redirect('/order/step1/');
 					}else{
 						$this->_redirect('/');
 					}

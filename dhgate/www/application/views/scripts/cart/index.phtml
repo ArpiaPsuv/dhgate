@@ -51,8 +51,16 @@
 				
 			<div class="checkout_down">
 					<div class="checkout_down_contain">
-						<a href="#">«Continue shopping</a>
+						<a href="/">«Continue shopping</a>
+						 
+						<?php if(Zend_Auth::getInstance()->hasIdentity()):?> 
+						<a href="/order/step1/">
 						<img class="checkout_down_contain_button" src="/application/public/img/check_out_account_close.gif" alt="">
+						</a>
+						<?php else:?>
+						<img class="checkout_down_contain_button" src="/application/public/img/check_out_account_close.gif" alt="">
+						<?php endif;?>
+						
 					</div>
 				
 				<div id="forms">
@@ -90,9 +98,9 @@
 			<script>
 			$(document).ready(function(){
 
-			      
-			       
-				   $('.processed_checkout_container').hide();
+				 $('.processed_checkout_container').hide();
+			      <?php if(!Zend_Auth::getInstance()->hasIdentity()):?>
+				  
 					$('.checkout_down_contain_button').click(function(){
 						var src = $(this).attr('src');
 						
@@ -108,7 +116,7 @@
 					   $('.processed_checkout_container').slideToggle();
 					   return false;
 					});
-					
+					<?php endif;?>
 			
 
 
