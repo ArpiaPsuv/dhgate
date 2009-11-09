@@ -19,9 +19,16 @@ class Order extends Zend_Db_Table_Abstract {
 	
 	public function setShippingMethod($method_id)
 	{
-		$_SESSION['shipping'] = (int) $method_id;
+		$_SESSION['shipping'] =(int) $method_id;
 		$this->_shipping = (int) $method_id;	
 	}
+	
+	public function getShippingMethods()
+	{
+		$select= $this->getAdapter()->select()->from('shipping_method');
+		return $this->getAdapter()->fetchAll($select);
+	}
+	
 	
 	public  function confirm()
 	{

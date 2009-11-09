@@ -56,5 +56,6 @@ class AdminController extends Zend_Controller_Action {
 		}
 		$this->_redirect("/admin/userlist");
 	}
+
 }
 ?>

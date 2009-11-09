@@ -23,9 +23,71 @@ class OrderController extends Zend_Controller_Action
 		Zend_Debug::dump($_SESSION);
 	}
 	
+	public function setmethodAction()
+	{
+		Zend_Layout::getMvcInstance()->disableLayout();
+		$order = new Order();
+		$order->setShippingMethod($this->_getParam('id',0));
+	}
+	
 	public  function step2Action()
 	{
+		$this->view->form=$form=new App_Form_ShippingMethod();
+		$order= new Order();
 		
+		
+		
+		if($this->_request->isPOST()){
+			
+			if ($_SESSION['admin']) {
+				$_POST['coef']=str_replace('.',',',$_POST['coef']);
+				if ($form->isValid($_POST)) {
+					$_POST['coef']=str_replace(',','.',$_POST['coef']);              
+	                $uploadedData = $form->getValues();
+	               
+	                $data=array(
+	                'title'=> $_POST['title'],
+	                'about'=>$_POST['about'],
+	                'coef'=>$_POST['coef'],
+	                'image'=>$uploadedData['image']
+	                );
+	                
+	                $order->getAdapter()->insert('shipping_method',$data);
+	                
+	            
+				 }
+
+			}
+		}
+		
+		$this->view->methods=$methods= $order->getShippingMethods();
+	
+		//Zend_Debug::dump($_SESSION);
+	}
+	
+	public function step3Action() {
+		
+		$order= new Order();
+		$select = $order->getAdapter()->select()
+		->from('shipping_method')->
+		where("id = ?" , $_SESSION['shipping']);
+		$this->view->method=$shipping_method= $order->getAdapter()->fetchRow($select);
+		
+		
+		
+		$cart= Cart::create();
+		$products = $this->view->products = $cart->getProducts();
+		$sub_price=0;
+		foreach ($products as $product) {
+			$sub_price+=$product['price']*$product['count'];
+		}
+		
+		$this->view->subprice=$sub_price;
+		
+		
+		
+	
+				
 	}
 	
 	public function trackAction() 

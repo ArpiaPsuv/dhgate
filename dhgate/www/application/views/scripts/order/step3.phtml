@@ -1,270 +1,135 @@
+<div id="main_container">
+				<div id="checkout_stpes">
+					<img src="/application/public/img/checkout_4.gif" alt="">
+				</div>
+				<div id="shopping_cart">
+					<img src="/application/public/img/list_green_arrow.gif" alt="" />
+					Confirm and submit your order
+				</div>
+				<div id="cart_items_first_head">
+					<p>Address</p>
+				</div>
+				<div class="adresses">
+					<p class="adresses_title"><span class="bold">Shipping to this address: </span></p>
+					<p><span class="bold">z\kfjji asdfasdf</span></p>
+					<p>asdfsdf s234 3</p>
+					<p>Chita,Arkansas,United States</p>
+					<p>Postal/Zipe Code::1234123 ; Phone:123123123 </p>
+				</div>
+				<div class="adresses">
+					<p class="adresses_title"><span class="bold">Billing address: </span></p>
+					<p><span class="bold">z\kfjji asdfasdf</span></p>
+					<p>asdfsdf s234 3</p>
+					<p>Chita,Arkansas,United States</p>
+					<p>Postal/Zipe Code::1234123 ; Phone:123123123 </p>
+				</div>
+				<div class="sign_up2">
+					<input type="submit" value="Modify Shipping And Billing Address">
+				</div>
+				<div id="cart_items_first_head">
+					<p>Order 1 (seller name - dracotek)</p>
+				</div>
+				<div class="order">
+					<p><span class="bold">Shipping method:</span> <?=$this->method['title']?> <input type="submit" value="Modify"> </p>
+					<p><span class="bold">Processing Time : </span>The item(s) will be ready for shipment within <span class="bold"> 5 working days</span> after payment is received.</p>
+					<div class="bucher"></div>
+					<div id="cart_items_second_head">
+					<p class="head_desc">Description</p>
+					<p class="head_price">Price</p>
+					<p class="head_quantity">Quantity</p>
+					<p class="head_amount">Amount</p>
+					<p class="head_buttons"></p>
+				</div>
+				
+				
 
-<div class="line_center_container"></div>
-<div id="head_center_container">
-<div id="contain_head_center_container">
-<div id="right_contain_head_center_container"></div>
-<div id="left_contain_head_center_container"><a href="#">Home</a> >
-Online Store</div>
-</div>
-</div>
-<div class="line_center_container"></div>
-<div class="cart_big_title">Checkout</div>
-<div class="step_for_ships">
-<div class="step_for_ships_container_3">
-<p>Shipping address</p>
-<p>Ship Methods</p>
-<a href="">Payment Method</a>
-<p>Complete Order</p>
-</div>
-</div>
-<div class="cart_title_bar">
-<div class="cart_product_name_title">Name</div>
-<div class="cart_product_SKU_title">SKU</div>
-<div class="cart_product_price_title">Price</div>
-<div class="cart_product_quantity_title">Quantity / Update</div>
-<div class="cart_product_subtotal_title">Subtotal</div>
-</div>
-<!--Содержимое корзины -->
-<?php $total = 0; foreach($this->products as $product):?>
-<div class="cart_product_container">
-<div class="cart_product_name"><a
-	href="/product/index/id/<?=$product['product']['id']?>"><?=$product['product']['title']?></a></div>
-<div class="cart_product_SKU">NBK-AS-T91-BK</div>
-<div class="cart_product_price"><?=$this->valute($product['product']['price'])?></div>
-<div class="cart_product_quantity"><input type="text"
-	value="<?=$product['count']?>"> <a href="#" class="plus"><img
-	src="/application/public/img/qty-more.png"></a> <a href="#"
-	class="minus"><img src="/application/public/img/remove_f.png"></a> <span
-	class="price_" style="display: none"><?=$product['product']['price']?></span>
-<span class="product_id" style="display: none;"><?=$product['product']['id']?></span>
-</div>
-<div class="cart_product_subtotal"><?=$this->valute($product['product']['price'] * $product['count'], 'subprice')?></span></div>
-</div>
-<?php $total+=$product['product']['price'] * $product['count']?>
-<?php endforeach;?>
-<!--Конец блока содержимого корзины -->
+				
+				<?=$this->productsInCart()?>
+				
+				
+				<p>&nbsp;</p>
+				<div class="update_quantity">
 
-<!-- <div class="sum_cart_block">
-			<div class="sum_cart_block_price">AU $2,572.00</div>
-			Subtotal:
-		</div> -->
+					<input class="update" value="Update Quantity" type="submit">
+				</div>
+				
+				
+				
+				<div class="bucher"></div>
+				<p><span class="bold">Order Summary</span></p>
+				<p>Item subtotal:  	<span id="sub_price">USD <?=$this->subprice?></span></p>
+				<p class="red_price bold">Order total:  	USD 418.00</p>
+				</div>
+				
+				
+				<!--
+				<div id="cart_items_first_head">
+					<p>Coupon</p>
+				</div>
+				
+				<p class="coupon">Have a Coupon Code? <input class="long" type="text"> <input type="submit" value="add"></p>
+				
+				-->
+				<div class="clear"></div>
+				<div class="checkout_down">
+						<h2 class="red_price h2_grand">Grand total: USD 916.99 </h2>
+						<div class="clear"></div>
+					<div class="checkout_down_contain">
+						<a href="#">« Back</a>
+						<a class="checkout_down_contain_button" href="#"><img src="/application/public/img/check_out_account_close.gif" alt=""></a>
+					</div>
+				</div
+				
+			</div>
+			
+			
+			<<script>
+				$(document).ready(function(){
 
-<div class="sum_cart_block">
-<div class="sum_cart_block_price">
-<p><?=$this->valute($total,'total')?></span></p>
-</div>
-<p>Total:</p>
-</div>
-<!--<div class="sum_cart_block">
-			<div class="sum_cart_block_price">AU $2,572.00</div>
-			GST Included in Total: 
-		</div> -->
-<div class="clear"></div>
+				
 
-<div class="line_center_container"></div>
-<div class="shipto-addresses-block-inner">
-<div class="please_select">Please select a Payment Method!</div>
-<div class="payment_methods">
-<div class="title_payment_methods">Credit Card Payment</div>
-<?php if($_SESSION['admin']):?> <a href="/country/allowed/">set allowed
-coutnrys</a> <?php endif;?>
-<table>
-	<tr>
-		<td>
-		<form class="cardForm"><input type="radio" name="card"
-			class="card credit" value="credit"> Credit Card (+ AU $17.48)
-		<div id="error"></div>
-		
-		</td>
-	</tr>
-</table>
-<table>
-	<tr>
-		<td></td>
-	</tr>
 
-	<tr>
-		<td class="left_td">Name On Card:</td>
-		<td class="right_td"><select class="select_credit_cart"
-			name="cardName">
-			<option value="visa">Visa</option>
-			<option value="mastercard">Master Card</option>
-		</select></td>
-	</tr>
-	<tr>
-		<td class="left_td">Card Number:</td>
-		<td class="right_td"><input class="text_area" id='cardNumber'
-			type="text" name="cardNumber"></td>
-	</tr>
-
-	<tr>
-		<td class="left_td">Card Security Code:</td>
-		<td class="right_td"><input class="text_area" id="cardCode"
-			type="text" name="cardCode"></td>
-	</tr>
-
-	<tr>
-		<td class="left_td">Expiry Date:</td>
-		<td class="right_td"><select class="select_mounth" name="mounth">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
-		</select>/ <select class="select_year" name="year">
-			<option value='2009'>2009</option>
-			<option value='2010'>2010</option>
-			<option value='2011'>2011</option>
-			<option value='2012'>2012</option>
-			<option value='2013'>2013</option>
-			<option value='2014'>2014</option>
-			<option value='2015'>2015</option>
-			<option value='2016'>2016</option>
-		</select></td>
-	</tr>
-
-</table>
-<p id="error2"></p>
-</div>
-<div class="payment_methods">
-<div class="title_payment_methods">Other Payment Methods</div>
-<table>
-	<tr>
-		<td><input type="radio" CHECKED name="card" value="bank" class="bank">
-		Bank Transfer</td>
-	</tr>
-</table>
-<table>
-	<tr>
-		<td><input type="radio" name="card" value="paypal" class="paypal">
-		PayPal (+ AU $17.48)</td>
-	</tr>
-</table>
-
-</div>
-</form>
-<div class="clear"></div>
-</div>
-<div class="line_center_container"></div>
-<div class="next_button"><input type="submit" value="Next" id="next"></div>
-
-<script type="text/javascript">
-					function getTotalPrice(){
-						total = 0;
-						$('.subprice').each(function(){
-							val = parseInt($(this).text());
-							total += val
-						})
-						return total;
-					}
-					
-					$('.plus').click(function(){
-						input = $(this).parent().children('input');
-						val  = parseInt($(input).val());
-						$(input).val(val+1);
-						
-						price = parseInt($(input).parent().children('.price_').text());
-						$(input).parent().parent().children('.cart_product_subtotal').children('.subprice').text(price  * (val+1));
-						$('.total').text(getTotalPrice());
-						product_id = parseInt($(input).parent().children('.product_id').text());
-						val  = parseInt($(input).val());
-						 $.ajax({
-							   type: "POST",
-							   url: "/cart/updatecount/count/"+val,
-							   data: "product_id=" + product_id,
-							   success: function(msg){
-							   }
-							 });
-						return false;
-					})
-					$('.minus').click(function(){
-						input = $(this).parent().children('input');
-						val = parseInt($(input).val());
-						val--;
-						$(input).val(val);
-						if(val>0){
-							price = parseInt($(input).parent().children('.price_').text());
-							$(input).parent().parent().children('.cart_product_subtotal').children('.subprice').text(price  * (val-1));
-							$('.total').text(getTotalPrice());
-						}
-						product_id = parseInt($(input).parent().children('.product_id').text());
-						val = parseInt($(input).val());
-						 $.ajax({
-							   type: "POST",
-							   url: "/cart/updatecount/count/"+val,
-							   data: "product_id=" + product_id,
-							   success: function(msg){}
-						 });
-							
-							if(val<1){
-								$(input).parent().parent().remove();
-								$('.total').text(getTotalPrice());
-							}
-						return false;
-					})
-					$('.shipping').click(function(){
-						val = $(this).val();
+				
+				
+				$('.delete').click(function(){
+					var id = $(this).attr("product_id");
+					$("span[product_id='"+id+"']").html('Please wait...');
 						$.ajax({
-							   url: "/shipping/set/val/"+val,
-							   success: function(msg){}
-						});
-					})
-					var allowed = true;
-					var credit = false;
-					$('.credit').click(function(){
-						credit = true;
-					    $.ajax({
-							   url: "/country/isallowed/id/" + "<?=Zend_Auth::getInstance()->getIdentity()->country?>",
+							   url: '/cart/delete/id/'+id,
 							   success: function(msg){
-					    			var c = msg.length;;
-					    			if(c == 0)
-					    			{
-						    			 allowed = true;
-					    			} else { allowed = false; }
-							   		$('#error').html(msg);
+							   	//msg ответ от сервера(будем передавать колво товаров в корзине)
+								$('#cart_items_count').html(msg);
+								// тут был косяк когда много товаров удаляешь
+								$("span[product='"+id+"']").remove();
 							   }
-						 });
-					}) 
-					function check()
-					{
-						if($('#cardNumber').val().length > 2 && $('#cardCode').val().length >2 ){
-							return true;
-						} else {
-							return false;
-						}
-					}
-					$('.paypal').click(function(){
-						allowed = true;
-						credit = false;
-					})
-					$('.bank').click(function(){
-						allowed = true;
-						credit = false;
-					})
-					$('#next').click(function(){
-						val = $('.cardForm').serialize();
-						if(allowed){
-							if(check() || !credit){
-							    $.ajax({
-									   type: "POST",
-									   url: "/order/cart/",
-									   data: val,
-									   success: function(msg){
-											window.location.href="/order/confirm/"
-									   }
-								 });
-							} else {
-								$('#error2').html('<span class="err">empty fields</span>');
-							}
-						} else {
-							$('#error').html('Please select another payment method');
-						}
-					})
-				</script>
+						});
+				});
+				
+				$('.update').click(function(){
+					var red_price = 0;
+					var products_count = 0;
+				
+					$('input[class="count"]').each(	function(n,element){
+						
+						var product_count= $(element).attr('value')-0;
+						var product_id = $(element).attr('product_id');	
+						var product_price =$(element).attr('price');
+						
+						
+						$.ajax({url: '/cart/update/id/'+product_id+'/count/'+product_count});
+						
+						
+						$('p[product_id="'+product_id+'"]').html('USD '+product_count*product_price);
+						red_price=red_price+product_count*product_price;
+						products_count += product_count;
+					});
+					
+										 
+					$('#cart_items_count').html(products_count);
+					$('span[id="sub_price"]').html('USD '+ red_price);
+				});
+
+				
+				
+			})
+			</script>	
