@@ -9,20 +9,31 @@
 				<div id="cart_items_first_head">
 					<p>Address</p>
 				</div>
+					
 				<div class="adresses">
 					<p class="adresses_title"><span class="bold">Shipping to this address: </span></p>
-					<p><span class="bold">z\kfjji asdfasdf</span></p>
-					<p>asdfsdf s234 3</p>
-					<p>Chita,Arkansas,United States</p>
-					<p>Postal/Zipe Code::1234123 ; Phone:123123123 </p>
+					<p><span class="bold">Contact name: <?=$this->ship_address[0]['contact']?></span></p>
+					<p>Company: <?=$this->ship_address[0]['company']?></p>
+					<p>Address 1:<?=$this->ship_address[0]['address']?></p>
+					<p>Address 2:<?=$this->ship_address[0]['address2']?></p>
+					<p><?=$this->ship_address[0]['city']?>, <?=$this->ship_address[0]['state']?>, <?=$this->ship_address[0]['country']?></p>
+					<p>Postal Code: <?=$this->ship_address[0]['postal']?> </p>
+					<p>Phone: <?=$this->ship_address[0]['phone']?></p>
+					<p>Fax: <?=$this->ship_address[0]['fax']?></p>
 				</div>
+				
 				<div class="adresses">
 					<p class="adresses_title"><span class="bold">Billing address: </span></p>
-					<p><span class="bold">z\kfjji asdfasdf</span></p>
-					<p>asdfsdf s234 3</p>
-					<p>Chita,Arkansas,United States</p>
-					<p>Postal/Zipe Code::1234123 ; Phone:123123123 </p>
+					<p><span class="bold">Contact name: <?=$this->bill_address[0]['contact']?></span></p>
+					<p>Company: <?=$this->bill_address[0]['company']?></p>
+					<p>Address 1:<?=$this->bill_address[0]['address']?></p>
+					<p>Address 2:<?=$this->bill_address[0]['address2']?></p>
+					<p><?=$this->bill_address[0]['city']?>, <?=$this->bill_address[0]['state']?>, <?=$this->bill_address[0]['country']?></p>
+					<p>Postal Code: <?=$this->bill_address[0]['postal']?> </p>
+					<p>Phone: <?=$this->bill_address[0]['phone']?></p>
+					<p>Fax: <?=$this->bill_address[0]['fax']?></p>
 				</div>
+				
 				<div class="sign_up2">
 					<input type="submit" value="Modify Shipping And Billing Address">
 				</div>
@@ -83,7 +94,7 @@
 			</div>
 			
 			
-			<<script>
+			<script>
 				$(document).ready(function(){
 
 				

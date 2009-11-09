@@ -24,17 +24,26 @@
 				<div id="cart_items_first_head">
 					<p>Billing Address</p>
 				</div>
-					<p class="text_and_check"><input type="checkbox" checked class="check"> <span class="bold">Same as shipping address</span> </p>
+					<p class="text_and_check">
+					<input type="checkbox" class="check" checked > <span class="bold">Same as shipping address</span> </p>
 					<form action="<?=$this->form->getAction()?>" method="POST" class="billing">
 					</form>
 				<div class="checkout_down">
 					<div class="checkout_down_contain">
 						<a href="/cart/">« Back</a>
-						<a class="checkout_down_contain_button" href="#"><img src="/application/public/img/check_out_account_close.gif" alt=""></a>
+						
+					<span id="wait" class="bold">   Please wait ...</span>
+						<span id="hide">
+						<img class="checkout_down_contain_button" src="/application/public/img/check_out_account_close.gif" alt="">
+						</span>
 					</div>
 				</div>
+			
 		<script>
+		$('#wait').hide();
 		$('.checkout_down_contain_button').click(function(){
+			$('#wait').show();
+			$('#hide').hide();
 			data = $('.shipping').serialize();
 			$.ajax({
 			   type: "POST",
@@ -42,6 +51,7 @@
 			   data: data,
 			   success: function(msg){
 			     		data = $('.billing').serialize();
+			     		
 						$.ajax({
 						   type: "POST",
 						   url: "/adress/add/shipping/0/",
@@ -62,3 +72,5 @@
 			//return false;
 		});
 		</script>
+		
+		

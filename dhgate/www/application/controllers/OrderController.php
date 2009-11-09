@@ -85,8 +85,19 @@ class OrderController extends Zend_Controller_Action
 		$this->view->subprice=$sub_price;
 		
 		
+		$address = new Adress();
 		
-	
+		$shipping_address=$address->get(1);
+		$billing_address =$address->get();
+		if (!count($billing_address)) {
+			$billing_address=$shipping_address;
+		}
+		
+		
+
+		
+		$this->view->bill_address=$billing_address;
+		$this->view->ship_address=$shipping_address;
 				
 	}
 	

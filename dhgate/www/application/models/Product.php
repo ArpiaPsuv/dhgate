@@ -18,6 +18,16 @@ class Product extends Zend_Db_Table_Abstract
 		return $this->find($id)->current();
 	}
 
+	public function getCategoryCoef($id)
+	{
+		$select= $this->getAdapter()->select();
+		$select->from('connect_catalog_product')
+				->where("item_id =  $id");
+		$cat= $this->getAdapter()->fetchRow($select);
+		$result=$this->getCategory($cat['category_id']);
+		return $result[0]['coef'];
+	}
+	
 	public function getCategory($id)
 	{
 		$select = $this->getAdapter()->select()->from(array('c'=>'catalog'))

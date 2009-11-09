@@ -26,7 +26,8 @@ class Zend_View_Helper_ProductsInCart {
 		
 		$cart = Cart::create();
 	    $products =  $cart->getProducts();
-
+		$category = new Product();
+		
 		$html='';
 		foreach ($products as $product){
 			$album = new App_Album_Product($product['id']);
@@ -36,7 +37,7 @@ class Zend_View_Helper_ProductsInCart {
 			}
 			$html.=	'
 					<div class="item_at_cart">
-					<span product="'.$product['id'].'">
+					<span coef="'.$category->getCategoryCoef($product['id']).'" product="'.$product['id'].'">
 					<div class="head_desc">
 						<div class="small_img_cover"><img src="'.$image.'" alt=""></div>
 						<div class="small_desc"><a href="/product/index/id/'.$product['id'].'">'.$product['title'].' / '.$product['short_about'].'</a></div>
