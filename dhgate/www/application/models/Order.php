@@ -27,4 +27,22 @@ class Order extends Zend_Db_Table_Abstract {
 	{
 		//сохранить в базу;
 	}
+	
+	public  function track($mail,$number)
+	{
+		$select = $this->getAdapter()->select();
+		$select	->from("order as o")
+				->from("user as u")
+				->where("u.mail = '$mail'")
+				->where("o.user_id = u.id")
+				->where("o.id = $number");
+		$result = $this->getAdapter()->fetchRow($select);
+		if($result){
+			return $result['status'];
+		}else{
+			return false;
+		}
+		
+	}
+	
 }

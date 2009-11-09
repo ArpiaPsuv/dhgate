@@ -2,8 +2,7 @@
 <div class="line_center_container"></div>
 <div id="head_center_container">
 <div id="contain_head_center_container">
-<div id="left_contain_head_center_container"><a href="#">Home</a> > <a
-	href="#">Online Store</a> > Track Your Order</div>
+<div id="left_contain_head_center_container"><a href="/">Home</a> > Track Your Order</div>
 </div>
 </div>
 <div class="line_center_container"></div>
@@ -15,16 +14,16 @@
 <form action="/order/track/" method="post">
 <p>E-Mail:</p>
 <p><input type='text' name="mail"></p>
-
 <p>Order number:</p>
-
 <p><input type='text' name="number"></p>
 <div class="delimiter"></div>
 <p><input type='submit' value="check"></p>
 </form>
+
 <p><?php 
 switch($this->status)
 {
+	case 'error' : echo "You order status: Not found"; break;
 	case 'new' : echo "You order status : New";  break;
 	case 'InProgress' : echo "You order status : In progress"; break;
 	case 'due' : echo "You order status : Due From Supplier";break;

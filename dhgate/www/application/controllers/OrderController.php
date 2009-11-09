@@ -27,4 +27,30 @@ class OrderController extends Zend_Controller_Action
 	{
 		
 	}
+	
+	public function trackAction() 
+	{
+		
+		if($this->getRequest()->isPOST()){
+			$mail=$_POST['mail'];
+			$number=$_POST['number'];
+			
+			$mailValid= new Zend_Validate_EmailAddress();
+			$numberValid= new Zend_Validate_Digits();
+		
+			if($mailValid->isValid($mail) and $numberValid->isValid($number)){
+				$order = new Order();
+				$status =$order->track($mail,$number);	
+				
+				if ($status){
+					$this->view->status=$status;
+				}else{
+					$this->view->status='error';
+				}
+					
+						
+			}
+		}
+	}
+	
 }
