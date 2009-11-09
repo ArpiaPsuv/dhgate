@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Хост: localhost
--- Время создания: Ноя 09 2009 г., 18:18
+-- Время создания: Ноя 09 2009 г., 21:00
 -- Версия сервера: 5.0.45
 -- Версия PHP: 5.2.4
 -- 
@@ -19,19 +19,20 @@
 CREATE TABLE `address` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) default NULL,
-  `nickname` text,
+  `contact` text,
   `title` text,
   `company` text,
-  `adress` text,
-  `adress2` text,
+  `address` text,
+  `address2` text,
   `city` text,
-  `zip` text,
+  `postal` text,
   `country` text,
   `state` text,
   `phone` text,
   `fax` text,
+  `shipping` int(1) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -46,7 +47,7 @@ CREATE TABLE `cart` (
   `count` int(11) NOT NULL,
   `order_id` int(11) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=145 DEFAULT CHARSET=utf8 AUTO_INCREMENT=145 ;
+) ENGINE=MyISAM AUTO_INCREMENT=146 DEFAULT CHARSET=utf8 AUTO_INCREMENT=146 ;
 
 -- --------------------------------------------------------
 
