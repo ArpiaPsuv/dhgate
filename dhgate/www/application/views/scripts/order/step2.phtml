@@ -6,11 +6,16 @@
 
 <div>
 
+<p>
 <input type="radio" id="<?=$method['id']?>" class="shipping"  name="group">
 <?php if($method['image']):?>
 <img alt="" src="/application/public/images/shipping/<?=$method['image']?>">
 <?php endif?>
-<p><?=$method['title']?></p>
+<?=$method['title']?>
+<?php if($_SESSION['admin']):?>
+<a href="/order/shippingdelete/id/<?=$method['id']?>"> delete</a>
+<?php endif?>
+</p>
 <p><?=$method['about']?></p>
 </input>
 </div>

@@ -146,13 +146,17 @@
 			$(document).ready(function(){
 				$('.add_to_card').click(function(){
 					var id = $(this).attr("id");
-					//$("div[product_id='"+id+"']").html('Please wait...');
 						$.ajax({
 							   url: '/cart/add/id/'+id+'/count/'+parseInt($('#count').val()),
-							   success: function(msg){
-							   	//msg ответ от сервера(будем передавать колво товаров в корзине)
-								$('#cart_items_count').html(msg);
-								//$("div[product_id='"+id+"']").html('Added To Cart');
+							   success: function(){
+							   $.ajax({
+								   url: '/cart/getcount/',
+								   success: function(msg){
+								   	$('#cart_items_count').html(msg);
+									
+								   }
+							});	
+								
 							   }
 						});
 					});

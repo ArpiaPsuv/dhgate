@@ -1,6 +1,12 @@
 <?php
 class OrderController extends Zend_Controller_Action
 {
+	public function init() 
+	{
+		if(!Zend_Auth::getInstance()->hasIdentity()){
+			$this->_redirect('/user/login/');
+		}
+	}
 	public function step1Action()
 	{
 		if(!Zend_Auth::getInstance()->hasIdentity()){
@@ -74,7 +80,6 @@ class OrderController extends Zend_Controller_Action
 		$this->view->method=$shipping_method= $order->getAdapter()->fetchRow($select);
 		
 		
-		
 		$cart= Cart::create();
 		$products = $this->view->products = $cart->getProducts();
 		$sub_price=0;
@@ -100,6 +105,66 @@ class OrderController extends Zend_Controller_Action
 		$this->view->ship_address=$shipping_address;
 				
 	}
+	
+	
+	public function paymentdeleteAction() 
+	{
+		if($_SESSION['admin']){
+			$id= $this->_getParam('id',0);
+
+			if($id>0){
+			$order= new Order();	
+			$order->getAdapter()->delete('payment_method',"id = $id");
+			}
+		}
+		$this->_redirect('/order/step4/');
+	}
+	
+	public function shippingdeleteAction() 
+	{
+		if($_SESSION['admin']){
+			$id= $this->_getParam('id',0);
+
+			if($id>0){
+			$order= new Order();	
+			$order->getAdapter()->delete('shipping_method',"id = $id");
+			}
+		}
+		$this->_redirect('/order/step2/');
+	}
+	
+	public function step4Action()
+	{
+		$this->view->form=$form=new App_Form_PaymentMethod();
+		$order= new Order();
+		
+		if($this->_request->isPOST()){
+			
+			if ($_SESSION['admin']) {
+				
+				if ($form->isValid($_POST)) {
+					       
+	                $uploadedData = $form->getValues();
+	               
+	                $data=array(
+	                'title'=> $_POST['title'],
+	                'about'=>$_POST['about'],
+	                'image'=>$uploadedData['image']
+	                );
+	                
+	                $order->getAdapter()->insert('payment_method',$data);
+	                
+	            
+				 }
+
+			}
+		}
+		
+		$this->view->payments=$payments= $order->getPaymentMethods();
+		
+		
+	}
+	
 	
 	public function trackAction() 
 	{

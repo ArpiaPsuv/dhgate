@@ -1,6 +1,6 @@
 <?php
 
-class App_Form_ShippingMethod extends App_Form  {
+class App_Form_PaymentMethod extends App_Form  {
 	public function init(){
 		parent::init();
 		$helper  = new Zend_View_Helper_Url();
@@ -29,7 +29,7 @@ class App_Form_ShippingMethod extends App_Form  {
 		$image= new Zend_Form_Element_File('image',array(
 			'validators' => array('IsImage')
 		));
-		$path=$_SERVER['DOCUMENT_ROOT'].'/application/public/images/shipping';
+		$path=$_SERVER['DOCUMENT_ROOT'].'/application/public/images/payment';
 		if(!file_exists($path)){
 			mkdir($path,0,1);
 		}
@@ -38,13 +38,7 @@ class App_Form_ShippingMethod extends App_Form  {
 		
 		
 		
-		$coef= new Zend_Form_Element_Text('coef',array(
-		'required' => true,
-		'label'=>'Coef :',
-		'validators' => array('Float'),
-		'filters'=>array('StringTrim','StripTags'),
-		));
-		
+			
 
 
 
@@ -56,7 +50,6 @@ class App_Form_ShippingMethod extends App_Form  {
 		$this->addElements(array(
 		$title,
 		$about,
-		$coef,
 		$image,
 		$submit
 		));

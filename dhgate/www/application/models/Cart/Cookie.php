@@ -34,7 +34,8 @@ class Cart_Cookie  extends Cart{
 	public function updateCount($product_id , $count, $flag=FALSE)
 	{
 		if($this->inCart($product_id)){
-			$count = $_COOKIE['p#'.$product_id] + $count;
+			if(!$flag){
+				$count = $_COOKIE['p#'.$product_id] + $count;}
 			if($count>0){
 				setcookie("p#".$product_id , $count, mktime(0,0,0,01,25,2050),'/');
 				return $count;

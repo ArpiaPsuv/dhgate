@@ -149,10 +149,14 @@ Items per page:
 					
 						$.ajax({
 							   url: '/cart/add/id/'+id,
-							   success: function(msg){
-							   	//msg ответ от сервера(будем передавать колво товаров в корзине)
-								$('#cart_items_count').html(msg);
-								
+							   success: function(){
+							   $.ajax({
+								   url: '/cart/getcount/',
+								   success: function(msg){
+								   	$('#cart_items_count').html(msg);
+									
+								   }
+							});	
 							   }
 						});
 					});

@@ -20,6 +20,7 @@ class CartController extends MainController
 		$cart = Cart::create();
 		if($id>0){
 			echo $cart->add($id,$count);
+			echo $cart->getCount();
 		}
 	}
 
@@ -29,6 +30,13 @@ class CartController extends MainController
 		$id = $this->_getParam('id', 0);
 		$cart = Cart::create();
 		$cart->deleteProduct($id);
+		echo $cart->getCount();
+	}
+	
+	public function getcountAction() 
+	{
+		Zend_Layout::getMvcInstance()->disableLayout();
+		$cart = Cart::create();
 		echo $cart->getCount();
 	}
 	

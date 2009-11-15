@@ -22,10 +22,24 @@ class Order extends Zend_Db_Table_Abstract {
 		$_SESSION['shipping'] =(int) $method_id;
 		$this->_shipping = (int) $method_id;	
 	}
+
+	
+	
+	public function setPaymentMethod($method_id)
+	{
+		$_SESSION['payment'] =(int) $method_id;
+		$this->_payment = (int) $method_id;	
+	}
 	
 	public function getShippingMethods()
 	{
 		$select= $this->getAdapter()->select()->from('shipping_method');
+		return $this->getAdapter()->fetchAll($select);
+	}
+	
+	public function getPaymentMethods()
+	{
+		$select= $this->getAdapter()->select()->from('payment_method');
 		return $this->getAdapter()->fetchAll($select);
 	}
 	
