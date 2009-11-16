@@ -19,6 +19,17 @@ class Cart extends Zend_Db_Table_Abstract
 		} 
 	}
 	
+	
+	public function setOrder($order_id) 
+	{
+		$data= array(
+		'order_id'=>$order_id,
+		);
+		$user_id=Zend_Auth::getInstance()->getIdentity()->id;
+		$this->update($data, "user_id = $user_id and order_id = 0");
+		
+	
+	}
 	public function add($product_id,  $count)
 	{
 		if($this->inCart($product_id)){
@@ -31,7 +42,9 @@ class Cart extends Zend_Db_Table_Abstract
 	
 	public function inCart($product_id)
 	{
-		$select = $this->select()->from($this->_name, 'count')->where('product_id = ?', (int) $product_id);
+		$select = $this->select()->from($this->_name, 'count')
+		->where('product_id = ?', (int) $product_id)
+		->where('order_id = 0');
 		$row = $this->fetchRow($select);
 		if($row){
 			return $row->count;

@@ -18,7 +18,7 @@ class ProductController extends MainController
 		$this->view->parents = $parents= $catalogTable->getParentsRecursive($category[0]['id']);
 		$this->view->album = App_Album::create('product',$productRow->id);
 		$this->view->allProducts = $productTable->fetchAll();
-		$this->view->interested = $productTable->getInterested($productRow->id);
+		//$this->view->interested = $productTable->getInterested($productRow->id);
 		$this->view->category =$category;
 		
 		$album = new App_Album_Product($id);

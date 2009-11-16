@@ -48,13 +48,13 @@ class Product extends Zend_Db_Table_Abstract
 		return $category;
 	}
 
-	public function getInterested($product_id)
-	{
-		$select = $this->getAdapter()->select()->from(array('p'=>$this->_name))
-		->join(array('c'=>'connect_product_interested'),'c.category_id = p.id')
-		->where('c.item_id = ' . $product_id);
-		return $this->getAdapter()->fetchAll($select);
-	}
+//	public function getInterested($product_id)
+//	{
+//		$select = $this->getAdapter()->select()->from(array('p'=>$this->_name))
+//		->join(array('c'=>'connect_product_interested'),'c.category_id = p.id')
+//		->where('c.item_id = ' . $product_id);
+//		return $this->getAdapter()->fetchAll($select);
+//	}
 
 	public function search($category_id = 0,$searchText, $page=0)
 	{

@@ -23,7 +23,7 @@
 
 <p>
 
-<input type="radio" id="<?=$method['id']?>" name="group">
+<input type="radio" id="<?=$method['id']?>" class="payment" name="group">
 <?=$method['title']?>
 <?php if($method['image']):?>
 <img alt="" src="/application/public/images/payment/<?=$method['image']?>"> 
@@ -43,5 +43,32 @@
 				
 				
 				</div>
+				<span class="hide">
 				<div class="payment_button">
 					<a href="#"><img src="/application/public/img/check_out_new_btn1.gif" alt=""></a>
+				</div>
+				</span>
+				<p id="wait" class="bold">  Please wait ...  </p>
+					
+<script>
+		$('.hide').hide();
+		$('#wait').hide();
+		$('.payment').click(function(){
+			
+		var id = $(this).attr('id');
+		$('.hide').hide();
+		$('#wait').show();
+			
+		$.ajax({
+			   type: "POST",
+			   url: "/order/setpayment/id/"+id,
+			   success: function(msg){
+				
+			$('.hide').show();
+				$('#wait').hide(); 		
+						//window.location.href = '/order/step2/'
+				 }
+			 });
+		})
+		
+		</script>

@@ -104,7 +104,7 @@ if($this->currentCategory){
 <?php if(count($this->products)):?> <?php foreach($this->products as $product):?>
 <?php if($this->image):?>
 <div class="product_gallery_unit"><img
-	src="<?=$this->imageSmall($product['id'])?>" alt="">
+	src="<?=$this->ImageSmall($product['id'])?>" alt="">
 <p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"
 	alt=""> Enlarge</a></p>
 <a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>

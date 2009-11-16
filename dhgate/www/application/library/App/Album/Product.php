@@ -65,6 +65,7 @@ class App_Album_Product{
 		}
 		foreach(scandir($this->fullPath.'main/'. $prefix.'/') as $file){
 			if($file != '.' && $file!='..'){
+				///косяк берёт первый файл по алфавиту... даже если это не картинка... надо исправить
 				return $this->path.'main/'. $prefix .'/'.$file;
 			}
 		}

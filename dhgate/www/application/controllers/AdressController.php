@@ -24,6 +24,7 @@ class AdressController extends Zend_Controller_Action {
 					unset($_POST['submit']);
 					$_POST['user_id'] = Zend_Auth::getInstance()->getIdentity()->id;
 					$result = $adress->get((int) $this->_getParam('shipping',0));
+					
 					if(count($result)){
 						$adress->update($this->getRequest()->getPost(), 'id = ' . $result[0]['id']);
 					} else {

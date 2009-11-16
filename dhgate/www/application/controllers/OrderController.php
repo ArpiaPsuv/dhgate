@@ -3,9 +3,18 @@ class OrderController extends Zend_Controller_Action
 {
 	public function init() 
 	{
+		
 		if(!Zend_Auth::getInstance()->hasIdentity()){
 			$this->_redirect('/user/login/');
 		}
+		$cart= Cart::create();
+		$count = $cart->getcount();
+		
+		/////если заказ оформлен то не перенаправлять
+//		if($count<1){
+//			$this->_redirect('/cart/');
+//		}
+		
 	}
 	public function step1Action()
 	{
@@ -34,6 +43,18 @@ class OrderController extends Zend_Controller_Action
 		Zend_Layout::getMvcInstance()->disableLayout();
 		$order = new Order();
 		$order->setShippingMethod($this->_getParam('id',0));
+	}
+	
+	public function setpaymentAction()
+	{
+ 		Zend_Layout::getMvcInstance()->disableLayout();
+		$payment_id= $this->_getParam('id',0);
+		if ($payment_id>0) {
+			$order = new Order();
+			$order->setPaymentMethod($payment_id);
+			$order->updatePayment();
+		}
+	
 	}
 	
 	public  function step2Action()
@@ -103,6 +124,13 @@ class OrderController extends Zend_Controller_Action
 		
 		$this->view->bill_address=$billing_address;
 		$this->view->ship_address=$shipping_address;
+		
+		
+		$confirm = $this->_getParam('confirm',0);
+		if($confirm){
+			$order->confirm();
+			$this->_redirect('/order/step4/');
+		}
 				
 	}
 	
@@ -160,6 +188,8 @@ class OrderController extends Zend_Controller_Action
 			}
 		}
 		
+		
+
 		$this->view->payments=$payments= $order->getPaymentMethods();
 		
 		
