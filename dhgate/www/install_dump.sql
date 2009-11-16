@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Хост: localhost
--- Время создания: Ноя 09 2009 г., 21:00
+-- Время создания: Ноя 16 2009 г., 21:39
 -- Версия сервера: 5.0.45
 -- Версия PHP: 5.2.4
 -- 
@@ -32,7 +32,7 @@ CREATE TABLE `address` (
   `fax` text,
   `shipping` int(1) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ CREATE TABLE `cart` (
   `count` int(11) NOT NULL,
   `order_id` int(11) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=146 DEFAULT CHARSET=utf8 AUTO_INCREMENT=146 ;
+) ENGINE=MyISAM AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 AUTO_INCREMENT=158 ;
 
 -- --------------------------------------------------------
 
@@ -62,24 +62,7 @@ CREATE TABLE `catalog` (
   `coef` varchar(10) default '1',
   `title` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
-
--- --------------------------------------------------------
-
--- 
--- Структура таблицы `comment_user`
--- 
-
-CREATE TABLE `comment_user` (
-  `id` int(11) NOT NULL auto_increment,
-  `parent` int(11) NOT NULL,
-  `level` int(11) NOT NULL,
-  `text` text NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `date` datetime default NULL,
-  `item_id` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
+) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8 AUTO_INCREMENT=88 ;
 
 -- --------------------------------------------------------
 
@@ -92,20 +75,7 @@ CREATE TABLE `connect_catalog_product` (
   `category_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
-
--- --------------------------------------------------------
-
--- 
--- Структура таблицы `connect_product_interested`
--- 
-
-CREATE TABLE `connect_product_interested` (
-  `id` int(11) NOT NULL auto_increment,
-  `category_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8 AUTO_INCREMENT=88 ;
 
 -- --------------------------------------------------------
 
@@ -129,14 +99,27 @@ CREATE TABLE `country` (
 CREATE TABLE `order` (
   `id` int(11) NOT NULL auto_increment,
   `shipping` int(11) NOT NULL,
-  `adress` int(11) NOT NULL,
+  `address` int(11) default NULL,
   `payment` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `cart_id` int(11) NOT NULL,
   `status` varchar(20) NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+
+-- --------------------------------------------------------
+
+-- 
+-- Структура таблицы `payment_method`
+-- 
+
+CREATE TABLE `payment_method` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` text,
+  `about` text,
+  `image` varchar(100) default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -155,21 +138,7 @@ CREATE TABLE `product` (
   `main` int(1) default '0',
   `active` int(1) default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
-
--- --------------------------------------------------------
-
--- 
--- Структура таблицы `rating_comment_user`
--- 
-
-CREATE TABLE `rating_comment_user` (
-  `id` int(11) NOT NULL auto_increment,
-  `user_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `mark` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8 AUTO_INCREMENT=88 ;
 
 -- --------------------------------------------------------
 
@@ -209,7 +178,7 @@ CREATE TABLE `shipping_method` (
   `image` varchar(100) default '0',
   `coef` float NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 
@@ -240,19 +209,5 @@ CREATE TABLE `user` (
   `lastname` text,
   `admin` int(1) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
-
--- --------------------------------------------------------
-
--- 
--- Структура таблицы `user_rating`
--- 
-
-CREATE TABLE `user_rating` (
-  `id` int(11) NOT NULL auto_increment,
-  `user_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `mark` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
         
