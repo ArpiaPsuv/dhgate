@@ -18,6 +18,7 @@ class CatalogController extends MainController
 		}
 		
 		
+		
 		$this->view->image = (int) $this->_getParam('image',0);
 		$catalogTable = new Catalog();
 		$currentCategory = $this->view->currentCategory  = $catalogTable->getCurrent($id);
@@ -34,9 +35,40 @@ class CatalogController extends MainController
 			$formPrice->populate($this->_request->getPOST());
 		}
 		
-
+		$sort_by=$this->_getParam('sort',0);
+//		сортировка
+//		1 title по возрастанию
+//		2 title по убыванию
+//		3 price по возрастанию
+//		4 price по убыванию
+		
+		switch ($sort_by){
+			case 1:
+				$sort_by=array('title');
+				$this->view->sort=1;
+				break;
+			case 2:
+				$sort_by=array('title DESC');
+				$this->view->sort=2;
+				break;
+			case 3:
+				$sort_by=array('price');
+				$this->view->sort=3;
+				break;
+			case 4:
+				$sort_by=array('price DESC');
+				$this->view->sort=4;
+				break;
+			default:
+				$sort_by=0;
+				$this->view->sort=0;
+				break;
+		}
+		
+		
+	
 		$products =$catalogTable->getItems($currentCategory->id, (int) $this->_getParam('page',0),
-		(int) $this->_getParam('from',0),(int) $this->_getParam('to',0));
+		(int) $this->_getParam('from',0),(int) $this->_getParam('to',0),$sort_by);
 
 		$this->view->count = $count = (int)$this->_getParam('count',20);
 		$products->setItemCountPerPage($count);
@@ -51,6 +83,12 @@ class CatalogController extends MainController
 		$this->view->formPrice=$formPrice;
 		$cart= Cart::create();
 		$this->view->cart = $cart;
+		
+		
+		
+		
+		
+		
 		if($_SESSION['admin'])
 		{
 			$this->view->categorys = $catalogTable->fetchAll();

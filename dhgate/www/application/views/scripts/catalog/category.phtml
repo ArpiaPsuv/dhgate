@@ -85,7 +85,18 @@ if($this->currentCategory){
 </span> wholesale items found in <span class="bold"> <?=$this->currentCategory->title?>
 </span></div>
 <div id="view_bar">
-<div id="view_bar_right"><span> Sort by: </span> <select></select></div>
+<div id="view_bar_right"><span> Sort by: </span>
+
+
+<select id="sort" onchange="set_sort()">
+<option <?php if ($this->sort == 0) {echo 'selected';}?> disabled value="0">Not select</option>
+<option <?php if ($this->sort == 1) {echo 'selected';}?> value="1">Title: ascending</option>
+<option <?php if ($this->sort == 2) {echo 'selected';}?> value="2">Title: descending</option>
+<option <?php if ($this->sort == 3) {echo 'selected';}?> value="3">Price: ascending</option>
+<option <?php if ($this->sort == 4) {echo 'selected';}?> value="4">Price: descending</option>
+</select>
+
+</div>
 <div id="view_bar_left">View:</div>
 <?php if($this->image):?> <a id="show_type_noactive"
 	href="<?=$this->url(array('image'=>0))?>"><img
@@ -105,8 +116,8 @@ if($this->currentCategory){
 <?php if($this->image):?>
 <div class="product_gallery_unit"><img
 	src="<?=$this->ImageSmall($product['id'])?>" alt="">
-<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"
-	alt=""> Enlarge</a></p>
+	
+<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"	alt=""> Enlarge</a></p>
 <a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>
 <span>$ <?=$product['price']?> </span> 
 
@@ -186,13 +197,23 @@ Items per page:
 		
 </div>
 </div>
-	<script>
+
+		
+			<script>
 			$(document).ready(function(){
 				$('.count').click(function(){
 					value = $(this).text();
 					window.location.href = '<?= $this->url(array('count'=>null));?>'+'/count/'+value;
 				});
 			})
+			</script>
+			
+			<script>
+			
+			function set_sort(){
+				var value= $('#sort').attr('value');
+				window.location.href = '<?=$this->url(array('sort'=>null));?>'+'/sort/'+value;
+			}
 			</script>
 			
 			<script>

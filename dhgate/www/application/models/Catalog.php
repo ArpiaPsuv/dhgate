@@ -8,7 +8,7 @@ class Catalog extends App_TreeTable
 		return $this->find($id)->current();
 	}
 
-	public function getItems($category_id, $page = null,$from=NULL,$to=NULL)
+	public function getItems($category_id, $page = null,$from=NULL,$to=NULL,$sort_by = 0)
 	{
 		$select = $this->getAdapter()->select()->from(array('p'=>'product'))
 		->join(array('c'=>'connect_catalog_product'), 'p.id = c.item_id')
@@ -22,9 +22,15 @@ class Catalog extends App_TreeTable
 			$select->orWhere('c.category_id  = '.$childCategory->id);
 		}
 		
+		if($sort_by !=0){
+			$select->order($sort_by);
+		}
+		
+		
 		/////
 		$paginatorAdapter = new Zend_Paginator_Adapter_DbSelect($select);
 		$paginator = new Zend_Paginator($paginatorAdapter);
+		
 		//$paginator->setItemCountPerPage(2);
 		if($page !== null){
 			$paginator->setCurrentPageNumber($page);
