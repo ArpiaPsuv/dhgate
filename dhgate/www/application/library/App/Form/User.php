@@ -48,41 +48,41 @@ Class App_Form_User extends App_Form {
 		'label'=>'Save'));
 
 
-		$firstname=  new Zend_Form_Element_Text('firstname', array(
-		'label'=>'Firstname: ',
-		'maxlength' => '30',
-		'validators' => array(
-		array('Alnum', true, array(true)),
-		array('StringLength', true, array(0, 30))),
-        'filters'=>array('StringTrim','StripTags'),
-		));
-
-		$middlename=  new Zend_Form_Element_Text('middlename', array(
-		'label'=>'Middlename: ',
-		'maxlength' => '30',
-		'validators' => array(
-		array('Alnum', true, array(true)),
-		array('StringLength', true, array(0, 30))),
-        'filters' => array('StringTrim'), 
-		));
-
-		$lastname=  new Zend_Form_Element_Text('lastname', array(
-		'label'=>'Lastname: ',
-		'maxlength' => '30',
-		'validators' => array(
-		array('Alnum', true, array(true)),
-		array('StringLength', true, array(0, 30))),
-        'filters' => array('StringTrim'), 
-		));
+//		$firstname=  new Zend_Form_Element_Text('firstname', array(
+//		'label'=>'Firstname: ',
+//		'maxlength' => '30',
+//		'validators' => array(
+//		array('Alnum', true, array(true)),
+//		array('StringLength', true, array(0, 30))),
+//        'filters'=>array('StringTrim','StripTags'),
+//		));
+//
+//		$middlename=  new Zend_Form_Element_Text('middlename', array(
+//		'label'=>'Middlename: ',
+//		'maxlength' => '30',
+//		'validators' => array(
+//		array('Alnum', true, array(true)),
+//		array('StringLength', true, array(0, 30))),
+//        'filters' => array('StringTrim'), 
+//		));
+//
+//		$lastname=  new Zend_Form_Element_Text('lastname', array(
+//		'label'=>'Lastname: ',
+//		'maxlength' => '30',
+//		'validators' => array(
+//		array('Alnum', true, array(true)),
+//		array('StringLength', true, array(0, 30))),
+//        'filters' => array('StringTrim'), 
+//		));
 		//firstname	middlename	lastname
 
 
 		$this->addElements(array(
 		$mail,
 		$login,
-		$firstname,
-		$middlename,
-		$lastname,
+	//  $firstname,
+	//	$middlename,
+	//	$lastname,
 		$pass,
 		$passApprove,
 		$submit

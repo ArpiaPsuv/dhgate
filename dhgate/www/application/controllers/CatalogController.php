@@ -104,7 +104,8 @@ class CatalogController extends MainController
 		 
 		if($this->_request->isPost()){
 			$form = new App_Form_AddCategory();
-			$coef=$_POST['coef'];
+			$coef=$this->_getParam('coef',1);
+			
 			$_POST['coef']=str_replace('.',',',$coef) ; 
 			if ($form->isValid($_POST)){
 				$catalogTable = new Catalog();

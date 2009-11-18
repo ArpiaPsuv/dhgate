@@ -35,7 +35,7 @@ class OrderController extends Zend_Controller_Action
 		Zend_Layout::getMvcInstance()->disableLayout();
 		$order = new Order();
 		$order->setAddress((int) $this->_getParam('id', '0'));
-		Zend_Debug::dump($_SESSION);
+		//Zend_Debug::dump($_SESSION);
 	}
 	
 	public function setmethodAction()

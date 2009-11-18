@@ -27,7 +27,7 @@ class App_Form_ShippingMethod extends App_Form  {
 		));
 
 		$image= new Zend_Form_Element_File('image',array(
-			'validators' => array('IsImage')
+			//'validators' => array('IsImage')
 		));
 		$path=$_SERVER['DOCUMENT_ROOT'].'/application/public/images/shipping';
 		if(!file_exists($path)){

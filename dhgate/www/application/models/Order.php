@@ -33,7 +33,12 @@ class Order extends Zend_Db_Table_Abstract {
 		$this->_payment = (int) $method_id;	
 	}
 	
-	
+	public function getOrders($status = 0)
+	{
+		if($status == 0){
+			return $this->fetchAll();
+		}
+	}
 	
 	public function updatePayment()
 	{

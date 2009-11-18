@@ -9,6 +9,8 @@ class ProductController extends MainController
 		}
 		$this->view->controller  = 'product';
 		$productTable = new Product();
+		
+		$this->view->category_coef=$category_coef=$productTable->getParentCategoryCoef($id);
 		$productRow = $this->view->product = $productTable->find($id)->current();
 		$category = $productTable->getCategory($productRow->id);
 		$this->view->category = $category;
@@ -103,6 +105,20 @@ class ProductController extends MainController
 		$this->view->form=$form;
 	}
 
+	public function changehotAction() {
+		
+		if($_SESSION['admin']){
+			$id=$this->_getParam('id',0);
+			if($id>0){
+				$product= new Product();
+				$product->changehot($id);
+			}
+		}
+		
+		
+		$this->_redirect($_SERVER['HTTP_REFERER']);
+	}
+	
 	public function moveAction()
 	{
 		if(!$_SESSION['admin']){

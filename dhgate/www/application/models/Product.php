@@ -13,20 +13,38 @@ class Product extends Zend_Db_Table_Abstract
 
 	}
 
+	public function changehot($id)
+	{
+		$row=$this->find($id)->current();
+		$row->hot=!$row->hot;
+		$row->save();
+	}
 	public function getProduct($id)
 	{
 		return $this->find($id)->current();
 	}
 
-	public function getCategoryCoef($id)
+	public function getParentCategoryCoef($product_id=0)
 	{
-		$select= $this->getAdapter()->select();
-		$select->from('connect_catalog_product')
-				->where("item_id =  $id");
-		$cat= $this->getAdapter()->fetchRow($select);
-		$result=$this->getCategory($cat['category_id']);
-		return $result[0]['coef'];
+		if($product_id > 0 ){
+			$current_category=$this->getCategory($product_id);
+			if ($current_category[0]['level'] == 0 ){
+				return $current_category[0]['coef'];
+			}else{
+				$select= $this->getAdapter()->select()->from('catalog')->where('id = ?',$current_category[0]['parent']);
+				$row= $this->getAdapter()->fetchRow($select);
+				return $row['coef'];
+			}
+		}else{
+			return false;
+		}
 	}
+	
+	public function getHot()
+	{
+		return $this->fetchAll('hot = 1');
+	}
+
 	
 	public function getCategory($id)
 	{

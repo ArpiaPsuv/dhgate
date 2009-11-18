@@ -37,7 +37,7 @@ class Zend_View_Helper_ProductsInCart {
 			}
 			$html.=	'
 					<div class="item_at_cart">
-					<span coef="'.$category->getCategoryCoef($product['id']).'" product="'.$product['id'].'">
+					<span coef="'.$category->getParentCategoryCoef($product['id']).'" product="'.$product['id'].'">
 					<div class="head_desc">
 						<div class="small_img_cover"><img src="'.$image.'" alt=""></div>
 						<div class="small_desc"><a href="/product/index/id/'.$product['id'].'">'.$product['title'].' / '.$product['short_about'].'</a></div>

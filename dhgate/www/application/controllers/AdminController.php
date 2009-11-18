@@ -32,6 +32,12 @@ class AdminController extends Zend_Controller_Action {
 		$this->view->users=$allUsers;
 
 	}
+	
+	public function ordersAction()
+	{
+		$orders= new Order();
+		$this->view->orders = $orders->getOrders();
+	}
 
 	public function userdeleteAction()
 	{

@@ -11,14 +11,7 @@ Account Maintenance</div>
 <div
 	id="customer_account">
 <h2>Customer Account</h2>
-<?php if(($this->user->firstname != '') or
-($this->user->middlename != '') or
-($this->user->lastname != '')
-):?>
-<p><?=$this->user->firstname . ' ' . $this->user->middlename . ' ' . $this->user->lastname?></p>
-<?php else:?>
-<p>Information not available</p>
-<?php endif;?> <a href="/user/edit/"> <img
+ <a href="/user/edit/"> <img
 	src="/application/public/img/identity.png" alt=""> Account information
 </a>
 <p>Here you can update your billing information.</p>

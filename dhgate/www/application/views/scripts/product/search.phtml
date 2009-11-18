@@ -76,6 +76,7 @@ Items per page:
 <p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
 	
 	<?php if ($_SESSION['admin']):?>
+	
 	<p><a href="/product/mainpage/id/<?=$product['id']?>">
 	<?php if($product['main']):?>
 	Remove from the Main
@@ -83,6 +84,15 @@ Items per page:
 	Add To Main
 	<?php endif;?>
 	</a></p>
+	
+	<p><a href="/product/changehot/id/<?=$product['id']?>">
+	<?php if($product['hot']):?>
+	Remove From Hot
+	<?php else:?>
+	Add To Hot
+	<?php endif;?>
+	</a></p>
+	
 	<p><a href="/product/edit/id/<?=$product['id']?>">Edit Product</a></p>
 	<p><a href="/product/delete/id/<?=$product['id']?>">Delete Product</a></p>
 	<?php endif?>

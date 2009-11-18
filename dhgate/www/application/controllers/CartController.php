@@ -5,6 +5,8 @@ class CartController extends MainController
 	{
 		$cart = Cart::create();
 		$products = $this->view->products = $cart->getProducts();
+
+
 		$totalPrice=0;
 		foreach ($products as $product) {
 			$totalPrice+=$product['price']*$product['count'];
