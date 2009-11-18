@@ -43,6 +43,9 @@ $profiler->setEnabled(false);
 $db->setProfiler($profiler);
 $profiler->getQueryProfiles();
 $frontController = Zend_Controller_Front::getInstance();
+
+
+
 /*
 $frontController->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array(
     'module'     => 'default',

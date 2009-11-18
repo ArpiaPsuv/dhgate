@@ -126,7 +126,7 @@ if($this->currentCategory){
 <div class="product_gallery_unit"><img
 	src="<?=$this->ImageSmall($product['id'])?>" alt="">
 	
-<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"	alt=""> Enlarge</a></p>
+<p><a rel="<?=$this->imageMain($product['id'])?>" class="screenshot"><img src="/application/public/img/loadimage_bg2.gif"	alt=""> Enlarge</a></p>
 <a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>
 <span>$ <?=$product['price']?> </span> 
 
@@ -156,7 +156,7 @@ if($this->currentCategory){
 <p><?=$product['short_about']?></p>
 <span></span>
 
-<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+<p><a rel="<?=$this->imageMain($product['id'])?>" class="screenshot"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
 	
 	<?php if ($_SESSION['admin']):?>
 	<p><a href="/product/mainpage/id/<?=$product['id']?>">
@@ -216,6 +216,7 @@ Items per page:
 </div>
 </div>
 
+		
 		
 			<script>
 			$(document).ready(function(){

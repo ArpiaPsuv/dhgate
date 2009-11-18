@@ -21,13 +21,29 @@ class OrderController extends Zend_Controller_Action
 		if(!Zend_Auth::getInstance()->hasIdentity()){
 			$this->_redirect('/');
 		}
-		$adress = new Adress();
-		$this->view->adresses = $adress->fetchAll('user_id = ' . Zend_Auth::getInstance()->getIdentity()->id);
-		if(!Zend_Auth::getInstance()->hasIdentity()){
-			$this->_redirect('/');
+		$address = new Adress();
+		
+		
+		$id_shipping=$this->_getParam('shipping',0);
+		$id_billing=$this->_getParam('billing',0);
+		
+		
+		if ($id_shipping > 0){
+			$this->view->shipping=$shipping_address=$address->getAddres($id_shipping);
+			if($id_billing>0){
+				$this->view->billing=$address->getAddres($id_billing);
+			}
+			
 		}
-		$form = new App_Form_Address();
-		$this->view->form = $form;
+		
+		
+		$form_shipping = new App_Form_Address();
+		$this->view->form_shipping = $form_shipping;
+		$form_billing = new App_Form_Address();
+		$this->view->form_billing = $form_billing;
+		
+		//todo добавление адресов
+		
 	}
 	
 	public function setaddressAction()
