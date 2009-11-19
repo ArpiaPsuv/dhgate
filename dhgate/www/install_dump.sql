@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Хост: localhost
--- Время создания: Ноя 18 2009 г., 18:49
+-- Время создания: Ноя 20 2009 г., 01:14
 -- Версия сервера: 5.0.45
 -- Версия PHP: 5.2.4
 -- 
@@ -47,7 +47,7 @@ CREATE TABLE `cart` (
   `count` int(11) NOT NULL,
   `order_id` int(11) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=161 DEFAULT CHARSET=utf8 AUTO_INCREMENT=161 ;
+) ENGINE=MyISAM AUTO_INCREMENT=163 DEFAULT CHARSET=utf8 AUTO_INCREMENT=163 ;
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `catalog` (
   `coef` varchar(10) default '1',
   `title` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=94 DEFAULT CHARSET=utf8 AUTO_INCREMENT=94 ;
+) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 AUTO_INCREMENT=97 ;
 
 -- --------------------------------------------------------
 
@@ -75,20 +75,7 @@ CREATE TABLE `connect_catalog_product` (
   `category_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8 AUTO_INCREMENT=91 ;
-
--- --------------------------------------------------------
-
--- 
--- Структура таблицы `country`
--- 
-
-CREATE TABLE `country` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` text NOT NULL,
-  `allowed` int(11) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 AUTO_INCREMENT=93 ;
 
 -- --------------------------------------------------------
 
@@ -99,7 +86,8 @@ CREATE TABLE `country` (
 CREATE TABLE `order` (
   `id` int(11) NOT NULL auto_increment,
   `shipping` int(11) NOT NULL,
-  `address` int(11) default NULL,
+  `address_shipping` int(11) default NULL,
+  `address_billing` int(11) default '0',
   `payment` int(11) default '0',
   `user_id` int(11) NOT NULL,
   `status` varchar(20) NOT NULL,
@@ -110,16 +98,16 @@ CREATE TABLE `order` (
 -- --------------------------------------------------------
 
 -- 
--- Структура таблицы `payment_method`
+-- Структура таблицы `payment`
 -- 
 
-CREATE TABLE `payment_method` (
+CREATE TABLE `payment` (
   `id` int(11) NOT NULL auto_increment,
   `title` text,
   `about` text,
   `image` varchar(100) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -139,7 +127,20 @@ CREATE TABLE `product` (
   `hot` int(1) default '0',
   `active` int(1) default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8 AUTO_INCREMENT=91 ;
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 AUTO_INCREMENT=93 ;
+
+-- --------------------------------------------------------
+
+-- 
+-- Структура таблицы `region`
+-- 
+
+CREATE TABLE `region` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` text,
+  `coef` float default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 -- --------------------------------------------------------
 
@@ -169,17 +170,17 @@ CREATE TABLE `settings` (
 -- --------------------------------------------------------
 
 -- 
--- Структура таблицы `shipping_method`
+-- Структура таблицы `shipping`
 -- 
 
-CREATE TABLE `shipping_method` (
+CREATE TABLE `shipping` (
   `id` int(11) NOT NULL auto_increment,
   `title` text,
   `about` text,
   `image` varchar(100) default '0',
   `coef` float NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 -- --------------------------------------------------------
 
@@ -207,5 +208,5 @@ CREATE TABLE `user` (
   `mail` text NOT NULL,
   `admin` int(1) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
         
