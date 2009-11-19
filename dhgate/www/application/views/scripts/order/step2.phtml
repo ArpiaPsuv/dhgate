@@ -1,6 +1,4 @@
-<?php if($_SESSION['admin']):?>
-<?=$this->form?>
-<?php endif?>
+
 
 <?php foreach ($this->methods as $method):?>
 
@@ -12,9 +10,7 @@
 <img alt="" src="/application/public/images/shipping/<?=$method['image']?>">
 <?php endif?>
 <?=$method['title']?>
-<?php if($_SESSION['admin']):?>
-<a href="/order/shippingdelete/id/<?=$method['id']?>"> delete</a>
-<?php endif?>
+
 </p>
 <p><?=$method['about']?></p>
 </input>

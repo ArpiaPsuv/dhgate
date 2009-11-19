@@ -11,6 +11,13 @@ class ProductController extends MainController
 		$productTable = new Product();
 		
 		$this->view->category_coef=$category_coef=$productTable->getParentCategoryCoef($id);
+		
+		$region = new Region();
+		$shipping= new Shipping();
+		
+		$this->view->methods = $shipping->fetchAll();
+		$this->view->regions = $region->getRegions();
+				
 		$productRow = $this->view->product = $productTable->find($id)->current();
 		$category = $productTable->getCategory($productRow->id);
 		$this->view->category = $category;
@@ -20,20 +27,34 @@ class ProductController extends MainController
 		$this->view->parents = $parents= $catalogTable->getParentsRecursive($category[0]['id']);
 		$this->view->album = App_Album::create('product',$productRow->id);
 		$this->view->allProducts = $productTable->fetchAll();
-		//$this->view->interested = $productTable->getInterested($productRow->id);
+		
 		$this->view->category =$category;
 		
 		$album = new App_Album_Product($id);
 		$image = $album->getMainImage('m');
+		$image_large=$album->getMainImage('l');
+		if(!$image){
+			$image='/application/public/img/productimg.jpg';
+			$image_large=$image;
+		}
+		$this->view->image = $image;
+		$this->view->image_large = $image_large;
+		$cart= Cart::create();
+		$this->view->cart = $cart;
+
+	}
+
+	public function getlargeimageAction()
+	{
+		Zend_Layout::getMvcInstance()->disableLayout();
+		$id = (int) $this->_getParam('id',0);
+		$album = new App_Album_Product($id);
+		$image = $album->getMainImage('l');
 		if(!$image){
 			$image='/application/public/img/productimg.jpg';
 		}
-		$this->view->image = $image;
-		$cart= Cart::create();
-		$this->view->cart = $cart;
-//	  	Zend_Debug::dump($image);
+		echo $image;
 	}
-
 	public function addAction()
 	{
 		if(!$_SESSION['admin']){
@@ -158,10 +179,11 @@ class ProductController extends MainController
 			$image= new App_Image();
 			$image_path_to_file=$_SERVER['DOCUMENT_ROOT'].$album->getMainImage('s');
 		
-			if($album->getMainImage('s')==''){
-				//$image_path='...'//Картинка которая будет отображаться на главной в случае отсутствия изображения у товара
-				$image_path_to_file.='\application\public\img\product.gif';
-			}
+			
+//			if($image_path_to_file == ''){
+//				//$image_path='...'//Картинка которая будет отображаться на главной в случае отсутствия изображения у товара
+//				$image_path_to_file.='\application\public\img\product.gif';
+//			}
 			$path_to_src_dir=$_SERVER['DOCUMENT_ROOT'].'/application/public/images/product/'.$id.'/';
 			$white=16777215;//dec
  			$color=10027008;//dec
@@ -206,6 +228,9 @@ class ProductController extends MainController
 		echo $this->view->images($id);
 	}
 
+
+	
+	
 	public function getimageAction()
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();

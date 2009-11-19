@@ -1,0 +1,5 @@
+<p>Regions:</p>
+<?php foreach ($this->regions as $region) :?>
+<li>Name: <span class="bold"><?=$region->name?></span> coef:  <span class="bold"><?=$region->coef?></span> (<a href="/admin/regions/delete/<?=$region->id?>">delete</a>)</li>
+<?php endforeach;?>
+<?=$this->form?>

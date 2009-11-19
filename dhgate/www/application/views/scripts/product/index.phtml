@@ -10,9 +10,9 @@
 <div id="item_description"><img class="up_border"
 	src="/application/public/img/Item_border_up.gif" alt="">
 <div id="item_description_contain">
-<p class="img_container">
+
 <?php if($_SESSION['admin']):?>
-<a href="#" id="upload">upload</a>
+<a href="#" id="upload">Upload Image</a>
 <?php endif?>
 
 <script type="text/javascript">
@@ -26,14 +26,33 @@
 					   url: '/product/getimage/id/<?=$this->product->id?>',
 					   success: function(msg){							
 							$('#main_image').html(msg);
+
+							$('#exlarge').hide();
+							$.ajax({
+								   url: '/product/getlargeimage/id/<?=$this->product->id?>',
+								   success: function(msg){							
+										$('#exlarge').attr('href',msg);
+										$('#exlarge').show();
+								 		}
+								  });
+
+							
 					   }
 				});
 		       }
 		});
 	</script>
+
+	
+<p class="img_container">
+
 <span id=main_image>
-<img id=test src="<?php echo $this->image?>" alt=""><a href="#"></a>
+<img src="<?php echo $this->image?>" alt="">
+
 </span>
+
+<a id="exlarge" href="<?=$this->image_large?>" class="highslide" onclick="return hs.expand(this)"></a>
+
 </p>
 
 <div id="item_details">
@@ -44,7 +63,7 @@
 <table class="item_detail_table">
 	<tr>
 		<td class="left_td">Unit Price:</td>
-		<td class="right_td"><span class="red_price bold">USD <?=$this->product->price?>
+		<td class="right_td"><span class="red_price bold">USD <span id="price"><?=$this->product->price?></span>
 	</span></td>
 	</tr>
 	<tr>
@@ -81,19 +100,19 @@
 	</tr>
 	<tr>
 		<td class="left_td">Shipping Cost:</td>
-		<td class="right_td"><span class="bold">USD 219.77</span> to <a
-			href="#">Russia via EMS <img
+		<td class="right_td"><span class="bold">USD </span><span id="plus_shipping" class="bold">219.77</span> to <a id="change_shipping"
+			href="#toggle">Russia via EMS <img
 			src="/application/public/img/ico_select.gif" alt=""></a></td>
 	</tr>
 </table>
 <table class="yellow_table">
 	<tr>
 		<td>Purchase Quantity</td>
-		<td><input type="text" id='count' value='1'> Lot</td>
+		<td><input  type="text" id='count' value='1'> Lot</td>
 	</tr>
 	<tr>
 		<td></td>
-		<td>236.1 × 1 + 219.77 = <span class="red_price bold">455.87</span>
+		<td><span id="plus_price"><?=$this->product->price?></span> × <span id="plus_count">1</span> + <span id="plus_shipping">219.77</span> = <span id="total_price" class="red_price bold">455.87</span>
 		(USD)</td>
 	</tr>
 	<tr>
@@ -139,26 +158,157 @@
 </div>
 <img class="description_border_up"
 	src="/application/public/img/desc_down.gif"></div>
+	
+	
+	
+<div id="shipping" style="display:none;">
+	<div style="background-color:#ffffff;  border: 1px solid black;">
+	<div style="margin:10px;">
+	  <p>Choose region:</p>
+
+	  <p><select id="region" name="sel_country" style="visibility: visible;">
+	  	
+		<?php foreach ($this->regions as $region):?>
+		<option tmp="123" value="<?=$region['coef']?>"><?=$region['name']?></option>
+		<?php endforeach;?>
+						
+						
+	  </select></p>
+	  <p>Choose shipping method:</p>
+	  <p><span>
+	  
+	  
+		<?php foreach ($this->methods as $method):?>
+		<input type="radio" id="<?=$method['coef']?>" value="<?=$method['title']?>" class="shipping"  name="shipping"/>
+		<img alt="" src="/application/public/images/shipping/<?=$method['image']?>">
+		<?php endforeach;?>
+		
+	</span></p>
+	 
+	 <p><input type="button" value="OK" id="plus"/></p>
+	
+	</div>
+	</div>
+	
+</div>
+
+
+	
+	
 <script
 	type="text/javascript" src="/application/public/js/ocupload.js"></script>
 	
+<script type="text/javascript" src="/application/public/js/highslide.js"></script>
+
+
+<script type="text/javascript">
+	
+	hs.align = 'center';
+	hs.transitions = ['expand', 'crossfade'];
+	hs.wrapperClassName = 'dark borderless floating-caption';
+	hs.fadeInOut = true;
+	hs.dimmingOpacity = .75;
+
+	// Add the controlbar
+	
+</script> 
+	
 <script>
 			$(document).ready(function(){
+
+				pos = getElementPosition("change_shipping"); 
+				var style='top: '+(pos.top+pos.height)+'px; left: '+pos.left+'px; display: block; height:96px; position:absolute; width:300px; display:none;';
+				$('#shipping').attr("style",style);
+				
+				
+
+				$('#change_shipping').click(function(){
+					$('#shipping').toggle();
+					
+					}
+				)
+				
+				$('#plus').click(function(){
+					//var shippingTotal=
+					updateShipping();
+					//$('#plus_shipping').html(shippingTotal);
+					$('#shipping').toggle();
+
+					var region=$('#region option:selected').html();
+					var shipping=$(":radio[name=shipping]").filter(":checked").attr('value');
+					var html = region + ' via ' + shipping;
+					html = html+ '<img src="/application/public/img/ico_select.gif" alt="">';
+
+					$('#change_shipping').html(html);
+					})
+					
+					$('#count').keyup(function(){
+					updateShipping();
+					})
+				
+					$('#count').change(function(){
+					updateShipping();
+					})
+				
+				
+				function updateShipping(){ 
+					var categoryCoef = <?=str_replace(',','.',$this->category_coef)?>;
+					var regionCoef=$('#region').attr('value');
+					
+					var shippingCoef=$(":radio[name=shipping]").filter(":checked").attr('id');
+					if(!shippingCoef){
+						shippingCoef=0;	
+						}
+					var productCount=$('#count').attr('value')-1+1;
+					productCount=Math.round(productCount);
+					if(!productCount){
+						productCount=0;
+						}
+					
+					var shippingTotal=(30*categoryCoef*regionCoef*shippingCoef)*(1+productCount*0.1);
+					//return Math.round((shippingTotal*100)/100).toFixed(2);
+
+					
+					var productPrice=$('#price').html();
+					
+					$('span[id=plus_shipping]').html(Math.round((shippingTotal*100)/100).toFixed(2));
+					$('#plus_count').html(productCount);
+
+					var totalPrice=productCount*productPrice+shippingTotal;
+					$('#total_price').html(Math.round((totalPrice*100)/100).toFixed(2));
+					
+					}
+				
+				function getElementPosition(elemId){  
+					  var elem = document.getElementById(elemId);   
+					  var w = elem.offsetWidth;    
+					  var h = elem.offsetHeight;        
+					  var l = 0;    var t = 0;        
+					  while (elem){        
+						  l += elem.offsetLeft;        
+						  t += elem.offsetTop;        
+						  elem = elem.offsetParent;    
+						  }    
+					  return {"left":l, "top":t, "width": w, "height":h};
+					  }
+		
 				$('.add_to_card').click(function(){
 					var id = $(this).attr("id");
+						if($('#count').attr('value')-1+1){
 						$.ajax({
-							   url: '/cart/add/id/'+id+'/count/'+parseInt($('#count').val()),
+							   url: '/cart/add/id/'+id+'/count/'+Math.round($('#count').val()),
 							   success: function(){
 							   $.ajax({
 								   url: '/cart/getcount/',
 								   success: function(msg){
 								   	$('#cart_items_count').html(msg);
-									
+								 
 								   }
 							});	
 								
 							   }
 						});
+						}
 					});
 				
 			})

@@ -51,11 +51,7 @@ class Order extends Zend_Db_Table_Abstract {
 	
 	}	
 	
-	public function getShippingMethods()
-	{
-		$select= $this->getAdapter()->select()->from('shipping_method');
-		return $this->getAdapter()->fetchAll($select);
-	}
+
 	
 	public function getPaymentMethods()
 	{

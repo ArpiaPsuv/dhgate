@@ -1,0 +1,24 @@
+<p>Payments</p>			
+<?php foreach ($this->payments as $method):?>
+
+<p>
+
+
+
+<?php if($method['image']):?>
+<img alt="" src="/application/public/images/payment/<?=$method['image']?>"> 
+<?php endif?>
+<span><?=$method['title']?></span>
+<a href="/admin/payments/delete/<?=$method['id']?>">(delete)</a>
+
+</p>
+
+<p><?=$method['about']?></p>
+</input>
+</p>
+
+<?php endforeach;?>
+				
+
+<?=$this->form?>
+	

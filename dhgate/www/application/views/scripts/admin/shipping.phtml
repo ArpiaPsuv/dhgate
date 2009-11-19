@@ -1,0 +1,19 @@
+<p>Shipping methods</p>
+<?php foreach ($this->shipping as $method):?>
+
+<div>
+
+<p>
+
+<?php if($method['image']):?>
+<img alt="" src="/application/public/images/shipping/<?=$method['image']?>">
+<?php endif?>
+<?=$method['title']?><span> coef <?=$method['coef']?></span>
+<a href="/admin/shipping/delete/<?=$method['id']?>">(delete)</a>
+</p>
+<p><?=$method['about']?></p>
+</input>
+</div>
+
+<?php endforeach;?>
+<?=$this->form?>

@@ -76,36 +76,8 @@ class OrderController extends Zend_Controller_Action
 	public  function step2Action()
 	{
 		$this->view->form=$form=new App_Form_ShippingMethod();
-		$order= new Order();
-		
-		
-		
-		if($this->_request->isPOST()){
-			
-			if ($_SESSION['admin']) {
-				$_POST['coef']=str_replace('.',',',$_POST['coef']);
-				if ($form->isValid($_POST)) {
-					$_POST['coef']=str_replace(',','.',$_POST['coef']);              
-	                $uploadedData = $form->getValues();
-	               
-	                $data=array(
-	                'title'=> $_POST['title'],
-	                'about'=>$_POST['about'],
-	                'coef'=>$_POST['coef'],
-	                'image'=>$uploadedData['image']
-	                );
-	                
-	                $order->getAdapter()->insert('shipping_method',$data);
-	                
-	            
-				 }
-
-			}
-		}
-		
-		$this->view->methods=$methods= $order->getShippingMethods();
-	
-		//Zend_Debug::dump($_SESSION);
+		$shipping= new Shipping();
+		$this->view->methods=$methods= $shipping->fetchAll();
 	}
 	
 	public function step3Action() {
@@ -151,62 +123,13 @@ class OrderController extends Zend_Controller_Action
 	}
 	
 	
-	public function paymentdeleteAction() 
-	{
-		if($_SESSION['admin']){
-			$id= $this->_getParam('id',0);
-
-			if($id>0){
-			$order= new Order();	
-			$order->getAdapter()->delete('payment_method',"id = $id");
-			}
-		}
-		$this->_redirect('/order/step4/');
-	}
 	
-	public function shippingdeleteAction() 
-	{
-		if($_SESSION['admin']){
-			$id= $this->_getParam('id',0);
-
-			if($id>0){
-			$order= new Order();	
-			$order->getAdapter()->delete('shipping_method',"id = $id");
-			}
-		}
-		$this->_redirect('/order/step2/');
-	}
 	
 	public function step4Action()
 	{
-		$this->view->form=$form=new App_Form_PaymentMethod();
-		$order= new Order();
-		
-		if($this->_request->isPOST()){
-			
-			if ($_SESSION['admin']) {
-				
-				if ($form->isValid($_POST)) {
-					       
-	                $uploadedData = $form->getValues();
-	               
-	                $data=array(
-	                'title'=> $_POST['title'],
-	                'about'=>$_POST['about'],
-	                'image'=>$uploadedData['image']
-	                );
-	                
-	                $order->getAdapter()->insert('payment_method',$data);
-	                
-	            
-				 }
 
-			}
-		}
-		
-		
-
-		$this->view->payments=$payments= $order->getPaymentMethods();
+		$payment= new Payment();
+		$this->view->payments=$payment->fetchAll();
 		
 		
 	}

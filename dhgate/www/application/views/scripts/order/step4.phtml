@@ -1,7 +1,5 @@
 				
-<?php if($_SESSION['admin']):?>
-<?=$this->form?>
-<?php endif?>
+
 				
 				
 				
@@ -22,15 +20,11 @@
 <?php foreach ($this->payments as $method):?>
 
 <p>
-
 <input type="radio" id="<?=$method['id']?>" class="payment" name="group">
-<?=$method['title']?>
 <?php if($method['image']):?>
 <img alt="" src="/application/public/images/payment/<?=$method['image']?>"> 
 <?php endif?>
-<?php if($_SESSION['admin']):?>
-<a href="/order/paymentdelete/id/<?=$method['id']?>"> delete</a>
-<?php endif?>
+<?=$method['title']?>
 </p>
 
 <p><?=$method['about']?></p>
