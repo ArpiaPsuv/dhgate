@@ -10,7 +10,7 @@ class OrderController extends Zend_Controller_Action
 		$cart= Cart::create();
 		$count = $cart->getcount();
 		
-		/////если заказ оформлен то не перенаправлять
+//		/////если заказ оформлен то не перенаправлять
 //		if($count<1){
 //			$this->_redirect('/cart/');
 //		}
@@ -24,7 +24,7 @@ class OrderController extends Zend_Controller_Action
 		
 		
 		$form = new App_Form_Address();
-		$this->view->form = $form;
+		
 		$addres= new Adress();
 		
 		if($this->getRequest()->isPOST()){
@@ -44,6 +44,9 @@ class OrderController extends Zend_Controller_Action
 			}
 			
 			if($form->isValid($_POST)){
+				
+				$last=array('last'=>0);
+				$addres->update($last,'user_id = '.Zend_Auth::getInstance()->getIdentity()->id);
 				
 				$data=array(
 				'company'=>$_POST['company_s'],
@@ -77,28 +80,54 @@ class OrderController extends Zend_Controller_Action
 				'user_id'=>Zend_Auth::getInstance()->getIdentity()->id
 				);
 				
+				//Zend_Debug::dump($data);
 				$addres->addAddess($data);
 				
 				$this->_redirect('/order/step2/');
 			//сохранить в базу	
 			}	
 			
-		}
-		$address = new Adress();
-		
-		
-		$id_shipping=$this->_getParam('shipping',0);
-		$id_billing=$this->_getParam('billing',0);
-		
-		
-		if ($id_shipping > 0){
-			$this->view->shipping=$shipping_address=$address->getAddres($id_shipping);
-			if($id_billing>0){
-				$this->view->billing=$address->getAddres($id_billing);
+		}else{
+			$last = $addres->getLast();
+			if(count($last)){
+				if($last[0]['shipping']){
+					$shipping=$last[0];
+					$billing=$last[1];
+				}else{
+					$shipping=$last[1];
+					$billing=$last[0];
+				}
+				
+				$data=array(
+				'company_b'=>$billing['company'],
+				'contact_b'=>$billing['contact'],
+				'address_b'=>$billing['address'],
+				'address2_b'=>$billing['address2'],
+				'city_b'=>$billing['city'],
+				'region_b'=>$billing['region'],
+				'state_b'=>$billing['state'],
+				'postal_b'=>$billing['postal'],
+				'phone_b'=>$billing['phone'],
+				'fax_b'=>$billing['fax'],
+				
+				'company_s'=>$shipping['company'],
+				'contact_s'=>$shipping['contact'],
+				'address_s'=>$shipping['address'],
+				'address2_s'=>$shipping['address2'],
+				'city_s'=>$shipping['city'],
+				'region_s'=>$shipping['region'],
+				'state_s'=>$shipping['state'],
+				'postal_s'=>$shipping['postal'],
+				'phone_s'=>$shipping['phone'],
+				'fax_s'=>$shipping['fax'],
+								
+				'shipping'=>0,
+				);
+				$form->populate($data);
 			}
-			
 		}
 		
+		$this->view->form = $form;
 		
 		
 		
@@ -157,15 +186,19 @@ class OrderController extends Zend_Controller_Action
 		}
 		
 		$this->view->subprice=$sub_price;
-		
+		//Zend_Debug::dump($_SESSION);
 		
 		$address = new Adress();
 		
 		$shipping_address=$address->getAddres($_SESSION['shipping_address']);
 		$billing_address =$address->getAddres($_SESSION['billing_address']);
 	
+		$region = new Region();
+		$this->view->region1=$region->getRegion($billing_address['region']);
+		$row=$this->view->region2=$region->getRegion($shipping_address['region']);
 		
-
+		$this->view->region_coef=$row['coef'];
+		
 		
 		$this->view->bill_address=$billing_address;
 		$this->view->ship_address=$shipping_address;

@@ -24,21 +24,23 @@ class Product extends Zend_Db_Table_Abstract
 		return $this->find($id)->current();
 	}
 
-	public function getParentCategoryCoef($product_id=0)
+	public function getParentCategory($product_id=0)
 	{
 		if($product_id > 0 ){
 			$current_category=$this->getCategory($product_id);
 			if ($current_category[0]['level'] == 0 ){
-				return $current_category[0]['coef'];
+				return $current_category[0];
 			}else{
 				$select= $this->getAdapter()->select()->from('catalog')->where('id = ?',$current_category[0]['parent']);
 				$row= $this->getAdapter()->fetchRow($select);
-				return $row['coef'];
+				return $row;
 			}
 		}else{
 			return false;
 		}
 	}
+	
+	
 	
 	public function getHot()
 	{

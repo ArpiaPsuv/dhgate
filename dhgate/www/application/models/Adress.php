@@ -21,6 +21,10 @@ class Adress extends Zend_Db_Table_Abstract {
 		
 		return $id;
 	}
+	public function getLast()
+	{
+		return $this->fetchAll('last = 1 and user_id = '.Zend_Auth::getInstance()->getIdentity()->id);
+	}
 	
 	public function updateAddess($data,$id) 
 	{

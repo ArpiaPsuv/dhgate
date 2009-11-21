@@ -10,8 +10,8 @@ class ProductController extends MainController
 		$this->view->controller  = 'product';
 		$productTable = new Product();
 		
-		$this->view->category_coef=$category_coef=$productTable->getParentCategoryCoef($id);
-		
+		$category_coef=$productTable->getParentCategory($id);
+		$this->view->category_coef=$category_coef['coef'];
 		$region = new Region();
 		$shipping= new Shipping();
 		

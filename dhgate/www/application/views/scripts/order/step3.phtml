@@ -16,7 +16,7 @@
 					<p>Company: <?=$this->ship_address['company']?></p>
 					<p>Address 1:<?=$this->ship_address['address']?></p>
 					<p>Address 2:<?=$this->ship_address['address2']?></p>
-					<p><?=$this->ship_address['city']?>, <?=$this->ship_address['state']?>, <?=$this->ship_address['region']?></p>
+					<p><?=$this->ship_address['city']?>, <?=$this->ship_address['state']?>, <?=$this->region2['name']?></p>
 					<p>Postal Code: <?=$this->ship_address['postal']?> </p>
 					<p>Phone: <?=$this->ship_address['phone']?></p>
 					<p>Fax: <?=$this->ship_address['fax']?></p>
@@ -28,7 +28,7 @@
 					<p>Company: <?=$this->bill_address['company']?></p>
 					<p>Address 1:<?=$this->bill_address['address']?></p>
 					<p>Address 2:<?=$this->bill_address['address2']?></p>
-					<p><?=$this->bill_address['city']?>, <?=$this->bill_address['state']?>, <?=$this->bill_address['region']?></p>
+					<p><?=$this->bill_address['city']?>, <?=$this->bill_address['state']?>, <?=$this->region1['name']?></p>
 					<p>Postal Code: <?=$this->bill_address['postal']?> </p>
 					<p>Phone: <?=$this->bill_address['phone']?></p>
 					<p>Fax: <?=$this->bill_address['fax']?></p>
@@ -119,22 +119,48 @@
 				$('.update').click(function(){
 					var red_price = 0;
 					var products_count = 0;
-				
-					$('input[class="count"]').each(	function(n,element){
+					var arr={};
+					var shipping_price = 0
+					var regionCoef=<?=$this->region_coef?>;
+					var shippingCoef=<?=$this->method['coef']?>;
+					
+					$('input[class="count"]').each(	
+
+						
+						function(n,element){
 						
 						var product_count= $(element).attr('value')-0;
 						var product_id = $(element).attr('product_id');	
 						var product_price =$(element).attr('price');
-						
+						var product_category = $(element).attr('category');
 						
 						$.ajax({url: '/cart/update/id/'+product_id+'/count/'+product_count});
+						
+
+						if(!arr[product_category]){
+							arr[product_category]=0;}
+							arr[product_category]+= (product_count-0);
+
+							shipping_price=0;
+							for(var i in arr) {
+							    if (!arr.hasOwnProperty(i)) {continue;}
+							  if(arr[i]>0){
+								var categoryCoef=$('input[category="'+i+'"]').attr('coef'); 
+							
+							    shipping_price+=(arr[i]*0.1+1)*30*categoryCoef*regionCoef*shippingCoef;}
+							   	}
+																
+				
 						
 						
 						$('p[product_id="'+product_id+'"]').html('USD '+product_count*product_price);
 						red_price=red_price+product_count*product_price;
 						products_count += product_count;
-					});
-					
+					}
+
+						
+						);
+					alert('Стоимость доставки = '+Math.round((shipping_price*100)/100).toFixed(2));
 										 
 					$('#cart_items_count').html(products_count);
 					$('span[id="sub_price"]').html('USD '+ red_price);

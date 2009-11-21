@@ -108,6 +108,7 @@ class CatalogController extends MainController
 			
 			$_POST['coef']=str_replace('.',',',$coef) ; 
 			if ($form->isValid($_POST)){
+				$_POST['coef']=str_replace(',','.',$coef);
 				$catalogTable = new Catalog();
 				$row = $catalogTable->createChildRow((int)$this->_getParam('parent_id'), $_POST);
 				$row->save();

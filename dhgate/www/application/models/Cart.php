@@ -44,7 +44,8 @@ class Cart extends Zend_Db_Table_Abstract
 	{
 		$select = $this->select()->from($this->_name, 'count')
 		->where('product_id = ?', (int) $product_id)
-		->where('order_id = 0');
+		->where('order_id = 0')
+		->where('user_id = '.Zend_Auth::getInstance()->getIdentity()->id);
 		$row = $this->fetchRow($select);
 		if($row){
 			return $row->count;

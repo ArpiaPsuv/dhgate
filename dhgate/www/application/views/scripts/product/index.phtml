@@ -100,8 +100,8 @@
 	</tr>
 	<tr>
 		<td class="left_td">Shipping Cost:</td>
-		<td class="right_td"><span class="bold">USD </span><span id="plus_shipping" class="bold">219.77</span> to <a id="change_shipping"
-			href="#toggle">Russia via EMS <img
+		<td class="right_td"><span class="bold">USD </span><span id="plus_shipping" class="bold">0.00</span> to <a id="change_shipping"
+			href="#toggle">Select shipping method<img
 			src="/application/public/img/ico_select.gif" alt=""></a></td>
 	</tr>
 </table>
@@ -112,7 +112,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td><span id="plus_price"><?=$this->product->price?></span> × <span id="plus_count">1</span> + <span id="plus_shipping">219.77</span> = <span id="total_price" class="red_price bold">455.87</span>
+		<td><span id="plus_price"><?=$this->product->price?></span> × <span id="plus_count">1</span> + <span id="plus_shipping">0.00</span> = <span id="total_price" class="red_price bold"><?=$this->product->price?></span>
 		(USD)</td>
 	</tr>
 	<tr>
@@ -236,9 +236,11 @@
 
 					var region=$('#region option:selected').html();
 					var shipping=$(":radio[name=shipping]").filter(":checked").attr('value');
+
+					if(shipping){
 					var html = region + ' via ' + shipping;
 					html = html+ '<img src="/application/public/img/ico_select.gif" alt="">';
-
+					}
 					$('#change_shipping').html(html);
 					})
 					
