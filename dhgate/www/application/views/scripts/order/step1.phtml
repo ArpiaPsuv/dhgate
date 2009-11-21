@@ -8,69 +8,119 @@
 				<div id="cart_items_first_head">
 					<p>Shipping Address</p>
 				</div>
-				<form action="<?=$this->form->getAction()?>" method="POST" class="shipping">
-								<p class="left_text"><span class="align_right">Company name : </span><?=$this->form->company?><span class="normal_gray">(Optional)</span></p>
-								<p class="left_text"><span class="align_right"><span class="red_price">*</span>Contact Name : </span><?=$this->form->contact?></p>
-								<p class="left_text"><span class="align_right"><span class="red_price">*</span>Address Line 1 :  </span><?=$this->form->address?></p>
-								<p class="left_text"><span class="align_right">Address Line 2 :  </span><?=$this->form->address2?><span class="normal_gray">(Optional)</span></p>
-								<p class="left_text"><span class="align_right"><span class="red_price">*</span>City :  </span><?=$this->form->city?></p>
-								<p class="left_text"><span class="align_right"><span class="red_price">*</span>State / Province :  </span><?=$this->form->state?></p>
-								<p class="left_text"><span class="align_right"><span class="red_price">*</span>Country :  </span><?=$this->form->country?></p>
-								<p class="left_text"><span class="align_right"><span class="red_price">*</span>Postal Code :  </span><?=$this->form->postal?></p>
-								<p class="left_text"><span class="align_right"><span class="red_price">*</span>Phone Number :  </span><?=$this->form->phone?></p>
-								<p class="left_text"><span class="align_right">Fax Number  : </span><?=$this->form->fax?><span class="normal_gray">(Optional)</span></p>
-								<p><span class="align_right"><?=$this->form->submit?></span></p>
-				</form>
+				<form method="post" action="<?=$this->form->getAction();?>">
+				
+				
+				
+				
+				
+				
+					<p class="left_text"><span class="align_right">Company name : </span>
+					<?=$this->form->getElement('company_s');?><span class="normal_gray">(Optional)</span></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>Contact Name : </span>
+					<?=$this->form->getElement('contact_s');?></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>Address Line 1 :  </span>
+					<?=$this->form->getElement('address_s');?></p>
+					
+					<p class="left_text"><span class="align_right">Address Line 2 :  </span>
+					<?=$this->form->getElement('address2_s');?><span class="normal_gray">(Optional)</span></p>
+					
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>City :  </span>
+					<?=$this->form->getElement('region_s');?></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>State / Province :  </span>
+					<?=$this->form->getElement('state_s');?></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>Country :  </span>
+					<?=$this->form->getElement('city_s');?></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>Postal Code :  </span>
+					<?=$this->form->getElement('postal_s');?></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>Phone Number :  </span>
+					<?=$this->form->getElement('phone_s');?></p>
+					
+					<p class="left_text"><span class="align_right">Fax Number  : </span>
+					<?=$this->form->getElement('fax_s');?><span class="normal_gray">(Optional)</span></p>
+						
+				
+											
 				<div id="cart_items_first_head">
 					<p>Billing Address</p>
 				</div>
 					<p class="text_and_check">
-					<input type="checkbox" class="check" checked > <span class="bold">Same as shipping address</span> </p>
-					<form action="<?=$this->form->getAction()?>" method="POST" class="billing">
-					</form>
+					<?=$this->form->getElement('shipping');?>
+					<span class="bold">Same as shipping address</span> </p>
+					
+					<div id="hide">
+					<p class="left_text"><span class="align_right">Company name : </span>
+					<?=$this->form->getElement('company_b');?><span class="normal_gray">(Optional)</span></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>Contact Name : </span>
+					<?=$this->form->getElement('contact_b');?></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>Address Line 1 :  </span>
+					<?=$this->form->getElement('address_b');?></p>
+					
+					<p class="left_text"><span class="align_right">Address Line 2 :  </span>
+					<?=$this->form->getElement('address2_b');?><span class="normal_gray">(Optional)</span></p>
+					
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>City :  </span>
+					<?=$this->form->getElement('region_b');?></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>State / Province :  </span>
+					<?=$this->form->getElement('state_b');?></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>Country :  </span>
+					<?=$this->form->getElement('city_b');?></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>Postal Code :  </span>
+					<?=$this->form->getElement('postal_b');?></p>
+					
+					<p class="left_text"><span class="align_right"><span class="red_price">*</span>Phone Number :  </span>
+					<?=$this->form->getElement('phone_b');?></p>
+					
+					<p class="left_text"><span class="align_right">Fax Number  : </span>
+					<?=$this->form->getElement('fax_b');?><span class="normal_gray">(Optional)</span></p>
+					</div>
+					
+					<input type="submit"/>
+				</form>	
 				<div class="checkout_down">
 					<div class="checkout_down_contain">
 						<a href="/cart/">« Back</a>
 						
-					<p id="wait" class="bold">   Please wait ...</p>
-						<span id="hide">
+					
+						
 						<img class="checkout_down_contain_button" src="/application/public/img/check_out_account_close.gif" alt="">
-						</span>
+					
 					</div>
 				</div>
 			
 		<script>
-		$('#wait').hide();
-		$('.checkout_down_contain_button').click(function(){
-			$('#wait').show();
+		$(document).ready(function(){
+		
+		if(!$('.check').attr('checked')){
+			$('#hide').show();
+		} else {
 			$('#hide').hide();
-			data = $('.shipping').serialize();
-			$.ajax({
-			   type: "POST",
-			   url: "/adress/add/shipping/1/",
-			   data: data,
-			   success: function(msg){
-			     		data = $('.billing').serialize();
-			     		
-						$.ajax({
-						   type: "POST",
-						   url: "/adress/add/shipping/0/",
-						   data: data,
-						   success: function(msg){
-						     	window.location.href = '/order/step2/'
-						   }
-						 });
-			   }
-			 });
-		})
+		}
+
+		
+		
 		$('.check').click(function(){
 			if(!$(this).attr('checked')){
-				$('.shipping').clone(true).attr('class', 'billing').replaceAll('.billing');
+				$('#hide').show();
 			} else {
-				$('.billing').html(' ');
+				$('#hide').hide();
 			}
 			//return false;
 		});
+	});
 		</script>
 		
 		

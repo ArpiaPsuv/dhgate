@@ -8,9 +8,18 @@ class Adress extends Zend_Db_Table_Abstract {
 //			->where('shipping = ' . $shipping);
 //		return  $this->fetchAll($select);
 //	}
-	public function addAddess($data) 
+	public function addAddess($data,  $shipping = 0) 
 	{
-		return $this->insert($data);
+		
+		$id = $this->insert($data);
+		if($shipping){
+			$_SESSION['shipping_address']=$id;
+		}else{
+			$_SESSION['billing_address']=$id;
+			
+		}
+		
+		return $id;
 	}
 	
 	public function updateAddess($data,$id) 

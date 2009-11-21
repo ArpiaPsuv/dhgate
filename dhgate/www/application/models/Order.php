@@ -66,15 +66,15 @@ class Order extends Zend_Db_Table_Abstract {
 		
 		$cart= new Cart();
 		
-		$address = new Adress();
-		$shipping_address=$address->get(1);
+		
 		
 		
 		
 		$data = array(
 		//'cart_id'=>'',
 		'user_id'=>Zend_Auth::getInstance()->getIdentity()->id,
-		'address'=>$shipping_address['0']['id'],
+		'address_shipping'=>$_SESSION['shipping_address'],
+		'address_billing'=>$_SESSION['billing_address'],
 		'shipping'=>$this->_shipping,
 		'payment'=>$_SESSION['payment'],
 		'date'=>date('Y-m-d'),

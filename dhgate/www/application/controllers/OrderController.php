@@ -21,6 +21,69 @@ class OrderController extends Zend_Controller_Action
 		if(!Zend_Auth::getInstance()->hasIdentity()){
 			$this->_redirect('/');
 		}
+		
+		
+		$form = new App_Form_Address();
+		$this->view->form = $form;
+		$addres= new Adress();
+		
+		if($this->getRequest()->isPOST()){
+			
+			if($_POST['shipping']){
+				$_POST['company_b']=$_POST['company_s'];
+				$_POST['contact_b']=$_POST['contact_s'];
+				$_POST['address_b']=$_POST['address_s'];
+				$_POST['address2_b']=$_POST['address2_s'];
+				$_POST['city_b']=$_POST['city_s'];
+				$_POST['region_b']=$_POST['region_s'];
+				$_POST['state_b']=$_POST['state_s'];
+				$_POST['postal_b']=$_POST['postal_s'];
+				$_POST['phone_b']=$_POST['phone_s'];
+				$_POST['fax_b']=$_POST['fax_s'];
+		
+			}
+			
+			if($form->isValid($_POST)){
+				
+				$data=array(
+				'company'=>$_POST['company_s'],
+				'contact'=>$_POST['contact_s'],
+				'address'=>$_POST['address_s'],
+				'address2'=>$_POST['address2_s'],
+				'city'=>$_POST['city_s'],
+				'region'=>$_POST['region_s'],
+				'state'=>$_POST['state_s'],
+				'postal'=>$_POST['postal_s'],
+				'phone'=>$_POST['phone_s'],
+				'fax'=>$_POST['fax_s'],
+				'shipping'=>1,
+				'user_id'=>Zend_Auth::getInstance()->getIdentity()->id
+				);
+				
+				$addres->addAddess($data, 1);
+				
+				$data=array(
+				'company'=>$_POST['company_b'],
+				'contact'=>$_POST['contact_b'],
+				'address'=>$_POST['address_b'],
+				'address2'=>$_POST['address2_b'],
+				'city'=>$_POST['city_b'],
+				'region'=>$_POST['region_b'],
+				'state'=>$_POST['state_b'],
+				'postal'=>$_POST['postal_b'],
+				'phone'=>$_POST['phone_b'],
+				'fax'=>$_POST['fax_b'],
+				'shipping'=>0,
+				'user_id'=>Zend_Auth::getInstance()->getIdentity()->id
+				);
+				
+				$addres->addAddess($data);
+				
+				$this->_redirect('/order/step2/');
+			//сохранить в базу	
+			}	
+			
+		}
 		$address = new Adress();
 		
 		
@@ -37,10 +100,8 @@ class OrderController extends Zend_Controller_Action
 		}
 		
 		
-		$form_shipping = new App_Form_Address();
-		$this->view->form_shipping = $form_shipping;
-		$form_billing = new App_Form_Address();
-		$this->view->form_billing = $form_billing;
+		
+		
 		
 		//todo добавление адресов
 		
@@ -83,10 +144,9 @@ class OrderController extends Zend_Controller_Action
 	public function step3Action() {
 		
 		$order= new Order();
-		$select = $order->getAdapter()->select()
-		->from('shipping_method')->
-		where("id = ?" , $_SESSION['shipping']);
-		$this->view->method=$shipping_method= $order->getAdapter()->fetchRow($select);
+		$shipping = new Shipping();
+	
+		$this->view->method=$shipping->get($_SESSION['shipping']);
 		
 		
 		$cart= Cart::create();
@@ -101,12 +161,9 @@ class OrderController extends Zend_Controller_Action
 		
 		$address = new Adress();
 		
-		$shipping_address=$address->get(1);
-		$billing_address =$address->get();
-		if (!count($billing_address)) {
-			$billing_address=$shipping_address;
-		}
-		
+		$shipping_address=$address->getAddres($_SESSION['shipping_address']);
+		$billing_address =$address->getAddres($_SESSION['billing_address']);
+	
 		
 
 		
