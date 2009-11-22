@@ -78,6 +78,7 @@ $request->getActionName() != 'view'):
 <?=$this->layout()->content?> 
 <?php
 if($request->getControllerName() != 'admin'):
+if($request->getActionName() != 'help' and $request->getControllerName() == 'index'):
 if($request->getControllerName() != 'user'):
 if($request->getControllerName() != 'cart'):
 if($request->getControllerName() != 'order'):
@@ -87,6 +88,7 @@ if(($request->getControllerName() !='catalog' )and $request->getActionName() != 
 </div>
 <?=$this->render('right.phtml')?>
 
+<?php endif;?>
 <?php endif;?>
 <?php endif;?>
 <?php endif;?>
