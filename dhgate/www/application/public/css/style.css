@@ -363,8 +363,8 @@ a:hover {
 .left_block_contain img {
 	float: left;
 	border: double 1px #d6d6d6;
-	margin: 0 4px;
-	padding: 1px;
+	margin: 0px 4px 0 0;
+	padding: 2px;
 }
 
 .left_block_contain p {
@@ -398,7 +398,7 @@ a:hover {
 }
 
 .more_clients {
-	width: 188px;
+	width: 180px;
 	height: 20px;
 	text-align: right;
 	margin: 10px 10px 0 0;
@@ -747,7 +747,7 @@ a:hover {
 }
 
 .arrows {
-	margin-top: 8px;
+	margin-top: -16px;
 	margin-right: 5px;
 	display: block;
 	float: right;
@@ -1649,7 +1649,7 @@ a:hover {
 
 .sign_in_form {
 	float: left;
-	width: 300px;
+	width: 350px;
 }
 
 .sign_in_form a {
@@ -1658,7 +1658,7 @@ a:hover {
 
 .sign_in_form p {
 	text-align: right;
-	margin: 20px 0px 0 0;
+	margin: 10px 0px 0 0;
 }
 
 .sign_in_form p .input_sign_in {
@@ -1685,4 +1685,65 @@ a:hover {
 
 .new_to_dhgate p {
 	margin: 20px 0;
+}
+
+.errors li {
+	color: red;
+	font-size: 11px;
+	margin: 2px 0 0 20px;
+}
+
+#customer_account {
+	margin: 10px;
+}
+
+#customer_account h2 {
+	margin-bottom: 10px;
+}
+
+#customer_account p {
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+
+#edit_user dt dd {
+	
+}
+
+#edit_user {
+	margin: 10px auto;
+	width: 200px;
+	height: 400px;
+}
+
+.zend_form dt,dd{
+	text-align: center;
+	margin: 2px;
+}
+
+.small_img_cover img {
+	width: 100px;
+	height: 100px;
+}
+
+#catalog_three {
+	margin: 10px;
+}
+
+.uphelp {
+	width: 728px;
+	height: 31px;
+	background-image: url(/application/public/img/right_111.gif);
+	line-height: 30px;
+	font-weight: 700;
+	font-size: 13px;
+	font-family: Arial,Helvetica,sans-serif;
+	padding-left: 10px;
+}
+
+.uphelp_content {
+	padding: 10px;
+	width: 726px;
+	border-left: solid 1px #ccc;
+	border-right: solid 1px #ccc;
 }

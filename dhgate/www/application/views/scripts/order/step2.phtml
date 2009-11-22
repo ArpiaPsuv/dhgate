@@ -1,5 +1,16 @@
+<div id="main_container">
+				<div id="checkout_stpes">
+					<img src="/application/public/img/checkout_3.gif" alt="">
+				</div>
+				<div id="shopping_cart">
+					<img src="/application/public/img/list_green_arrow.gif" alt="" />
+					Confirm and submit your shipping method
+				</div>
+				<div id="cart_items_first_head">
+					<p>Address</p>
+				</div>
 
-
+<div class="adresses">
 <?php foreach ($this->methods as $method):?>
 
 <div>
@@ -19,8 +30,8 @@
 <?php endforeach;?>
 
 
-
-		
+</div>
+	<div class="clear"></div>	
 <div class="checkout_down">
 	<div class="checkout_down_contain">
 	
@@ -28,14 +39,14 @@
 		
 		<a href="/order/step1/">« Back</a>
 		<span class="hide">
-		<a href="/order/step3/"><img class="checkout_down_contain_button" src="/application/public/img/check_out_account_close.gif" alt="">
+		<a href="/order/step3/"><img class="checkout_down_contain_button" src="/application/public/img/check_out_new_btn2.gif" alt="">
 		</a>
 		</span>
 		<p id="wait" class="bold">  Please wait ...  </p>
 	</div>
 </div>
 
-
+</div>
 <script>
 		$('.hide').hide();
 		$('#wait').hide();

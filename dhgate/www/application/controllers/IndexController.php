@@ -7,7 +7,23 @@ class IndexController extends MainController
 		$this->view->products = $product->fetchAll();
 
 	}
+	
+	
+    public function helpAction() 
+    {
+        ;
+    }
+    
+    public function aboutAction() 
+    {
+        ;
+    }
 
+    public function contactAction() 
+    {
+        ;
+    }
+	
 	public function infoAction()
 	{
 		$settings = new Settings();
