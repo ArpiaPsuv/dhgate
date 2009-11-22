@@ -1,19 +1,8 @@
-<div class="line_center_container"></div>
-<div id="head_center_container">
-<div id="contain_head_center_container">
-<div id="left_contain_head_center_container"><a href="/">Home</a> > <a
-	href="/user/profile/">Account Maintenance</a> / Bill To Information</div>
-</div>
-</div>
-
-<div class="line_center_container"></div>
-
-<div class="circle_buttons"><a href=""><img
-	src="/application/public/img/account-.png" alt=""></a> <a href=""><img
-	src="/application/public/img/search-a.png" alt=""></a></div>
+<?=$this->render('left.phtml')?>
+<div id="center_container">
+	<div id="edit_user">
 <?=$this->message?>
-
 <?=$this->form?>
-
-
-<div class="delimiter"></div>
+</div>
+</div>
+<?=$this->render('right.phtml')?>
