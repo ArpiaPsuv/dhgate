@@ -4,9 +4,9 @@ class OrderController extends Zend_Controller_Action
 	public function init() 
 	{
 		
-		if(!Zend_Auth::getInstance()->hasIdentity()){
-			$this->_redirect('/user/login/');
-		}
+//		if(!Zend_Auth::getInstance()->hasIdentity()){
+//			$this->_redirect('/user/login/');
+//		}
 		$cart= Cart::create();
 		$count = $cart->getcount();
 		
@@ -19,7 +19,7 @@ class OrderController extends Zend_Controller_Action
 	public function step1Action()
 	{
 		if(!Zend_Auth::getInstance()->hasIdentity()){
-			$this->_redirect('/');
+			$this->_redirect('/user/login/');
 		}
 		
 		
@@ -165,13 +165,18 @@ class OrderController extends Zend_Controller_Action
 	
 	public  function step2Action()
 	{
+		if(!Zend_Auth::getInstance()->hasIdentity()){
+			$this->_redirect('/user/login/');
+		}
 		$this->view->form=$form=new App_Form_ShippingMethod();
 		$shipping= new Shipping();
 		$this->view->methods=$methods= $shipping->fetchAll();
 	}
 	
 	public function step3Action() {
-		
+		if(!Zend_Auth::getInstance()->hasIdentity()){
+			$this->_redirect('/user/login/');
+		}		
 		$order= new Order();
 		$shipping = new Shipping();
 	
@@ -217,7 +222,9 @@ class OrderController extends Zend_Controller_Action
 	
 	public function step4Action()
 	{
-
+		if(!Zend_Auth::getInstance()->hasIdentity()){
+			$this->_redirect('/user/login/');
+		}
 		$payment= new Payment();
 		$this->view->payments=$payment->fetchAll();
 		

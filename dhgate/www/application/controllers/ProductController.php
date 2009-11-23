@@ -245,6 +245,7 @@ class ProductController extends MainController
 
 	public function searchAction()
 	{
+		
 		if($this->_request->isPost()){
 			$_SESSION['category_id']=$_POST['category'];
 			if($_POST['category']){
