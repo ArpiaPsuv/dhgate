@@ -1,0 +1,24 @@
+Поправки DHGATE
+http://dhgate/ :
+съехали стрелки
+Hot Deals съезжает вёрстка когда рисунки не стандартные (не 200x200 100x100 итд) (!!!кстати почти везде где есть не стандартные по размеру загруженные рисунки!!!!)
+
+http://dhgate/index/help/ - съехала вёрстка
+http://dhgate/user/register/ когда срабатывают валидаторы съезжает вёрстка
+http://dhgate/product/index/id/# - надо поправить вёрстку
+
+
+Нету вёрстки:
+http://dhgate/index/about/
+http://dhgate/index/contact/
+http://dhgate/catalog/view/
+http://dhgate/order/track/
+
+http://dhgate/cart/
+когда пользователь не залогинен выпадашка (Proceed to checkout) кривая вёрстка
+http://dhgate/application/public/img/checkout_2.gif какие-то точки на картинке возле shipping method
+
+http://dhgate/order/step2/ нету вёрстки (какая-то есть но не та)(!!должно быть изображение как http://dhgate/application/public/img/checkout_2.gif)ж кнопка тоже не та
+
+
+пока вроде всё :)
