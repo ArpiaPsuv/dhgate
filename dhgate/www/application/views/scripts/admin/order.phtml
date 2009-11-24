@@ -1,0 +1,50 @@
+
+
+	
+					<p class="adresses_title"><span class="bold">Shipping to this address: </span></p>
+					<p><span class="bold">Contact name: <?=$this->shipping_address['contact']?></span></p>
+				
+					<p>Address 1:<?=$this->shipping_address['address']?></p>
+					<p>Address 2:<?=$this->shipping_address['address2']?></p>
+					<p><?=$this->shipping_address['city']?>, <?=$this->shipping_address['state']?>, <?=$this->region2['name']?></p>
+					<p>Postal Code: <?=$this->shipping_address['postal']?> </p>
+					<p>Phone: <?=$this->shipping_address['phone']?></p>
+					<p>Fax: <?=$this->shipping_address['fax']?></p>
+				
+				
+				
+					<p class="adresses_title"><span class="bold">Billing address: </span></p>
+					<p><span class="bold">Contact name: <?=$this->billing_address['contact']?></span></p>
+					
+					<p>Address 1:<?=$this->billing_address['address']?></p>
+					<p>Address 2:<?=$this->billing_address['address2']?></p>
+					<p><?=$this->billing_address['city']?>, <?=$this->billing_address['state']?>, <?=$this->region1['name']?></p>
+					<p>Postal Code: <?=$this->billing_address['postal']?> </p>
+					<p>Phone: <?=$this->billing_address['phone']?></p>
+					<p>Fax: <?=$this->billing_address['fax']?></p>
+				
+
+<div>&nbsp;</div>
+<div>User</div>
+<p><?=$this->user['login']?></p>
+<p><?=$this->user['mail']?></p>
+<div>&nbsp;</div>
+<div>Shipping Method</div>
+<?=$this->shipping['title']?>
+<div>&nbsp;</div>
+<div>Payment</div>
+<?php if($this->payment){
+	echo $this->payment['title'];
+}else{
+	echo 'Not selected';
+}?>
+<div>&nbsp;</div>
+<div>Products</div>
+<?php foreach ($this->products as $product):?>
+<div>
+<?=$product['title']?>&nbsp;
+<?=$product['count']?>&nbsp;
+<?=$product['price']*$product['count']?>
+</div>
+<?php endforeach;?>
+

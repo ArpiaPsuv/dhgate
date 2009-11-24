@@ -19,15 +19,15 @@ if($this->currentCategory){
 
 
 
-
-<div class="refine_your_search_title"><img
-	src="/application/public/img/strong_bg1.gif" alt="">For Administrators</div>
-<div class="left_block_contain">
-<div class="refine_your_search_ul">
-</div>
-	<?php if($this->currentCategory->level == 0):?>
-	<?php if($_SESSION['admin']):?> 
+<?php if($_SESSION['admin']):?>
+<div class="refine_your_search_title"><img 	src="/application/public/img/strong_bg1.gif" alt="">For Administrators</div>
 	
+<div class="left_block_contain">
+
+
+	<?php if($this->currentCategory->level == 0):?>
+	<div class="refine_your_search_ul">
+	</div>
 	<?$this->formAddCategory($this->currentCategory->id);?> 
 	<form action="<?=$this->formAddCategory($this->currentCategory->id)->getAction();?>"
 		  method="<?=$this->formAddCategory($this->currentCategory->id)->getMethod();?>"
@@ -38,16 +38,17 @@ if($this->currentCategory){
 	</form>
 	
 	<?php endif;?>
-	<?php endif;?>
+
 	
-	<?php if($_SESSION['admin']):?>
+	
 	<?php echo $this->formMoveCategory($this->currentCategory->id)?>
 	<p><a href="/catalog/delete/id/<?=$this->currentCategory->id?>">Delete Category</a></p>
 	<p><a href="/product/add/category/<?=$this->currentCategory->id?>">Add product</a></p>
-	<?php endif;?>
+	
+	
 </div>
 
-
+<?php endif;?>
 
 <?php if($this->currentCategory->level == 0):?>
 <div class="refine_your_search_title"><img

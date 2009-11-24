@@ -82,7 +82,7 @@ class AdminController extends Zend_Controller_Action {
 		if($this->_request->isPOST()){
 			
 			
-				$_POST['coef']=str_replace('.',',',$_POST['coef']);
+				$_POST['coef']=str_replace(',','.',$_POST['coef']);
 				if ($form->isValid($_POST)) {
 					$_POST['coef']=str_replace(',','.',$_POST['coef']);              
 	                $uploadedData = $form->getValues();
@@ -111,7 +111,7 @@ class AdminController extends Zend_Controller_Action {
 		
 		$form_add= new App_Form_AddRegion();
 		if($this->_request->isPost()){
-				$_POST['coef'] =str_replace('.',',',$_POST['coef']);
+				$_POST['coef'] =str_replace(',','.',$_POST['coef']);
 				
 			if($form_add->isValid($this->_request->getPost())){
 				$region->addRegion($_POST['name'],str_replace(',','.',$_POST['coef']));
@@ -133,6 +133,33 @@ class AdminController extends Zend_Controller_Action {
 	{
 		$orders= new Order();
 		$this->view->orders = $orders->getOrders();
+	}
+	
+	public function orderAction() 
+	{
+		$id= $this->_getParam('id',0);
+		$orders = new Order();
+		$users=  new User();
+		$address = new Adress();
+		$payment = new Payment();
+		$shipping = new Shipping();
+		$region = new Region();
+		if($id >0){
+			$order= $orders->getOrder($id);
+			$this->view->user = $user= $users->getUser($order['user_id']);
+			$this->view->products = $orders->getProducts($id,$order['user_id']);
+
+			
+			
+			$this->view->shipping_address=$address2 = $address->getAddres($order['address_shipping']);
+			$this->view->billing_address=$address1 = $address->getAddres($order['address_billing']);
+			
+			$this->view->region1=$region->getRegion($address1['region']);
+			$this->view->region2=$region->getRegion($address2['region']);
+			
+			$this->view->shipping = $shipping->get($order['shipping']);
+			$this->view->payment = $payment->get($order['payment']);
+		}
 	}
 
 	public function userdeleteAction()

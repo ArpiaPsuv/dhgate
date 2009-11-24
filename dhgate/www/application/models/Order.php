@@ -76,7 +76,7 @@ class Order extends Zend_Db_Table_Abstract {
 		'address_shipping'=>$_SESSION['shipping_address'],
 		'address_billing'=>$_SESSION['billing_address'],
 		'shipping'=>$this->_shipping,
-		'payment'=>$_SESSION['payment'],
+		'payment'=>0,//$_SESSION['payment'],
 		'date'=>date('Y-m-d'),
 		'status'=>'confirmed',
 		);
@@ -117,4 +117,16 @@ class Order extends Zend_Db_Table_Abstract {
 		
 	}
 	
+	public function getOrder($order_id)
+	{
+		return $this->find($order_id)->current();
+	}
+	
+	public function getProducts($order_id)
+	{
+		$cart = new Cart();
+		
+		return $cart->getProducts($order_id);
+	
+	}
 }

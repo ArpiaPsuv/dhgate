@@ -60,7 +60,7 @@ on DHgate.com</title>
 <div id="main_container"><?php $request = Zend_Controller_Front::getInstance()->getRequest();
 if($request->getControllerName() != 'user'):
 if($request->getControllerName() != 'cart'):
-if(($request->getActionName() != 'index') and ($request->getControllerName() == 'product')):
+if(($request->getControllerName() != 'product')):
 if($request->getControllerName() != 'admin'):
 if($request->getControllerName() != 'order'):
 if($request->getActionName() != 'category'):

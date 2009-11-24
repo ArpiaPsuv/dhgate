@@ -1,8 +1,9 @@
 <?php foreach ($this->orders as $order):?>
-<p>
-<span> <?=$order['id']?> </span>
+<div>
+<a href="/admin/order/id/<?=$order['id']?>">
 <span> <?=$order['user_id']?> </span>
 <span> <?=$order['status']?> </span>
 <span> <?=$order['date']?> </span>
-</p>
+</a>
+</div>
 <?php endforeach;?>

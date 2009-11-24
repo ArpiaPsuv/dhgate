@@ -55,13 +55,18 @@ class Cart extends Zend_Db_Table_Abstract
 		
 	}
 	
-	public function getProducts($order_id = 0)
+	public function getProducts($order_id = 0, $user_id = 0)
 	{
 		$products = array();
 		$select = $this->getAdapter()->select()->from(array('c'=>$this->_name), array('count'=>'c.count'))
-			->join(array('p'=>'product'),'c.product_id = p.id')
-			->where('c.user_id = ' . $this->_userId)
-			->where('c.order_id = ' . $order_id);
+			->join(array('p'=>'product'),'c.product_id = p.id');
+			if($user_id){
+				$select->where('c.user_id', $user_id);
+			}else{
+				$select->where('c.user_id', $this->_userId);
+			}
+			$select->where('c.order_id = '.$order_id);
+			
 		return $this->getAdapter()->fetchAll($select);
 	}
 	
@@ -76,7 +81,7 @@ class Cart extends Zend_Db_Table_Abstract
 				$count = $product['count']+(int)$count;
 			}
 			if($count >0){
-				$this->update(array('count' => $count ), "product_id =  $product_id AND user_id = {$this->_userId}");
+				$this->update(array('count' => $count ), "product_id =  $product_id AND user_id = {$this->_userId} AND order_id = 0");
 				return $count;
 			} else {
 				$this->deleteProduct($product_id);
