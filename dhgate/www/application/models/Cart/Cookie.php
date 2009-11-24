@@ -14,7 +14,7 @@ class Cart_Cookie  extends Cart{
 		
 	}
 	
-	public function getProducts($order_id = 0)
+	public function getProducts($order_id = 0, $user_id=0)
 	{
 		$productTable = new Product();
 		$products = array();
