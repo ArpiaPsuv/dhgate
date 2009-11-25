@@ -273,11 +273,11 @@
 					
 					var productPrice=$('#price').html();
 					
-					$('span[id=plus_shipping]').html(Math.round((shippingTotal*100)/100).toFixed(2));
+					$('span[id=plus_shipping]').html(Math.round(shippingTotal*100)/100);
 					$('#plus_count').html(productCount);
 
 					var totalPrice=productCount*productPrice+shippingTotal;
-					$('#total_price').html(Math.round((totalPrice*100)/100).toFixed(2));
+					$('#total_price').html(Math.round(totalPrice*100)/100);
 					
 					}
 				
