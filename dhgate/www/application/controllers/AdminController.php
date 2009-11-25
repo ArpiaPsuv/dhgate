@@ -84,7 +84,7 @@ class AdminController extends Zend_Controller_Action {
 			
 				$_POST['coef']=str_replace(',','.',$_POST['coef']);
 				if ($form->isValid($_POST)) {
-					$_POST['coef']=str_replace(',','.',$_POST['coef']);              
+					//$_POST['coef']=str_replace(',','.',$_POST['coef']);              
 	                $uploadedData = $form->getValues();
 	               
 	                $data=array(
@@ -111,10 +111,10 @@ class AdminController extends Zend_Controller_Action {
 		
 		$form_add= new App_Form_AddRegion();
 		if($this->_request->isPost()){
-				$_POST['coef'] =str_replace(',','.',$_POST['coef']);
-				
+			
+			$_POST['coef'] =str_replace(',','.',$_POST['coef']);
 			if($form_add->isValid($this->_request->getPost())){
-				$region->addRegion($_POST['name'],str_replace(',','.',$_POST['coef']));
+				$region->addRegion($_POST['name'],$_POST['coef']);
 				$this->_redirect('/admin/regions/');
 			}
 		}
@@ -149,7 +149,7 @@ class AdminController extends Zend_Controller_Action {
 			$this->view->user = $user= $users->getUser($order['user_id']);
 			$this->view->products = $orders->getProducts($id,$order['user_id']);
 
-			
+			$this->view->grand_total = $orders->getGrandTotal($id);
 			
 			$this->view->shipping_address=$address2 = $address->getAddres($order['address_shipping']);
 			$this->view->billing_address=$address1 = $address->getAddres($order['address_billing']);

@@ -81,7 +81,7 @@ class UserController extends MainController
 				if($this->_login($_POST['mail'], $passTmp)){
 				
 					if($checkout){
-						$this->_redirect('/order/step1/');
+						$this->_redirect('/cart/');
 					}else{
 						$this->_redirect('/');
 					}
@@ -128,7 +128,7 @@ class UserController extends MainController
 					$cart->saveCookie();
 					
 					if($checkout){
-						$this->_redirect('/order/step1/');
+						$this->_redirect('/cart/');
 					}else{
 						$this->_redirect('/');
 					}

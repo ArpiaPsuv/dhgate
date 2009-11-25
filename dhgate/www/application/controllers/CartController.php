@@ -12,6 +12,7 @@ class CartController extends MainController
 			$totalPrice+=$product['price']*$product['count'];
 		}
 		$this->view->totalprice=$totalPrice;
+		$this->view->count= $cart->getCount();
 	}
 
 	public function addAction()

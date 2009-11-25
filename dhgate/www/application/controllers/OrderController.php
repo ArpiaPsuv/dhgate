@@ -22,8 +22,16 @@ class OrderController extends Zend_Controller_Action
 			$this->_redirect('/user/login/');
 		}
 		
+		$cart= Cart::create();
+		if(!$cart->getCount()){
+			$this->_redirect('/cart/');
+		}
 		
+		$this->view->modify = $modify = $this->_getParam('modify',0);
 		$form = new App_Form_Address();
+		if($modify>0){
+			$form->setAction('/order/step1/modify/1/');
+		}
 		
 		$addres= new Adress();
 		
@@ -83,6 +91,9 @@ class OrderController extends Zend_Controller_Action
 				//Zend_Debug::dump($data);
 				$addres->addAddess($data);
 				
+				if($modify >0){
+					$this->_redirect('/order/step3/');
+				}
 				$this->_redirect('/order/step2/');
 			//сохранить в базу	
 			}	
@@ -159,6 +170,7 @@ class OrderController extends Zend_Controller_Action
 			$order = new Order();
 			$order->setPaymentMethod($payment_id);
 			$order->updatePayment();
+			$_SESSION['order_id']=0;
 		}
 	
 	}
@@ -167,6 +179,11 @@ class OrderController extends Zend_Controller_Action
 	{
 		if(!Zend_Auth::getInstance()->hasIdentity()){
 			$this->_redirect('/user/login/');
+		}
+		
+		$cart= Cart::create();
+		if(!$cart->getCount()){
+			$this->_redirect('/cart/');
 		}
 		$this->view->form=$form=new App_Form_ShippingMethod();
 		$shipping= new Shipping();
@@ -177,19 +194,36 @@ class OrderController extends Zend_Controller_Action
 		if(!Zend_Auth::getInstance()->hasIdentity()){
 			$this->_redirect('/user/login/');
 		}		
+		$cart= Cart::create();
+		if(!$cart->getCount()){
+			$this->_redirect('/cart/');
+		}
+		
 		$order= new Order();
 		$shipping = new Shipping();
 	
-		$this->view->method=$shipping->get($_SESSION['shipping']);
+		$this->view->method=$shipping_coef=$shipping->get($_SESSION['shipping']);
 		
 		
-		$cart= Cart::create();
+		
 		$products = $this->view->products = $cart->getProducts();
 		$sub_price=0;
+		
+		$product_table = new Product();
+		$arr=array();
 		foreach ($products as $product) {
 			$sub_price+=$product['price']*$product['count'];
+			$category = $product_table->getParentCategory($product['id']);
+			
+			if(isset($arr[$category['id']])){
+				$arr[$category['id']]['count']+= $product['count'];
+			
+			}else{
+				$arr[$category['id']]['count']=(int)$product['count'];
+				$arr[$category['id']]['coef']=$category['coef'];
+			}
 		}
-		
+			
 		$this->view->subprice=$sub_price;
 		//Zend_Debug::dump($_SESSION);
 		
@@ -197,13 +231,29 @@ class OrderController extends Zend_Controller_Action
 		
 		$shipping_address=$address->getAddres($_SESSION['shipping_address']);
 		$billing_address =$address->getAddres($_SESSION['billing_address']);
-	
+		
+		
 		$region = new Region();
 		$this->view->region1=$region->getRegion($billing_address['region']);
-		$row=$this->view->region2=$region->getRegion($shipping_address['region']);
+		$region_coef=$this->view->region2=$region->getRegion($shipping_address['region']);
 		
-		$this->view->region_coef=$row['coef'];
+		$this->view->region_coef=$region_coef['coef'];
 		
+		////
+		$shipping_price=0;
+		foreach ($arr as $key => $value) {
+			$shipping_price+=($value['count']*0.1+1)*30*$value['coef']*$region_coef['coef']*$shipping_coef['coef'];
+		}
+		$this->view->shipping_price = round($shipping_price*100)/100;
+
+		
+		//*shipping
+	/* shipping_price+=(arr[i]*0.1+1)*30*categoryCoef*regionCoef*shippingCoef;}
+	 * 
+	 * 
+	 * 
+	 * */
+		////
 		
 		$this->view->bill_address=$billing_address;
 		$this->view->ship_address=$shipping_address;
@@ -225,8 +275,15 @@ class OrderController extends Zend_Controller_Action
 		if(!Zend_Auth::getInstance()->hasIdentity()){
 			$this->_redirect('/user/login/');
 		}
+		if(!$_SESSION['order_id']){
+			$this->_redirect('/cart/');	
+		}
+		
 		$payment= new Payment();
 		$this->view->payments=$payment->fetchAll();
+		$order= new Order();
+		
+		$this->view->getGrandTotal = $order->getGrandTotal($_SESSION['order_id']);
 		
 		
 	}
