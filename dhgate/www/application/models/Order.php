@@ -19,6 +19,48 @@ class Order extends Zend_Db_Table_Abstract {
 		}
 	}
 	
+	public function getGrandTotal($order_id = 0) 
+	{
+		
+		$shipping = new Shipping();
+		$region = new Region();
+		
+		$shipping_coef=$shipping->get($_SESSION['shipping']);
+				
+		$cart= Cart::create();
+		$products = $cart->getProducts($order_id);
+		$sub_price=0;
+		
+		$product_table = new Product();
+		$arr=array();
+		foreach ($products as $product) {
+			$sub_price+=$product['price']*$product['count'];
+			$category = $product_table->getParentCategory($product['id']);
+			if(isset($arr[$category['id']])){
+				$arr[$category['id']]['count']+= $product['count'];
+			}else{
+				$arr[$category['id']]['count']=(int)$product['count'];
+				$arr[$category['id']]['coef']=$category['coef'];
+			}
+		}
+		$order= $this->getOrder($order_id);
+	
+		$address = new Adress();
+		$region_id =  $address->getAddres($order['address_shipping']);
+		$region_coef=$region->getRegion($region_id['region']);
+		
+		
+		
+		////
+	
+		$shipping_price=0;
+		foreach ($arr as $key => $value) {
+			$shipping_price+=($value['count']*0.1+1)*30*$value['coef']*$region_coef['coef']*$shipping_coef['coef'];
+		}
+		return (round($shipping_price*100)/100)+$sub_price;
+		
+	}
+	
 	public function setShippingMethod($method_id)
 	{
 		$_SESSION['shipping'] =(int) $method_id;
