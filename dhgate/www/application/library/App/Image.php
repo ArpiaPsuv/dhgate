@@ -49,10 +49,11 @@ class App_Image  {
 	}
 	public  function resizeimg($image,$smallimage, $w, $h,$q)
 	{
-		$ratio = $w/$h;
+	/*	$ratio = $w/$h;
 		$filename=$image;
 		$size_img = getimagesize($filename);
 		if (($size_img[0]<$w) && ($size_img[1]<$h)) {copy($filename, $smallimage); return true;  }
+						
 		$src_ratio=$size_img[0]/$size_img[1];
 		if ($ratio>$src_ratio){
 			$h = $w/$src_ratio;
@@ -76,7 +77,53 @@ class App_Image  {
 			else if ($size_img[2]==3) imagepng($dest_img, $smallimage);
 			imagedestroy($dest_img);
 			imagedestroy($src_img);
-			return true;
+			return true;*/
+		$filename=$image;
+		$size_img = getimagesize($filename);
+			if ($size_img[2]==2) {
+				$src_img = imagecreatefromjpeg($filename);  
+			}
+			else if ($size_img[2]==1)
+			$src_img = imagecreatefromgif($filename);
+			else if ($size_img[2]==3) 
+			$src_img = imagecreatefrompng($filename);
+		
+		
+		$dest_img = imagecreatetruecolor($w, $h);
+		
+		
+		
+		//$src_ratio=$size_img[0]/$size_img[1];
+		$white = imagecolorallocate($dest_img, 255, 255, 255);
+		imagefill ( $dest_img, 0, 0, $white );
+		
+		if($size_img[0]!=$size_img[1]){
+			if($size_img[0] > $size_img[1]){
+				$ratio =$size_img[0]/$w;
+				$t_w=$size_img[0]/$ratio;
+				$t_h=$size_img[1]/$ratio;
+				$tmp_image=imagecreatetruecolor($t_w, $t_h);
+				$y=$h/2-$t_h/2;
+				imagecopyresampled($tmp_image, $src_img, 0, 0, 0, 0, $t_w, $t_h, $size_img[0], $size_img[1]);
+				imagecopyresampled($dest_img, $tmp_image, 0, $y, 0, 0, $t_w, $t_h, $t_w,$t_h);
+			}else{
+				$ratio =$size_img[1]/$h;
+				$t_w=$size_img[0]/$ratio;
+				$t_h=$size_img[1]/$ratio;
+				$tmp_image=imagecreatetruecolor($t_w, $t_h);
+				$x=$w/2-$t_w/2;
+				imagecopyresampled($tmp_image, $src_img, 0, 0, 0, 0, $t_w, $t_h, $size_img[0], $size_img[1]);
+				imagecopyresampled($dest_img, $tmp_image, $x, 0, 0, 0, $t_w, $t_h, $t_w,$t_h);
+			}
+		}else{
+			imagecopyresampled($dest_img, $src_img, 0, 0, 0, 0, $w, $h, $size_img[0], $size_img[1]);
+		}
+	
+		imagejpeg($dest_img, $smallimage, $q);
+		imagedestroy($dest_img);
+		imagedestroy($src_img);
+		imagedestroy($tmp_image);
+		return true;
 	}
 	
 	public function writeText($text,$text_color,$bezel_color,$font_name,$font_size,$image_from_file,$path_to,$x = 0,$y = 0)
