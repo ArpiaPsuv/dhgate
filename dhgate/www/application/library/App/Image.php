@@ -2,7 +2,7 @@
 class App_Image  {
 	public $uploadPath = '/application/public/images/';
 	protected $_fullPath;
-	public $prefixs  = array('s' => array(100,100),'vs'=>array(70,70), 'm'=>array(200,200), 'l'=>array(1024,768));
+	public $prefixs  = array('s' => array(100,100),'vs'=>array(70,70), 'm'=>array(200,200), 'l'=>array(800,800));
 	public $file;
 
 	public function __construct()
