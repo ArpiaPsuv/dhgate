@@ -25,7 +25,7 @@ class Order extends Zend_Db_Table_Abstract {
 		$shipping = new Shipping();
 		$region = new Region();
 		
-		$shipping_coef=$shipping->get($_SESSION['shipping']);
+		
 				
 		$cart= Cart::create();
 		$products = $cart->getProducts($order_id);
@@ -45,6 +45,7 @@ class Order extends Zend_Db_Table_Abstract {
 		}
 		$order= $this->getOrder($order_id);
 	
+		$shipping_coef=$shipping->get($order['shipping']);
 		$address = new Adress();
 		$region_id =  $address->getAddres($order['address_shipping']);
 		$region_coef=$region->getRegion($region_id['region']);
