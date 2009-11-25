@@ -13,7 +13,7 @@
 				<div class="adresses">
 					<p class="adresses_title"><span class="bold">Shipping to this address: </span></p>
 					<p><span class="bold">Contact name: <?=$this->ship_address['contact']?></span></p>
-				
+					<p>Company: <?=$this->ship_address['company']?></p>
 					<p>Address 1:<?=$this->ship_address['address']?></p>
 					<p>Address 2:<?=$this->ship_address['address2']?></p>
 					<p><?=$this->ship_address['city']?>, <?=$this->ship_address['state']?>, <?=$this->region2['name']?></p>
@@ -25,7 +25,7 @@
 				<div class="adresses">
 					<p class="adresses_title"><span class="bold">Billing address: </span></p>
 					<p><span class="bold">Contact name: <?=$this->bill_address['contact']?></span></p>
-					
+					<p>Company: <?=$this->bill_address['company']?></p>
 					<p>Address 1:<?=$this->bill_address['address']?></p>
 					<p>Address 2:<?=$this->bill_address['address2']?></p>
 					<p><?=$this->bill_address['city']?>, <?=$this->bill_address['state']?>, <?=$this->region1['name']?></p>
@@ -35,13 +35,19 @@
 				</div>
 				
 				<div class="sign_up2">
+					<form action="/order/step1/modify/1/">
 					<input type="submit" value="Modify Shipping And Billing Address">
+					</form>
 				</div>
 				<div id="cart_items_first_head">
 					<p>Shipping</p>
 				</div>
 				<div class="order">
-					<p><span class="bold">Shipping method:</span> <?=$this->method['title']?> <input type="submit" value="Modify"> </p>
+					<form action="/order/step2/">
+					<span class="bold">Shipping method:</span> <?=$this->method['title']?> 
+					
+					<input type="submit" value="Modify"> 
+					</form>
 					<p><span class="bold">Processing Time : </span>The item(s) will be ready for shipment within <span class="bold"> 5 working days</span> after payment is received.</p>
 					<div class="bucher"></div>
 					<div id="cart_items_second_head">
@@ -69,7 +75,7 @@
 				<div class="bucher"></div>
 				<p><span class="bold">Order Summary</span></p>
 				<p>Item subtotal:  	<span id="sub_price">USD <?=$this->subprice?></span></p>
-				<p class="red_price bold">Order total:  	USD 418.00</p>
+				<p class="red_price bold">Order total:	USD <span id="order_total"><?=$this->shipping_price+$this->subprice?></span></p>
 				</div>
 				
 				
@@ -83,7 +89,7 @@
 				-->
 				<div class="clear"></div>
 				<div class="checkout_down">
-						<h2 class="red_price h2_grand">Grand total: USD 916.99 </h2>
+						<h2 class="red_price h2_grand">Grand total: USD  <span id="grand_total"><?=$this->shipping_price+$this->subprice?></span> </h2>
 						<div class="clear"></div>
 					<div class="checkout_down_contain">
 						<a href="/order/step2/">« Back</a>
@@ -160,10 +166,12 @@
 
 						
 						);
-					alert('Стоимость доставки = '+Math.round((shipping_price*100)/100).toFixed(2));
+					shipping_price = Math.round(shipping_price*100)/100;
 										 
 					$('#cart_items_count').html(products_count);
 					$('span[id="sub_price"]').html('USD '+ red_price);
+					$('#order_total').html(red_price+shipping_price);
+					$('#grand_total').html(red_price+shipping_price);
 				});
 
 				

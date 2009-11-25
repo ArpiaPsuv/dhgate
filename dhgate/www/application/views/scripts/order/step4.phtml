@@ -11,7 +11,7 @@
 					<img src="/application/public/img/check_out_new_success_bg.gif" alt="">
 					<p class="big_orange">Your order has been placed successfully.</p>
 					<p><span class="bold">Order number is: <?=$_SESSION['order_id']?> </span></p>
-					<h2 class="red_price">Grand total:  	USD 344.85</h2>
+					<h2 class="red_price">Grand total: USD <?=$this->getGrandTotal?></h2>
 				</div>
 				<div class="payment_change">
 					<p><span>Pay your order via</span></p>

@@ -54,7 +54,7 @@
 					<p class="text_and_check">
 					<?=$this->form->getElement('shipping');?>
 					<span class="bold">Same as shipping address</span> </p>
-					
+					<div class="clear"></div>
 					<div id="hide">
 					<p class="left_text"><span class="align_right">Company name : </span>
 					<?=$this->form->getElement('company_b');?><span class="normal_gray">(Optional)</span></p>
@@ -88,18 +88,16 @@
 					<?=$this->form->getElement('fax_b');?><span class="normal_gray">(Optional)</span></p>
 					</div>
 					
-					<input type="submit"/>
-				</form>	
+					<div class="clear"></div>
+				
 				<div class="checkout_down">
 					<div class="checkout_down_contain">
 						<a href="/cart/">« Back</a>
 						
-					
-						
-						<img class="checkout_down_contain_button" src="/application/public/img/check_out_account_close.gif" alt="">
-					
+					    <input type="image" value = "" class="checkout_down_contain_button" name="submit"/>
 					</div>
 				</div>
+				</form>	
 			
 		<script>
 		$(document).ready(function(){

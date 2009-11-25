@@ -1,7 +1,3 @@
-<p><a href="/cart/clear/">Clear Cart</a></p>
-
-
-
 
 
 <div id="product_path">
@@ -12,10 +8,15 @@
 				<div id="checkout_stpes">
 					<img src="/application/public/img/checkout_1.gif" alt="">
 				</div>
+				
 				<div id="shopping_cart">
 					<img src="/application/public/img/cart_big_img.gif" alt="">
 					Shopping Cart
 				</div>
+				
+				<?php if(!$this->count):?>
+				<div class="check_out_error"> Please select at least one product to proceed. </div>
+				<?php endif;?>
 				<div id="cart_items_first_head">
 					<p>Cart Items - To Buy Now</p>
 
@@ -54,9 +55,11 @@
 						<a href="/">«Continue shopping</a>
 						 
 						<?php if(Zend_Auth::getInstance()->hasIdentity()):?> 
+						<?php if($this->count):?>
 						<a href="/order/step1/">
 						<img class="checkout_down_contain_button" src="/application/public/img/check_out_account_close.gif" alt="">
 						</a>
+						<?php endif;?>
 						<?php else:?>
 						<img class="checkout_down_contain_button" src="/application/public/img/check_out_account_close.gif" alt="">
 						<?php endif;?>
@@ -74,15 +77,23 @@
 							</p>
 							<?=$this->register(); ?>
 						</div>
+						
 						<div class="processed_checkout_left">
 							<p><span class="bold">Already have an account?</span></p>
 							<div class="clear"></div>
 							<p>You have an account with DHgate.com, Please login.</p>
 							<div class="clear"></div>
-							<p><a href="#">Sign in here</a></p>
-								
+							<p><a id ="show" href="#show">Sign in here</a></p>
 						</div>
-					<?=$this->login();?>
+						
+						<div style="display: none;" class="sign_in_form">
+						<div class="sign_in_head">
+						
+						<h3>Sign into your account</h3>
+						</div>
+							<?=$this->login();?>
+						</div>
+						
 					</div>
 				</div>
 				
@@ -95,7 +106,12 @@
 			
 			<script>
 			$(document).ready(function(){
+				$('#show').click(function(){
+					$('.processed_checkout_left').hide();
+					$('.sign_in_form').attr('style','');			
+					});
 
+				
 				 $('.processed_checkout_container').hide();
 			      <?php if(!Zend_Auth::getInstance()->hasIdentity()):?>
 				  

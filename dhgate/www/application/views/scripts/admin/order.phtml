@@ -1,50 +1,141 @@
 
 
-	
+
+
+<div id="main_container">
+			<div id="cart_items_first_head">
+					<p>User</p>
+				</div>
+				
+				<div class="order">
+				<p><span class="bold">User login:</span>
+				<?=$this->user['login']?>
+				</p>
+				<p><span class="bold">User mail:</span>
+				<?=$this->user['mail']?>
+				</p>
+				
+				
+				</div>
+			
+			
+			
+				<div id="cart_items_first_head">
+					<p>Address</p>
+				</div>
+					
+				<div class="adresses">
 					<p class="adresses_title"><span class="bold">Shipping to this address: </span></p>
 					<p><span class="bold">Contact name: <?=$this->shipping_address['contact']?></span></p>
-				
+					<p>Company: <?=$this->shipping_address['company']?></p>
 					<p>Address 1:<?=$this->shipping_address['address']?></p>
 					<p>Address 2:<?=$this->shipping_address['address2']?></p>
 					<p><?=$this->shipping_address['city']?>, <?=$this->shipping_address['state']?>, <?=$this->region2['name']?></p>
 					<p>Postal Code: <?=$this->shipping_address['postal']?> </p>
 					<p>Phone: <?=$this->shipping_address['phone']?></p>
 					<p>Fax: <?=$this->shipping_address['fax']?></p>
+				</div>
 				
-				
-				
+				<div class="adresses">
 					<p class="adresses_title"><span class="bold">Billing address: </span></p>
 					<p><span class="bold">Contact name: <?=$this->billing_address['contact']?></span></p>
-					
+					<p>Company: <?=$this->billing_address['company']?></p>
 					<p>Address 1:<?=$this->billing_address['address']?></p>
 					<p>Address 2:<?=$this->billing_address['address2']?></p>
 					<p><?=$this->billing_address['city']?>, <?=$this->billing_address['state']?>, <?=$this->region1['name']?></p>
 					<p>Postal Code: <?=$this->billing_address['postal']?> </p>
 					<p>Phone: <?=$this->billing_address['phone']?></p>
 					<p>Fax: <?=$this->billing_address['fax']?></p>
+				</div>
+				
+				
+				
+				<div id="cart_items_first_head">
+					<p>Payment</p>
+				</div>
+				
+				<div class="order">
+				<p><span class="bold">Shipping method:</span>
+				<?php if($this->payment){
+					echo $this->payment['title'];
+				}else{
+					echo 'Not selected';
+				}?>
+				</p>
+				</div>
+				
+				<div id="cart_items_first_head">
+					<p>Shipping</p>
+				</div>
+				
+				<div class="order">
+					
+					<p><span class="bold">Shipping method:</span> <?=$this->shipping['title']?></p>
+					
+					<p><span class="bold">Processing Time : </span>The item(s) will be ready for shipment within <span class="bold"> 5 working days</span> after payment is received.</p>
+					<div class="bucher"></div>
+					<div id="cart_items_second_head">
+					<p class="head_desc">Description</p>
+					<p class="head_price">Price</p>
+					<p class="head_quantity">Quantity</p>
+					<p class="head_amount">Amount</p>
+					<p class="head_buttons"></p>
+				</div>
+				
 				
 
-<div>&nbsp;</div>
-<div>User</div>
-<p><?=$this->user['login']?></p>
-<p><?=$this->user['mail']?></p>
-<div>&nbsp;</div>
-<div>Shipping Method</div>
-<?=$this->shipping['title']?>
-<div>&nbsp;</div>
-<div>Payment</div>
-<?php if($this->payment){
-	echo $this->payment['title'];
-}else{
-	echo 'Not selected';
-}?>
-<div>&nbsp;</div>
-<div>Products</div>
-<?php foreach ($this->products as $product):?>
-<div>
-<?=$product['title']?>&nbsp;
-<?=$product['count']?>&nbsp;
-<?=$product['price']*$product['count']?>
-</div>
-<?php endforeach;?>
+				
+				<?php $sub_total=0;?>
+				
+				<?php foreach ($this->products as $product):?>
+					<?php 
+					$album = new App_Album_Product($product['id']);
+					$image = $album->getMainImage('s');
+					?>
+					<div class="item_at_cart">
+					<div class="head_desc">
+						<div class="small_img_cover"><img src="<?=$image?>" alt=""></div>
+						<div class="small_desc"><a href="/product/index/id/<?=$product['id']?>"><?=$product['title'].' / '.$product['short_about']?></a></div>
+						<div class="processing_time">
+						<span class="bold">Processing Time : </span>
+						The item(s) will be ready for shipment within <span class="bold"> <?=$product['processing']?> working days</span> after payment is received.</div>
+					</div>
+					<p class="head_price">USD <?=$product['price']?></p>
+					<p class="head_quantity"><?=$product['count']?></p>
+					<p class="head_amount">USD  <?=$product['count']*$product['price']?> </p>
+					<p class="head_buttons"></p>
+					
+					</div>
+				<?php $sub_total+= $product['count']*$product['price']?>
+					
+				<?php endforeach;?>
+				
+				
+				
+				<div class="bucher"></div>
+				<p><span class="bold">Order Summary</span></p>
+				<p>Item subtotal:  	<span id="sub_price">USD <?=$sub_total?></span></p>
+				<p class="red_price bold">Order total:	USD <span id="order_total"><?=$this->grand_total;?></span></p>
+				</div>
+				
+				
+				<!--
+				<div id="cart_items_first_head">
+					<p>Coupon</p>
+				</div>
+				
+				<p class="coupon">Have a Coupon Code? <input class="long" type="text"> <input type="submit" value="add"></p>
+				
+				-->
+				<div class="clear"></div>
+				<div class="checkout_down">
+						<h2 class="red_price h2_grand">Grand total: USD  <span id="grand_total"><?=$this->grand_total?></span> </h2>
+						<div class="clear"></div>
+					
+				</div>
+				
+			</div>
+			
+
+
 
