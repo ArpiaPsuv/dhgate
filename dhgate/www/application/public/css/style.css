@@ -747,7 +747,7 @@ a:hover {
 }
 
 .arrows {
-	margin-top: -16px;
+	margin-top: 8px;
 	margin-right: 5px;
 	display: block;
 	float: right;
@@ -1366,6 +1366,7 @@ a:hover {
 	width: 178px;
 	height: 31px;
 	vertical-align: middle;
+	background-image: url(/application/public/img/check_out_account_close.gif);
 }
 
 .processed_checkout_head {
@@ -1414,8 +1415,8 @@ a:hover {
 }
 
 .processed_checkout_right_text {
+	margin-bottom: 2px;
 	line-height: 0px;
-	clear: right;
 	float: left;
 }
 
@@ -1499,6 +1500,7 @@ a:hover {
 	margin: 20px 10px;
 	height: 15px;
 	line-height: 15px;
+	float: left;
 }
 
 .adresses {
@@ -1731,7 +1733,7 @@ a:hover {
 }
 
 .uphelp {
-	width: 728px;
+	width: 718px;
 	height: 31px;
 	background-image: url(/application/public/img/right_111.gif);
 	line-height: 30px;
@@ -1743,7 +1745,24 @@ a:hover {
 
 .uphelp_content {
 	padding: 10px;
-	width: 726px;
+	width: 706px;
 	border-left: solid 1px #ccc;
 	border-right: solid 1px #ccc;
+}
+
+.hidden_window {
+	margin-right: 15px;
+}
+
+.check_out_error {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#FFFFD5 url(/application/public/img/check_out_new_error_bg.gif) no-repeat scroll 26px 5px;
+color:#FF0000;
+font-size:14px;
+font-weight:700;
+line-height:20px;
+margin-bottom:15px;
+padding:6px 10px 6px 64px;
 }
