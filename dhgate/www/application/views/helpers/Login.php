@@ -27,7 +27,7 @@ class Zend_View_Helper_Login {
 		$html="
 		<form action=\"{$form->getAction()}checkout/1/\"
 		method=\"{$form->getMethod()}\">
-		<p>E-mail Address :{$form->getElement('mail')}</p>
+		<p class=\"hidden_window\">E-mail Address :{$form->getElement('mail')}</p>
 		<p>Password :{$form->getElement('pass')}</p>
 		<p>{$form->getElement('remember')} Remember my E-mail address
 		for this computer.</p>
