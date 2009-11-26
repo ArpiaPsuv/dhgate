@@ -27,7 +27,7 @@ class Zend_View_Helper_ProductsInCart {
 		$cart = Cart::create();
 	    $products =  $cart->getProducts();
 		$category = new Product();
-		
+		$valute=new Valute();
 		$html='';
 		foreach ($products as $product){
 			$album = new App_Album_Product($product['id']);
@@ -46,9 +46,9 @@ class Zend_View_Helper_ProductsInCart {
 						<span class="bold">Processing Time : </span>
 						The item(s) will be ready for shipment within <span class="bold"> '.$product['processing'].' working days</span> after payment is received.</div>
 					</div>
-					<p class="head_price">USD '.$product['price'].'</p>
-					<p class="head_quantity"><input coef="'.str_replace(',','.',$cat['coef']).'" class="count" category="'.$cat['id'].'" price="'.$product['price'].'" product_id="'.$product['id'].'" type="text" value='.$product['count'].'></p>
-					<p class="head_amount" product_id="'.$product['id'].'">USD  '.$product['count']*$product['price'].' </p>
+					<p class="head_price">'.$valute->conversion($product['price'],2).'</p>
+					<p class="head_quantity"><input coef="'.str_replace(',','.',$cat['coef']).'" class="count" category="'.$cat['id'].'" price="'.$valute->conversion($product['price'],0).'" product_id="'.$product['id'].'" type="text" value='.$product['count'].'></p>
+					<p class="head_amount" product_id="'.$product['id'].'">'.$valute->conversion($product['count']*$product['price'],2).' </p>
 					<p class="head_buttons"><span product_id="'.$product['id'].'"><input class="delete" product_id="'.$product['id'].'" type="submit" value="Delete"></p></span>
 					</span>
 					</div>';		

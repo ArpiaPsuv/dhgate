@@ -25,6 +25,46 @@ class AdminController extends Zend_Controller_Action {
 		
 
 	}
+	
+	public function valuteAction()
+	{
+		$valutes = new Valute();
+		
+		$delete = $this->_getParam('delete',0);
+		$default= $this->_getParam('default',0);
+		if($delete>0){
+			$valutes->delete_valute($delete);
+			$this->_redirect('/admin/valute/');
+		}
+		
+		if($default>0){
+			$valutes->setDefault($default);
+			$this->_redirect('/admin/valute/');
+		}
+	
+		if($this->_request->isPOST()){
+			$float = new Zend_Validate_Float();
+			$text=  new Zend_Filter_StringTrim();
+			$_POST['prefix']=$text->filter($_POST['prefix']);
+						
+			if ($_POST['prefix']!='') {
+				$_POST['rate']=str_replace('.',',',$_POST['rate']);
+				if($float->isValid($_POST['rate'])){
+						$_POST['rate']=str_replace(',','.',$_POST['rate']);
+						if($_POST['default']){
+							$valutes->add($_POST['prefix'],$_POST['rate'],1);
+						}else{
+							$valutes->add($_POST['prefix'],$_POST['rate']);
+					
+					}
+				}
+			}
+			$this->_redirect('/admin/valute/');
+		}
+		
+		$this->view->valutes = $valutes->getValutes();
+	}
+	
 	public function userlistAction()
 	{
 		$user = new User();
@@ -82,9 +122,9 @@ class AdminController extends Zend_Controller_Action {
 		if($this->_request->isPOST()){
 			
 			
-				$_POST['coef']=str_replace(',','.',$_POST['coef']);
+				$_POST['coef']=str_replace('.',',',$_POST['coef']);
 				if ($form->isValid($_POST)) {
-					//$_POST['coef']=str_replace(',','.',$_POST['coef']);              
+					$_POST['coef']=str_replace(',','.',$_POST['coef']);              
 	                $uploadedData = $form->getValues();
 	               
 	                $data=array(
@@ -112,8 +152,9 @@ class AdminController extends Zend_Controller_Action {
 		$form_add= new App_Form_AddRegion();
 		if($this->_request->isPost()){
 			
-			$_POST['coef'] =str_replace(',','.',$_POST['coef']);
+			$_POST['coef'] =str_replace('.',',',$_POST['coef']);
 			if($form_add->isValid($this->_request->getPost())){
+				$_POST['coef'] =str_replace(',','.',$_POST['coef']);
 				$region->addRegion($_POST['name'],$_POST['coef']);
 				$this->_redirect('/admin/regions/');
 			}

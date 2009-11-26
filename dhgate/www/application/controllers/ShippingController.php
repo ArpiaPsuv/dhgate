@@ -10,9 +10,15 @@ class ShippingController extends Zend_Controller_Action {
 	{
 		if($this->_request->isPost()){
 			$shipping  = new Shipping();
-			$id = $shipping->insert($_POST);
-			$image = new App_Image_Shipping($id);
-			$image->upload($id);
+			
+			$valid= new Zend_Validate_Float();
+			$_POST['coef']=str_replace('.',',',$_POST['coef']);
+			if($valid->isValid($_POST['coef'])){
+				$_POST['coef']=str_replace(',','.',$_POST['coef']);
+				$id = $shipping->insert($_POST);
+				$image = new App_Image_Shipping($id);
+				$image->upload($id);
+			}
 			$this->_redirect($_SERVER['HTTP_REFERER']);
 		}
 	}

@@ -1,0 +1,17 @@
+<?php foreach ($this->valutes as $valute):?>
+<p><?='1'.$valute['prefix'].' = '.(round((1/$valute['rate'])*100)/100).' USD'?>
+	<?php if(!$valute['default']):?>
+ (<a href="/admin/valute/delete/<?=$valute['id']?>">Delete</a>) 
+ (<a href="/admin/valute/default/<?=$valute['id']?>">Set default</a>) 
+ 	<?php else:?>
+ 	(Valute is default)
+ 	<?php endif;?>
+ </p>
+<?php endforeach;?>
+
+<form action="/admin/valute/" method="post">
+<div>Prefix:</div> <div> <input type="text" name="prefix"></div>
+<div>Rate(USD):</div> <div><input type="text" name="rate"></div>
+<div><input type="checkbox" name="default"> Default</input></div> 
+<div><input type="submit" value="Add"></div>
+</form>

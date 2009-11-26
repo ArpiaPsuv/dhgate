@@ -45,7 +45,7 @@
 					<input class="update" value="Update Quantity" type="submit">
 				</div>
 				<div class="clear"></div>
-				<div class="update_quantity">Subtotal : <span class="red_price bold"> USD <?=$this->totalprice?></span></div>
+				<div class="update_quantity">Subtotal : <span class="red_price bold"><?=$this->valute($this->totalprice,2)?></span></div>
 				
 				
 			
@@ -160,18 +160,21 @@
 						var product_id = $(element).attr('product_id');	
 						var product_price =$(element).attr('price');
 						
-						
+						if(product_count<1){
+							$("span[product='"+product_id+"']").remove();
+							product_count=0;	
+						}
 						$.ajax({url: '/cart/update/id/'+product_id+'/count/'+product_count});
 						
 						
-						$('p[product_id="'+product_id+'"]').html('USD '+product_count*product_price);
+						$('p[product_id="'+product_id+'"]').html('<?=$this->valute(1,3)?> '+product_count*product_price);
 						red_price=red_price+product_count*product_price;
 						products_count += product_count;
 					});
 					
 										 
 					$('#cart_items_count').html(products_count);
-					$('span[class="red_price bold"]').html('USD '+ red_price);
+					$('span[class="red_price bold"]').html('<?=$this->valute(1,3)?> '+ red_price);
 				});
 
 				

@@ -32,9 +32,7 @@ class App_Form_AddCategory extends App_Form  {
 		'size'=>3,
 		'value'=>1,
 		'filters'=>array('StringTrim','StripTags'),
-		'validators' => array(
-		'float'
-		)
+		'validators' => array('float')
 		));
 		  
 		

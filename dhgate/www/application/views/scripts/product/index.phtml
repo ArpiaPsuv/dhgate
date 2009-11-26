@@ -13,8 +13,8 @@
 
 <?php if($_SESSION['admin']):?>
 <a href="#" id="upload">Upload Image</a>
-<?php endif?> 
-  
+<?php endif?>
+
 <script type="text/javascript">
 		$('#upload').upload({
 		       name: 'file',
@@ -63,12 +63,12 @@
 <table class="item_detail_table">
 	<tr>
 		<td class="left_td">Unit Price:</td>
-		<td class="right_td"><span class="red_price bold">USD <span id="price"><?=$this->product->price?></span>
+		<td class="right_td"><span class="red_price bold"><?=$this->valute($this->product->price,2,'product_price')?></span>
 	</span></td>
 	</tr>
 	<tr>
 		<td class="left_td"></td>
-		<td class="right_td"><a href="#">Change Currency <img
+		<td class="right_td"><a  id="valute"  href="">Change Currency <img
 			src="/application/public/img/ico_select.gif" alt=""></a></td>
 	</tr>
 	<tr>
@@ -100,7 +100,7 @@
 	</tr>
 	<tr>
 		<td class="left_td">Shipping Cost:</td>
-		<td class="right_td"><span class="bold">USD </span><span id="plus_shipping" class="bold">0.00</span> to <a id="change_shipping"
+		<td class="right_td"><span class="bold"><?=$this->valute(1,3)?> </span><span id="plus_shipping" class="bold">0.00</span> to <a id="change_shipping"
 			href="#toggle">Select shipping method<img
 			src="/application/public/img/ico_select.gif" alt=""></a></td>
 	</tr>
@@ -112,8 +112,9 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td><span id="plus_price"><?=$this->product->price?></span> × <span id="plus_count">1</span> + <span id="plus_shipping">0.00</span> = <span id="total_price" class="red_price bold"><?=$this->product->price?></span>
-		(USD)</td>
+		<td><span id="plus_price"><?=$this->valute($this->product->price,0)?></span> × <span id="plus_count">1</span> + 
+		<span id="plus_shipping">0.00</span> = <span id="total_price" class="red_price bold"><?=$this->valute($this->product->price,0)?></span>
+		(<?=$this->valute(1,3)?>)</td>
 	</tr>
 	<tr>
 		<td></td>
@@ -192,7 +193,16 @@
 	
 </div>
 
-
+<div id="currency" style="display:none;">
+	<div style="background-color:#ffffff;  border: 1px solid black;">
+		<div style="margin:10px;">
+			<p><span class="bold">Choose:</span></p>
+				<?php foreach ($this->valute as $valute):?>
+				<div><a href="/user/setvalute/id/<?=$valute['id']?>"><?=$valute['prefix'].' '.round($this->product->price*$valute['rate']*100)/100;?></a></div>
+				<?php endforeach;?>
+		</div>
+	</div>
+</div>
 	
 	
 <script
@@ -220,17 +230,48 @@
 				var style='top: '+(pos.top+pos.height)+'px; left: '+pos.left+'px; display: block; height:96px; position:absolute; width:300px; display:none;';
 				$('#shipping').attr("style",style);
 				
-				
+				pos2= getElementPosition("valute");
+				var style2='top: '+(pos2.top+pos2.height)+'px; left: '+pos2.left+'px; display: block; height:96px; position:absolute; width:115px; display:none;';
+				$('#currency').attr("style",style2);
 
+				$('#valute').click(function(){
+					$('#currency').toggle();
+					return false;
+					}
+				)
+				
+				
 				$('#change_shipping').click(function(){
 					$('#shipping').toggle();
-					
+					return false;
 					}
 				)
 				
 				$('#plus').click(function(){
 					//var shippingTotal=
-					updateShipping();
+					var categoryCoef = <?=str_replace(',','.',$this->category_coef)?>;
+					var regionCoef=$('#region').attr('value');
+					
+					var shippingCoef=$(":radio[name=shipping]").filter(":checked").attr('id');
+					if(!shippingCoef){
+						shippingCoef=0;	
+						}
+					var productCount=$('#count').attr('value')-1+1;
+					if(productCount<0){
+						productCount=0;
+					}
+					productCount=Math.round(productCount);
+					if(!productCount){
+						productCount=0;
+						}
+					
+					var shippingTotal=(30*categoryCoef*regionCoef*shippingCoef)*(1+productCount*0.1)*<?=$this->valute(1,0)?>;
+					var productPrice=$('.product_price').html();
+					
+					$('span[id=plus_shipping]').html(Math.round(shippingTotal*100)/100);
+					$('#plus_count').html(productCount);
+					var totalPrice=productCount*productPrice+shippingTotal;
+					$('#total_price').html(Math.round(totalPrice*100)/100);
 					//$('#plus_shipping').html(shippingTotal);
 					$('#shipping').toggle();
 
@@ -245,41 +286,60 @@
 					})
 					
 					$('#count').keyup(function(){
-					updateShipping();
+						var categoryCoef = <?=str_replace(',','.',$this->category_coef)?>;
+						var regionCoef=$('#region').attr('value');
+						
+						var shippingCoef=$(":radio[name=shipping]").filter(":checked").attr('id');
+						if(!shippingCoef){
+							shippingCoef=0;	
+							}
+						var productCount=$('#count').attr('value')-1+1;
+
+						if(productCount<0){
+							productCount=0;
+						}
+						productCount=Math.round(productCount);
+						if(!productCount){
+							productCount=0;
+							}
+						
+						var shippingTotal=(30*categoryCoef*regionCoef*shippingCoef)*(1+productCount*0.1)*<?=$this->valute(1,0)?>;
+						var productPrice=$('.product_price').html();
+						
+						$('span[id=plus_shipping]').html(Math.round(shippingTotal*100)/100);
+						$('#plus_count').html(productCount);
+						var totalPrice=productCount*productPrice+shippingTotal;
+						$('#total_price').html(Math.round(totalPrice*100)/100);
 					})
 				
 					$('#count').change(function(){
-					updateShipping();
+						var categoryCoef = <?=str_replace(',','.',$this->category_coef)?>;
+						var regionCoef=$('#region').attr('value');
+						
+						var shippingCoef=$(":radio[name=shipping]").filter(":checked").attr('id');
+						if(!shippingCoef){
+							shippingCoef=0;	
+							}
+						var productCount=$('#count').attr('value')-1+1;
+						if(productCount<0){
+							productCount=0;
+						}
+						productCount=Math.round(productCount);
+						if(!productCount){
+							productCount=0;
+							}
+						
+						var shippingTotal=(30*categoryCoef*regionCoef*shippingCoef)*(1+productCount*0.1)*<?=$this->valute(1,0)?>;
+						var productPrice=$('.product_price').html();
+						
+						$('span[id=plus_shipping]').html(Math.round(shippingTotal*100)/100);
+						$('#plus_count').html(productCount);
+						var totalPrice=productCount*productPrice+shippingTotal;
+						$('#total_price').html(Math.round(totalPrice*100)/100);
 					})
 				
 				
-				function updateShipping(){ 
-					var categoryCoef = <?=str_replace(',','.',$this->category_coef)?>;
-					var regionCoef=$('#region').attr('value');
-					
-					var shippingCoef=$(":radio[name=shipping]").filter(":checked").attr('id');
-					if(!shippingCoef){
-						shippingCoef=0;	
-						}
-					var productCount=$('#count').attr('value')-1+1;
-					productCount=Math.round(productCount);
-					if(!productCount){
-						productCount=0;
-						}
-					
-					var shippingTotal=(30*categoryCoef*regionCoef*shippingCoef)*(1+productCount*0.1);
-					//return Math.round((shippingTotal*100)/100).toFixed(2);
-
-					
-					var productPrice=$('#price').html();
-					
-					$('span[id=plus_shipping]').html(Math.round(shippingTotal*100)/100);
-					$('#plus_count').html(productCount);
-
-					var totalPrice=productCount*productPrice+shippingTotal;
-					$('#total_price').html(Math.round(totalPrice*100)/100);
-					
-					}
+				
 				
 				function getElementPosition(elemId){  
 					  var elem = document.getElementById(elemId);   
@@ -297,7 +357,8 @@
 				$('.add_to_card').click(function(){
 					var id = $(this).attr("id");
 						if($('#count').attr('value')-1+1){
-						$.ajax({
+							if(($('#count').attr('value')-1+1)>0){
+							$.ajax({
 							   url: '/cart/add/id/'+id+'/count/'+Math.round($('#count').val()),
 							   success: function(){
 							   $.ajax({
@@ -310,6 +371,8 @@
 								
 							   }
 						});
+							
+							}
 						}
 					});
 				

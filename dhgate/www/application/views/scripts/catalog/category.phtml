@@ -129,7 +129,7 @@ if($this->currentCategory){
 	
 <p><a rel="<?=$this->imageMain($product['id'])?>" class="screenshot"><img src="/application/public/img/loadimage_bg2.gif"	alt=""> Enlarge</a></p>
 <a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>
-<span>$ <?=$product['price']?> </span> 
+<span><?=$this->valute($product['price'])?></span> 
 
 
 
@@ -181,7 +181,7 @@ if($this->currentCategory){
 	<?php endif?>
 </div>
 
-<div class="product_list_unit_price"><span>$ <?=$product['price']?> </span> 
+<div class="product_list_unit_price"><span><?=$this->valute($product['price'])?></span> 
 
 
 

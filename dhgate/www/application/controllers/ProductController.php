@@ -41,7 +41,9 @@ class ProductController extends MainController
 		$this->view->image_large = $image_large;
 		$cart= Cart::create();
 		$this->view->cart = $cart;
-
+		$valute = new Valute();
+		$this->view->valute = $valute->getValutes();
+		
 	}
 
 	public function getlargeimageAction()
@@ -76,7 +78,9 @@ class ProductController extends MainController
 		
 
 		if($this->_request->isPost()){
+			$_POST['price']=str_replace('.',',',$_POST['price']);
 			if($form->isValid($this->_request->getPost())){
+				$_POST['price']=str_replace(',','.',$_POST['price']);
 				$productTable = new Product();
 				$productTable->add($_POST, $category);
 				$this->_redirect('/catalog/category/id/' . $category);
@@ -263,6 +267,8 @@ class ProductController extends MainController
 			}
 
 			$_SESSION['text_search']=$_POST['text_search'];
+		}else{
+			$this->_redirect('/');
 		}
 
 		if ($_SESSION['text_search'] == ''){
@@ -282,7 +288,7 @@ class ProductController extends MainController
 		$products->setItemCountPerPage($count);
 		$this->view->products = $products;
 			
-
+		
 	}
 
 }

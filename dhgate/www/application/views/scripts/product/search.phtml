@@ -42,10 +42,10 @@ Items per page:
 <?php if($this->image):?>
 <div class="product_gallery_unit"><img
 	src="<?=$this->imageSmall($product['id'])?>" alt="">
-<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif"
+<p><a rel="<?=$this->imageMain($product['id'])?>" class="screenshot"><img src="/application/public/img/loadimage_bg2.gif"
 	alt=""> Enlarge</a></p>
 <a href="/product/index/id/<?=$product['id']?>"><?=$product['title']?></a>
-<span>$ <?=$product['price']?> </span> 
+<span><?=$this->valute($product['price'],2)?></span> 
 
 
 
@@ -73,7 +73,7 @@ Items per page:
 <p><?=$product['short_about']?></p>
 <span></span>
 
-<p><a href="#"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
+<p><a rel="<?=$this->imageMain($product['id'])?>" class="screenshot"><img src="/application/public/img/loadimage_bg2.gif" alt=""> Enlarge</a></p>
 	
 	<?php if ($_SESSION['admin']):?>
 	
@@ -98,7 +98,7 @@ Items per page:
 	<?php endif?>
 </div>
 
-<div class="product_list_unit_price"><span>$ <?=$product['price']?> </span> 
+<div class="product_list_unit_price"><span><?=$this->valute($product['price'],2)?></span> 
 
 
 

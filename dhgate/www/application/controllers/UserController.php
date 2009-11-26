@@ -238,6 +238,10 @@ class UserController extends MainController
 	public function setvaluteAction()
 	{
 		Zend_Layout::getMvcInstance()->disableLayout();
-		setcookie('valute' , $_POST['valute'], mktime(0,0,0,01,25,2099),'/');
+		$id=$this->_getParam('id',0);
+		if($id>0){
+		setcookie('valute' , $id, mktime(0,0,0,01,25,2099),'/');
+		}
+		$this->_redirect($_SERVER['HTTP_REFERER']);
 	}
 }

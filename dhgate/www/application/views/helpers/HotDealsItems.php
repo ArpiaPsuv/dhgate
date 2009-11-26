@@ -25,7 +25,7 @@ class Zend_View_Helper_HotDealsItems {
 	
 		$products= new Product();
 		$hot= $products->getHot();
-		
+		$valutes = new Valute();
 		
 		
 		$html='';
@@ -49,7 +49,7 @@ class Zend_View_Helper_HotDealsItems {
 			<img src="'.$image.'" alt=""> 
 			
 			<a href="/product/index/id/'.$product['id'].'">'.$product['title'].'</a>
-			<p>$'.$product['price'].'</p>
+			<p>'.$valutes->conversion($product['price']).'</p>
 			'.$p_admin.'
 			</div>';		
 		}

@@ -19,7 +19,12 @@ class CountryController extends Zend_Controller_Action {
 		$this->view->countrys = $country->fetchAll();
 		if($this->_request->isPost())
 		{
-			$country->insert($_POST);
+			$valid= new Zend_Validate_Float();
+			$_POST['coef']=str_replace('.',',',$_POST['coef']);
+			if($valid->isValid($_POST['coef'])){
+				$_POST['coef']=str_replace(',','.',$_POST['coef']);
+				$country->insert($_POST);
+			}
 			$this->_redirect($_SERVER['HTTP_REFERER']);
 		}
 	}

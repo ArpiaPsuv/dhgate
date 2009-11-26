@@ -4,6 +4,11 @@ class Zend_View_Helper_FormSearchInCategories {
 	public $view;
 	public function FormSearchInCategories() {
 		$form= new App_Form_Search();
+		if(key_exists('text_search',$_SESSION)){
+			$form->getElement('text_search')->setValue($_SESSION['text_search']);
+			$_SESSION['text_search']='';
+		}
+		
 		$html="<form action=\"{$form->getAction()}\" method=\"{$form->getMethod()}\">
 			<div id=\"text_search\">Search</div>"; 
 		$html.=$form->getElement('text_search');
