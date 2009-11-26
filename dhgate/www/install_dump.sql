@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Хост: localhost
--- Время создания: Ноя 21 2009 г., 18:01
+-- Время создания: Ноя 26 2009 г., 23:43
 -- Версия сервера: 5.0.45
 -- Версия PHP: 5.2.4
 -- 
@@ -31,8 +31,9 @@ CREATE TABLE `address` (
   `phone` text,
   `fax` text,
   `shipping` int(1) default '0',
+  `last` int(1) default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
 
 -- --------------------------------------------------------
 
@@ -47,7 +48,7 @@ CREATE TABLE `cart` (
   `count` int(11) NOT NULL,
   `order_id` int(11) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=165 DEFAULT CHARSET=utf8 AUTO_INCREMENT=165 ;
+) ENGINE=MyISAM AUTO_INCREMENT=199 DEFAULT CHARSET=utf8 AUTO_INCREMENT=199 ;
 
 -- --------------------------------------------------------
 
@@ -59,10 +60,10 @@ CREATE TABLE `catalog` (
   `id` int(11) NOT NULL auto_increment,
   `parent` int(11) NOT NULL,
   `level` int(11) NOT NULL,
-  `coef` varchar(10) default '1',
+  `coef` float default '1',
   `title` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=99 DEFAULT CHARSET=utf8 AUTO_INCREMENT=99 ;
+) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8 AUTO_INCREMENT=103 ;
 
 -- --------------------------------------------------------
 
@@ -75,7 +76,7 @@ CREATE TABLE `connect_catalog_product` (
   `category_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=94 DEFAULT CHARSET=utf8 AUTO_INCREMENT=94 ;
+) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 AUTO_INCREMENT=97 ;
 
 -- --------------------------------------------------------
 
@@ -93,7 +94,7 @@ CREATE TABLE `order` (
   `status` varchar(20) NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 -- --------------------------------------------------------
 
@@ -107,7 +108,7 @@ CREATE TABLE `payment` (
   `about` text,
   `image` varchar(100) default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -118,7 +119,7 @@ CREATE TABLE `payment` (
 CREATE TABLE `product` (
   `id` int(11) NOT NULL auto_increment,
   `title` text,
-  `price` int(11) default '0',
+  `price` float default '0',
   `short_about` text,
   `about` text NOT NULL,
   `processing` int(11) default '0',
@@ -127,7 +128,7 @@ CREATE TABLE `product` (
   `hot` int(1) default '0',
   `active` int(1) default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=94 DEFAULT CHARSET=utf8 AUTO_INCREMENT=94 ;
+) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 AUTO_INCREMENT=97 ;
 
 -- --------------------------------------------------------
 
@@ -140,7 +141,7 @@ CREATE TABLE `region` (
   `name` text,
   `coef` float default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 -- --------------------------------------------------------
 
@@ -180,20 +181,7 @@ CREATE TABLE `shipping` (
   `image` varchar(100) default '0',
   `coef` float NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
-
--- --------------------------------------------------------
-
--- 
--- Структура таблицы `state`
--- 
-
-CREATE TABLE `state` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` text NOT NULL,
-  `country_id` int(11) default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 -- --------------------------------------------------------
 
@@ -209,4 +197,18 @@ CREATE TABLE `user` (
   `admin` int(1) default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+
+-- --------------------------------------------------------
+
+-- 
+-- Структура таблицы `valute`
+-- 
+
+CREATE TABLE `valute` (
+  `id` int(11) NOT NULL auto_increment,
+  `prefix` char(3) character set utf8 collate utf8_bin default NULL,
+  `rate` double default NULL,
+  `default` int(1) default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=13 ;
         
