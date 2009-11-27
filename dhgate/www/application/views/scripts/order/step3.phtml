@@ -75,7 +75,9 @@
 				<div class="bucher"></div>
 				<p><span class="bold">Order Summary</span></p>
 				<p>Item subtotal: <span id="sub_price"><?=$this->valute($this->subprice,2)?></span></p>
+				<p class="bold">Shipping total: <?=$this->valute(1,3)?> <span id="shipping_total"><?=$this->valute($this->shipping_price,0)?></span></p>
 				<p class="red_price bold">Order total: <?=$this->valute(1,3)?> <span id="order_total"><?=$this->valute($this->shipping_price+$this->subprice,0)?></span></p>
+				
 				</div>
 				
 				
@@ -179,8 +181,9 @@
 										 
 					$('#cart_items_count').html(products_count);
 					$('span[id="sub_price"]').html('<?=$this->valute(1,3)?> '+ red_price);
-					$('#order_total').html(red_price+shipping_price);
-					$('#grand_total').html(red_price+shipping_price);
+					$('#order_total').html(Math.round((red_price+shipping_price)*100)/100);
+					$('#shipping_total').html(shipping_price);
+					$('#grand_total').html(Math.round((red_price+shipping_price)*100)/100);
 				});
 
 				

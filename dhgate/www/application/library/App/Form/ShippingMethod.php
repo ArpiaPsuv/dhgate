@@ -41,7 +41,7 @@ class App_Form_ShippingMethod extends App_Form  {
 		$coef= new Zend_Form_Element_Text('coef',array(
 		'required' => true,
 		'label'=>'Coef :',
-		'validators' => array('Float'),
+		//'validators' => array('Float'),
 		'filters'=>array('StringTrim','StripTags'),
 		));
 		

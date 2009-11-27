@@ -19,7 +19,7 @@ class App_Form_AddProduct extends App_Form  {
 		$price=new Zend_Form_Element_Text('price',array(
 		'required' => true,
 		'label'=>'Price :',
-		'validators' => array('float'),
+		//'validators' => array('float'),
 		'filters'=>array('StringTrim','StripTags'),
 		));
 		

@@ -106,18 +106,20 @@ class CatalogController extends MainController
 			$form = new App_Form_AddCategory();
 			$coef=$this->_getParam('coef',1);
 			
-			$aConventions = localeConv();
-				$_POST['coef'] = str_replace(',',$aConventions['decimal_point'], $_POST['coef']);
+			//$aConventions = localeConv();
+			//$_POST['coef'] = str_replace(',',$aConventions['decimal_point'], $coef);
+			$_POST['coef']=str_replace(',','.',$coef);
 			if ($form->isValid($_POST)){
-				$_POST['coef']=str_replace(',','.',$coef);
+				//$_POST['coef']=str_replace(',','.',$coef);
 				$catalogTable = new Catalog();
 				$row = $catalogTable->createChildRow((int)$this->_getParam('parent_id'), $_POST);
 				$row->save();
 
 			}
-			//Zend_Debug::dump($_POST);
-			$this->_redirect($_SERVER['HTTP_REFERER']);
+			
+			//$this->_redirect($_SERVER['HTTP_REFERER']);
 		}
+		$this->_redirect($_SERVER['HTTP_REFERER']);
 	}
 
 	public function editAction()
