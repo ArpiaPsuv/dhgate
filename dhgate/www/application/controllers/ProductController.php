@@ -78,7 +78,8 @@ class ProductController extends MainController
 		
 
 		if($this->_request->isPost()){
-			$_POST['price']=str_replace('.',',',$_POST['price']);
+			$aConventions = localeConv();
+				$_POST['price'] = str_replace(',',$aConventions['decimal_point'], $_POST['price']);
 			if($form->isValid($this->_request->getPost())){
 				$_POST['price']=str_replace(',','.',$_POST['price']);
 				$productTable = new Product();
@@ -113,7 +114,10 @@ class ProductController extends MainController
 		
 		
 		if($this->_request->isPost()){
+			$aConventions = localeConv();
+			$_POST['price'] = str_replace(',',$aConventions['decimal_point'], $_POST['price']);
 			if($form->isValid($_POST)){
+			$_POST['price']=str_replace(',','.',$_POST['price']);
 			$productTable->update(array(
 			'title'=>$_POST['title'],
 			'short_about'=>$_POST['short_about'],

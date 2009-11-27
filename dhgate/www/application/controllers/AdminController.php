@@ -22,7 +22,16 @@ class AdminController extends Zend_Controller_Action {
 	}
 	public function indexAction()
 	{
+	//$valid= new Zend_Validate_Float();
 		
+//		if($valid->isValid('ewr')){
+//			echo '1';
+//		}else{
+//			echo '0';
+//		}
+//		
+//	
+	   
 
 	}
 	
@@ -48,7 +57,9 @@ class AdminController extends Zend_Controller_Action {
 			$_POST['prefix']=$text->filter($_POST['prefix']);
 						
 			if ($_POST['prefix']!='') {
-				$_POST['rate']=str_replace('.',',',$_POST['rate']);
+
+				$aConventions = localeConv();
+				$_POST['prefix'] = str_replace(',',$aConventions['decimal_point'], $_POST['prefix']);
 				if($float->isValid($_POST['rate'])){
 						$_POST['rate']=str_replace(',','.',$_POST['rate']);
 						if($_POST['default']){
@@ -122,7 +133,8 @@ class AdminController extends Zend_Controller_Action {
 		if($this->_request->isPOST()){
 			
 			
-				$_POST['coef']=str_replace('.',',',$_POST['coef']);
+				$aConventions = localeConv();
+				$_POST['coef'] = str_replace(',',$aConventions['decimal_point'], $_POST['coef']);
 				if ($form->isValid($_POST)) {
 					$_POST['coef']=str_replace(',','.',$_POST['coef']);              
 	                $uploadedData = $form->getValues();
@@ -152,7 +164,8 @@ class AdminController extends Zend_Controller_Action {
 		$form_add= new App_Form_AddRegion();
 		if($this->_request->isPost()){
 			
-			$_POST['coef'] =str_replace('.',',',$_POST['coef']);
+			$aConventions = localeConv();
+				$_POST['coef'] = str_replace(',',$aConventions['decimal_point'], $_POST['coef']);
 			if($form_add->isValid($this->_request->getPost())){
 				$_POST['coef'] =str_replace(',','.',$_POST['coef']);
 				$region->addRegion($_POST['name'],$_POST['coef']);
@@ -179,13 +192,22 @@ class AdminController extends Zend_Controller_Action {
 	public function orderAction() 
 	{
 		$id= $this->_getParam('id',0);
+		$status= $this->_getParam('status',0);
 		$orders = new Order();
 		$users=  new User();
 		$address = new Adress();
 		$payment = new Payment();
 		$shipping = new Shipping();
 		$region = new Region();
+		
+		
 		if($id >0){
+			
+			if($status){
+				$orders->setStatus($id,$status);
+				$this->_redirect('/admin/orders/');
+			}
+			
 			$order= $orders->getOrder($id);
 			$this->view->user = $user= $users->getUser($order['user_id']);
 			$this->view->products = $orders->getProducts($id,$order['user_id']);

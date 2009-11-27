@@ -106,7 +106,8 @@ class CatalogController extends MainController
 			$form = new App_Form_AddCategory();
 			$coef=$this->_getParam('coef',1);
 			
-			$_POST['coef']=str_replace('.',',',$coef) ; 
+			$aConventions = localeConv();
+				$_POST['coef'] = str_replace(',',$aConventions['decimal_point'], $_POST['coef']);
 			if ($form->isValid($_POST)){
 				$_POST['coef']=str_replace(',','.',$coef);
 				$catalogTable = new Catalog();

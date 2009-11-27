@@ -1,9 +1,11 @@
 <?php foreach ($this->orders as $order):?>
 <div>
 <a href="/admin/order/id/<?=$order['id']?>">
-<span> <?=$order['user_id']?> </span>
-<span> <?=$order['status']?> </span>
 <span> <?=$order['date']?> </span>
+<span> <?//=$order['user_id']?> </span>
+<span>Status <?=$order['status']?> </span>
+<a href="/admin/order/status/process/id/<?=$order['id']?>/"><span>(To "In Process")</span></a>
+
 </a>
 </div>
 <?php endforeach;?>

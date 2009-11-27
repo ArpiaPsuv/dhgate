@@ -59,7 +59,7 @@ on DHgate.com</title>
 <div id="main_container"><?php $request = Zend_Controller_Front::getInstance()->getRequest();
 if($request->getControllerName() != 'user'):
 if($request->getControllerName() != 'cart'):
-if(($request->getControllerName() != 'product')):
+if(($request->getControllerName() != 'product') or ($request->getActionName()=='search')):
 if($request->getControllerName() != 'admin'):
 if($request->getControllerName() != 'order'):
 if($request->getActionName() != 'category'):
@@ -78,6 +78,8 @@ $request->getActionName() != 'view'):
 <?php
 if($request->getControllerName() != 'admin'):
 if($request->getActionName() != 'help' and $request->getControllerName() == 'index'):
+if($request->getActionName() != 'about' and $request->getControllerName() == 'index'):
+if($request->getActionName() != 'contact' and $request->getControllerName() == 'index'):
 if($request->getControllerName() != 'user'):
 if($request->getControllerName() != 'cart'):
 if($request->getControllerName() != 'order'):
@@ -87,6 +89,8 @@ if(($request->getControllerName() !='catalog' )and $request->getActionName() != 
 </div>
 <?=$this->render('right.phtml')?>
 
+<?php endif;?>
+<?php endif;?>
 <?php endif;?>
 <?php endif;?>
 <?php endif;?>

@@ -62,7 +62,6 @@ class Product extends Zend_Db_Table_Abstract
 		$this->delete('id = ' . $id);
 		$connectTable = new Connect_Catalog();
 		$connectTable->deleteItem(null, $id);
-		
 		$album = App_Album::create('product',$id);
 		$album->RecursiveDelete($album->fullPath);
 		return $category;
@@ -84,6 +83,7 @@ class Product extends Zend_Db_Table_Abstract
 		->join(array('c'=>'connect_catalog_product'), 'p.id = c.item_id')
 		->Where('c.category_id = '. $category_id)
 		->where("`title` LIKE '%$searchText%' or `short_about` LIKE '%$searchText%' or `about` LIKE '%$searchText%'");
+		
 		$catalog= new Catalog();
 		if ($category_id){
 			$childs=$catalog->getLevel($category_id);
@@ -93,7 +93,8 @@ class Product extends Zend_Db_Table_Abstract
 
 		foreach ($childs as $childCategory) {
 			$select->orWhere("c.category_id  = ".$childCategory->id);
-			$select->Where("`title` LIKE '%$searchText%' or `short_about` LIKE '%$searchText%' or `about` LIKE '%$searchText%'");
+			$select->where("`title` LIKE '%$searchText%' or `short_about` LIKE '%$searchText%' or `about` LIKE '%$searchText%'");
+			
 		}
 
 		$paginatorAdapter = new Zend_Paginator_Adapter_DbSelect($select);

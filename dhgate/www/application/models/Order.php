@@ -102,6 +102,15 @@ class Order extends Zend_Db_Table_Abstract {
 		return $this->getAdapter()->fetchAll($select);
 	}
 	
+	public function setStatus($id,$status)
+	{
+	
+		$data=array(
+			'status'=>$status
+		);
+		return $this->update($data,"id = $id");
+	
+	}	
 	
 	public function confirm()
 	{
