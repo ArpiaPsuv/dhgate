@@ -86,9 +86,11 @@ class Order extends Zend_Db_Table_Abstract {
 	public function updatePayment()
 	{
 	
+		
+		////параметры надо передавать...., а не брать не из сессии!!!
 		$data=array(
 			'payment'=>$_SESSION['payment'],
-			'status'=>'new'
+			//'status'=>'new'
 		);
 		$this->update($data,"id = {$_SESSION['order_id']}");
 	
@@ -130,7 +132,7 @@ class Order extends Zend_Db_Table_Abstract {
 		'shipping'=>$this->_shipping,
 		'payment'=>0,//$_SESSION['payment'],
 		'date'=>date('Y-m-d'),
-		'status'=>'confirmed',
+		'status'=>'new',
 		);
 		
 		
@@ -151,6 +153,31 @@ class Order extends Zend_Db_Table_Abstract {
 	
 		
 	}
+	
+	public function getOrdersByStatus($status = 0, $user =0) 
+	{
+		if (!$user) {
+			$user= Zend_Auth::getInstance()->getIdentity()->id;
+		}
+		
+		if(!$status){
+			return $this->fetchAll("status = $status and user_id = $user");
+		}else{
+			return $this->fetchAll('user_id = '.$user);
+		}
+	}
+	
+	public function getOrdersInfo($id = 0) 
+	{
+		if ($id >0) {
+			return true	;	
+		}else{
+			return false;
+		}
+		
+	}
+	
+	
 	
 	public  function track($mail,$number)
 	{

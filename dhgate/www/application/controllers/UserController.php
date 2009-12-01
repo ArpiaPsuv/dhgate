@@ -54,6 +54,11 @@ class UserController extends MainController
 	}
 
 
+	public function ordersAction() 
+	{
+		$orders= new Order();
+		$this->view->orders = $orders->getOrdersByStatus();
+	}
 
 	public function registerAction()
 	{

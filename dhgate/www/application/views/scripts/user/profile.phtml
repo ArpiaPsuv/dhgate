@@ -2,18 +2,19 @@
 <div id="center_container">
 <div id="customer_account">
 <h2>Customer Account</h2>
- <h3><a href="/user/edit/"> <img
-	src="/application/public/img/identity.png" alt=""> Account information
+ <h3><a href="/user/edit/"> Account information
 </a></h3>
-<p>Here you can update your billing information.</p>
-<h3><a
-	href="/adress/index/user_id/<?=Zend_Auth::getInstance()->getIdentity()->id?>">
-<img src="/application/public/img/web.png" alt=""> Shipping information
-</a></h3>
-<p>Here you can add and maintain shipping addresses.</p>
-<!-- <p><img src="/application/public/img/package.png" alt=""><span> Order Information </span><em> No Orders to Display </em></p> -->
+
+
 </div>
-<?=$this->id?>
+<div id="customer_account">
+<h2>Orders</h2>
+ <h3><a href="/user/orders/"> My Orders
+</a></h3>
+
+
+</div>
+
 </div>
 
 <?=$this->render('right.phtml')?>
