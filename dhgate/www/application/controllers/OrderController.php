@@ -224,7 +224,7 @@ class OrderController extends Zend_Controller_Action
 			}
 		}
 			
-		$this->view->subprice=$sub_price;
+		
 		//Zend_Debug::dump($_SESSION);
 		
 		$address = new Adress();
@@ -240,12 +240,14 @@ class OrderController extends Zend_Controller_Action
 		$this->view->region_coef=$region_coef['coef'];
 		
 		////
+		
 		$shipping_price=0;
 		foreach ($arr as $key => $value) {
 			$shipping_price+=($value['count']*0.1+1)*30*$value['coef']*$region_coef['coef']*$shipping_coef['coef'];
 		}
-		$this->view->shipping_price = round($shipping_price*100)/100;
-
+		$this->view->shipping_price = ceil($shipping_price*100)/100;
+		$this->view->subprice=ceil($sub_price*100)/100;
+		$this->view->grandtotal=ceil(($sub_price+$shipping_price)*100)/100;
 		
 		//*shipping
 	/* shipping_price+=(arr[i]*0.1+1)*30*categoryCoef*regionCoef*shippingCoef;}

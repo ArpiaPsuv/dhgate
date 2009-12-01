@@ -268,10 +268,10 @@
 					var shippingTotal=(30*categoryCoef*regionCoef*shippingCoef)*(1+productCount*0.1)*<?=$this->valute(1,0)?>;
 					var productPrice=$('.product_price').html();
 					
-					$('span[id=plus_shipping]').html(Math.round(shippingTotal*100)/100);
+					$('span[id=plus_shipping]').html(Math.ceil(shippingTotal*100).toFixed(2)/100);
 					$('#plus_count').html(productCount);
 					var totalPrice=productCount*productPrice+shippingTotal;
-					$('#total_price').html(Math.round(totalPrice*100)/100);
+					$('#total_price').html(Math.ceil(totalPrice*100)/100);
 					//$('#plus_shipping').html(shippingTotal);
 					$('#shipping').toggle();
 
@@ -306,10 +306,10 @@
 						var shippingTotal=(30*categoryCoef*regionCoef*shippingCoef)*(1+productCount*0.1)*<?=$this->valute(1,0)?>;
 						var productPrice=$('.product_price').html();
 						
-						$('span[id=plus_shipping]').html(Math.round(shippingTotal*100)/100);
+						$('span[id=plus_shipping]').html(Math.ceil(shippingTotal*100)/100);
 						$('#plus_count').html(productCount);
 						var totalPrice=productCount*productPrice+shippingTotal;
-						$('#total_price').html(Math.round(totalPrice*100)/100);
+						$('#total_price').html(Math.ceil(totalPrice*100)/100);
 					})
 				
 					$('#count').change(function(){
@@ -332,10 +332,10 @@
 						var shippingTotal=(30*categoryCoef*regionCoef*shippingCoef)*(1+productCount*0.1)*<?=$this->valute(1,0)?>;
 						var productPrice=$('.product_price').html();
 						
-						$('span[id=plus_shipping]').html(Math.round(shippingTotal*100)/100);
+						$('span[id=plus_shipping]').html(Math.ceil(shippingTotal*100)/100);
 						$('#plus_count').html(productCount);
 						var totalPrice=productCount*productPrice+shippingTotal;
-						$('#total_price').html(Math.round(totalPrice*100)/100);
+						$('#total_price').html(Math.ceil(totalPrice*100)/100);
 					})
 				
 				

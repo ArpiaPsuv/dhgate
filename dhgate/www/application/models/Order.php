@@ -58,7 +58,7 @@ class Order extends Zend_Db_Table_Abstract {
 		foreach ($arr as $key => $value) {
 			$shipping_price+=($value['count']*0.1+1)*30*$value['coef']*$region_coef['coef']*$shipping_coef['coef'];
 		}
-		return (round($shipping_price*100)/100)+$sub_price;
+		return ceil(($shipping_price+$sub_price)*100)/100;
 		
 	}
 	
